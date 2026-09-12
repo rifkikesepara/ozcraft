@@ -24,4 +24,4 @@ npm run build
 - **Linter**: [ESLint](https://eslint.org) with flat config (`eslint.config.js`).
 - **Formatter**: [Prettier](https://prettier.io) with `eslint-config-prettier`.
 - **UI & Styling**: [@mui/material](https://mui.com) with dynamic theming and
-  responsive design.
+responsive design.
