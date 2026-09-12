@@ -1,0 +1,50 @@
+{
+  "name": "ozcraft",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@hookform/resolvers": "^5.9.1",
+    "@mui/icons-material": "^9.4.0",
+    "@mui/material": "^9.4.0",
+    "axios": "^1.20.0",
+    "docx": "^9.7.1",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^13.2.0",
+    "html2pdf.js": "^0.14.0",
+    "js-cookie": "^3.0.8",
+    "notistack": "^3.0.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hook-form": "^7.88.0",
+    "react-intl": "^10.2.1",
+    "react-router-dom": "^7.18.3",
+    "swr": "^2.5.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.6",
+    "vite": "^8.3.0",
+    "vite-plugin-eslint2": "^5.3.0"
+  }
+}

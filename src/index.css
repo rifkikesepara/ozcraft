@@ -1,0 +1,105 @@
+/* Clean Minimalist Global Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    'Plus Jakarta Sans',
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Print Styles for PDF Generation */
+@media print {
+  body {
+    background-color: #ffffff !important;
+  }
+
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  #resume-preview-document {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ==========================================================================
+   100% GPU-Accelerated AI Animation Keyframes
+   Strictly animates compositor properties (transform & opacity).
+   Triggers zero layout recalc and zero CPU raster paint.
+   ========================================================================== */
+
+/* GPU-accelerated neon border gradient rotation */
+@keyframes aiBorderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* GPU-accelerated breathing neon outline glow aura */
+@keyframes aiGpuPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale3d(1.02, 1.05, 1);
+  }
+}
+
+/* GPU-accelerated star sparkle twinkle */
+@keyframes aiGpuTwinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.18) rotate(-10deg);
+  }
+  75% {
+    transform: scale(1.08) rotate(8deg);
+  }
+}
