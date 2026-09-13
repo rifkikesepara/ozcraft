@@ -232,6 +232,8 @@
   "nav.moreOptions": "Diğer Seçenekler",
   "nav.resetOrClear": "Sıfırlama veya Temizleme Seçenekleri",
   "footer.tagline": "Ücretsiz & Açık Kaynak • Vite, React, MUI ve Ollama ile Geliştirildi",
+  "footer.sourceCode": "Kaynak Kod",
+  "footer.feedback": "Geri Bildirim",
   "footer.appBadge": "OzCraft Yapay Zeka Özgeçmiş Hazırlayıcı",
   "ai.getApiKey": "Ollama'dan API Anahtarı Al",
   "ai.cookieNotice": "API anahtarınız yalnızca güvenli çerezlerde saklanır (SameSite=Strict; Secure). Asla LocalStorage'a kaydedilmez veya üçüncü taraf veritabanlarına iletilmez.",

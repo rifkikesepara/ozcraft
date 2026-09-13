@@ -23,6 +23,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 import { useThemeMode, useLocale } from '../../hooks/index.js';
 import { ImportJsonModal } from '../common/ImportJsonModal.jsx';
@@ -244,6 +245,25 @@ export function Navbar() {
                 </MenuItem>
               ))}
             </Menu>
+
+            {/* Feedback Button (GitHub Issues) */}
+            <Tooltip title={t('footer.feedback')} arrow>
+              <IconButton
+                component="a"
+                href="https://github.com/rifkikesepara/resume-builder/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                size="small"
+                sx={{
+                  color: 'text.secondary',
+                  '&:hover': {
+                    color: 'primary.main',
+                  },
+                }}
+              >
+                <FeedbackOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
 
             {/* Dark/Light Toggle */}
             <Tooltip title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'} arrow>
