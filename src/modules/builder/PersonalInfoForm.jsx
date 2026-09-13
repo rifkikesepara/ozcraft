@@ -102,7 +102,7 @@ export function PersonalInfoForm() {
           backgroundColor: 'background.default',
           display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: 'flex-start',
+          alignItems: { md: 'flex-start', xs: 'center' },
           gap: 3,
         }}
       >
@@ -118,12 +118,22 @@ export function PersonalInfoForm() {
           }}
         />
 
-        <Stack sx={{ flex: 1, gap: 1, alignItems: 'flex-start', width: '100%' }}>
+        <Stack
+          sx={{ flex: 1, gap: 1, alignItems: { md: 'flex-start', xs: 'center' }, width: '100%' }}
+        >
           <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
             {t('form.photo')}
           </Typography>
 
-          <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, alignItems: 'flex-start' }}>
+          <Stack
+            direction="row"
+            sx={{
+              flexWrap: 'wrap',
+              gap: 1,
+              alignItems: { md: 'flex-start', xs: 'center' },
+              justifyContent: 'center',
+            }}
+          >
             <input
               type="file"
               ref={fileInputRef}
@@ -157,7 +167,6 @@ export function PersonalInfoForm() {
               exclusive
               value={personalInfo.avatarShape || 'circle'}
               onChange={(_, val) => val && handleChange('avatarShape', val)}
-              sx={{ ml: { sm: 'auto' } }}
             >
               <ToggleButton value="circle">{t('form.shapeCircle')}</ToggleButton>
               <ToggleButton value="rounded">{t('form.shapeRounded')}</ToggleButton>

@@ -57,7 +57,11 @@ export function useExport(resumeData, previewRef) {
       setIsExporting(true);
       setExportType(EXPORT_TYPE.DOCX);
       enqueueSnackbar(t('export.generating'), { variant: 'info', autoHideDuration: 2500 });
-      await exportResumeToDocx(resumeData, { locale });
+      await exportResumeToDocx(resumeData, {
+        locale,
+        templateId: resumeData?.templateId,
+        themeColor: resumeData?.themeColor,
+      });
       enqueueSnackbar(t('export.success'), { variant: 'success' });
     } catch (err) {
       console.error('Word Export Error:', err);

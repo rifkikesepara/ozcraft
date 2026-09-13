@@ -203,7 +203,7 @@ export function ProjectsForm() {
             : 'Feature your top engineering or design projects, apps, and open-source packages. Drag handles to reorder.'}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAddProject}>
-          {t('form.addProject')}
+          {t('common.add')}
         </Button>
       </Stack>
 

@@ -333,7 +333,7 @@ export function ExperienceForm() {
           startIcon={<AddIcon />}
           onClick={handleAddExperience}
         >
-          {t('form.addExperience')}
+          {t('common.add')}
         </Button>
       </Stack>
 
