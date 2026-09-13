@@ -232,6 +232,8 @@
   "nav.moreOptions": "More Options",
   "nav.resetOrClear": "Reset or Clear Options",
   "footer.tagline": "Free & Open Source • Built with Vite, React, MUI & Ollama",
+  "footer.sourceCode": "Source Code",
+  "footer.feedback": "Feedback",
   "footer.appBadge": "OzCraft AI Resume Builder",
   "ai.getApiKey": "Get API Key from Ollama",
   "ai.cookieNotice": "Your API key is stored securely in browser cookies with SameSite=Strict; Secure. It is never saved in LocalStorage or submitted to any remote database.",

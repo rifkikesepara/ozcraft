@@ -22,6 +22,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CheckIcon from '@mui/icons-material/Check';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 import { useThemeMode, useLocale } from '../../hooks/index.js';
 
@@ -286,9 +287,25 @@ export function MobileNavDrawer({ open, onClose, onOpenImport, navItems }) {
           borderColor: 'divider',
         }}
       >
-        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-          OzCraft AI Resume Builder
-        </Typography>
+        <Button
+          component="a"
+          href="https://github.com/rifkikesepara/resume-builder/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="small"
+          startIcon={<FeedbackOutlinedIcon sx={{ fontSize: '1rem !important' }} />}
+          sx={{
+            textTransform: 'none',
+            fontSize: '0.78rem',
+            color: 'text.secondary',
+            px: 1,
+            py: 0.25,
+            fontWeight: 600,
+            '&:hover': { color: 'primary.main' },
+          }}
+        >
+          {t('footer.feedback')}
+        </Button>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           v1.0.0
         </Typography>
