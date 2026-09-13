@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 .env
-package-lock.json
 
 .vscode
+
 .temp-chrome-profile

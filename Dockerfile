@@ -5,9 +5,9 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies using clean install
-COPY package.json package-lock.json ./
-RUN npm ci
+# Install dependencies (wildcard avoids failure if package-lock.json is missing)
+COPY package*.json ./
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Copy source code and build production bundle
 COPY . .

@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "${PORT:-8080}:80"
+      - "0.0.0.0:${PORT:-3000}:80"
     logging:
       driver: "json-file"
       options:
