@@ -47,9 +47,16 @@ export function ResumeProvider({ children }) {
         const parsed = JSON.parse(saved);
         const validated = validateResume(parsed);
         if (validated.success) {
+          const loadedOrder = validated.data.sectionOrder || DEFAULT_SECTION_ORDER;
+          const loadedDisabled = validated.data.disabledSections || [];
+          const missingSections = DEFAULT_SECTION_ORDER.filter(
+            (sec) => !loadedOrder.includes(sec) && !loadedDisabled.includes(sec)
+          );
           return {
             ...validated.data,
-            sectionOrder: validated.data.sectionOrder || DEFAULT_SECTION_ORDER,
+            references: validated.data.references || [],
+            sectionOrder: [...loadedOrder, ...missingSections],
+            disabledSections: loadedDisabled,
           };
         }
       }
@@ -105,6 +112,14 @@ export function ResumeProvider({ children }) {
    */
   const setSectionOrder = useCallback((sectionOrder) => {
     setResumeData((prev) => ({ ...prev, sectionOrder }));
+  }, []);
+
+  /**
+   * Updates the list of disabled/hidden sections.
+   * @param {string[]} disabledSections - Array of section keys that are hidden
+   */
+  const setDisabledSections = useCallback((disabledSections) => {
+    setResumeData((prev) => ({ ...prev, disabledSections }));
   }, []);
 
   /**
@@ -222,6 +237,8 @@ export function ResumeProvider({ children }) {
     updateSection,
     sectionOrder: resumeData?.sectionOrder || DEFAULT_SECTION_ORDER,
     setSectionOrder,
+    disabledSections: resumeData?.disabledSections || [],
+    setDisabledSections,
     setTemplateId,
     setThemeColor,
     setFontFamily,

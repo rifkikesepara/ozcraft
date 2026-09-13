@@ -1,12 +1,11 @@
-import React from 'react';
-import { Box, Stack, Typography, Chip, Divider, Avatar, alpha } from '@mui/material';
+import { Box, Stack, Typography, Chip, Divider, Avatar, Grid, alpha } from '@mui/material';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useLocale } from '../../hooks/index.js';
 
 /**
  * @file ModernTemplate.jsx
@@ -29,6 +28,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
     projects = [],
     certifications = [],
     languages = [],
+    references = [],
     sectionOrder = [
       'summary',
       'experience',
@@ -37,6 +37,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
       'projects',
       'certifications',
       'languages',
+      'references',
     ],
   } = data || {};
 
@@ -59,9 +60,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
   const sectionRenderers = {
     summary: () =>
       summary ? (
-        <Box sx={{ mb: 3.5 }} key="summary">
+        <Box sx={{ mb: 3.5 }} key="summary" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -81,9 +83,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     experience: () =>
       experience.length > 0 ? (
-        <Box sx={{ mb: 3.5 }} key="experience">
+        <Box sx={{ mb: 3.5 }} key="experience" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -96,7 +99,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
             {t('builder.experience')}
           </Typography>
           {experience.map((exp) => (
-            <Box key={exp.id} sx={{ mb: 2.5 }}>
+            <Box key={exp.id} sx={{ mb: 2.5 }} className="resume-section-item">
               <Stack
                 direction="row"
                 sx={{ justifyContent: 'space-between', alignItems: 'baseline', mb: 0.25 }}
@@ -137,9 +140,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     education: () =>
       education.length > 0 ? (
-        <Box sx={{ mb: 3.5 }} key="education">
+        <Box sx={{ mb: 3.5 }} key="education" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -152,7 +156,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
             {t('builder.education')}
           </Typography>
           {education.map((edu) => (
-            <Box key={edu.id} sx={{ mb: 2 }}>
+            <Box key={edu.id} sx={{ mb: 2 }} className="resume-section-item">
               <Stack
                 direction="row"
                 sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}
@@ -181,9 +185,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     skills: () =>
       skills.length > 0 ? (
-        <Box sx={{ mb: 3.5 }} key="skills">
+        <Box sx={{ mb: 3.5 }} key="skills" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -196,7 +201,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
             {t('builder.skills')}
           </Typography>
           {skills.map((cat) => (
-            <Box key={cat.id} sx={{ mb: 1.5 }}>
+            <Box key={cat.id} sx={{ mb: 1.5 }} className="resume-section-item">
               <Typography
                 variant="caption"
                 sx={{
@@ -236,9 +241,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     projects: () =>
       projects.length > 0 ? (
-        <Box sx={{ mb: 3 }} key="projects">
+        <Box sx={{ mb: 3 }} key="projects" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -251,7 +257,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
             {t('builder.projects')}
           </Typography>
           {projects.map((proj) => (
-            <Box key={proj.id} sx={{ mb: 2 }}>
+            <Box key={proj.id} sx={{ mb: 2 }} className="resume-section-item">
               <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0f172a' }}>
                 {proj.name}{' '}
                 {proj.link && (
@@ -277,9 +283,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     certifications: () =>
       certifications.length > 0 ? (
-        <Box sx={{ mb: 2.5 }} key="certifications">
+        <Box sx={{ mb: 2.5 }} key="certifications" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -295,6 +302,7 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
             <Typography
               key={c.id}
               variant="body2"
+              className="resume-section-item"
               sx={{ fontSize: '0.85rem', color: '#334155', mb: 0.5 }}
             >
               • <strong>{c.name}</strong> {c.issuer ? `(${c.issuer})` : ''}{' '}
@@ -306,9 +314,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
 
     languages: () =>
       languages.length > 0 ? (
-        <Box sx={{ mb: 2.5 }} key="languages">
+        <Box sx={{ mb: 2.5 }} key="languages" className="resume-section">
           <Typography
             variant="h6"
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '1rem',
@@ -320,9 +329,77 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
           >
             {t('builder.languages')}
           </Typography>
-          <Typography variant="body2" sx={{ fontSize: '0.85rem', color: '#334155' }}>
+          <Typography
+            variant="body2"
+            className="resume-section-item"
+            sx={{ fontSize: '0.85rem', color: '#334155' }}
+          >
             {languages.map((l) => `${l.language} (${l.proficiency})`).join('  •  ')}
           </Typography>
+        </Box>
+      ) : null,
+
+    references: () =>
+      references.length > 0 ? (
+        <Box sx={{ mb: 3 }} key="references" className="resume-section">
+          <Typography
+            variant="h6"
+            className="resume-section-title"
+            sx={{
+              fontWeight: 700,
+              fontSize: '1rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: themeColor,
+              mb: 1.5,
+            }}
+          >
+            {t('builder.references')}
+          </Typography>
+          <Grid container spacing={2}>
+            {references.map((ref) => (
+              <Grid size={{ xs: 12, sm: 6 }} key={ref.id} className="resume-section-item">
+                <Box
+                  sx={{
+                    p: 1.5,
+                    borderRadius: 2,
+                    backgroundColor: '#f8fafc',
+                    border: '1px solid #f1f5f9',
+                  }}
+                >
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0f172a' }}>
+                    {ref.fullName}
+                  </Typography>
+                  {(ref.position || ref.company) && (
+                    <Typography
+                      variant="body2"
+                      sx={{ color: themeColor, fontWeight: 600, fontSize: '0.82rem' }}
+                    >
+                      {ref.position}
+                      {ref.position && ref.company ? ' • ' : ''}
+                      {ref.company}
+                    </Typography>
+                  )}
+                  {ref.email && (
+                    <Typography
+                      variant="caption"
+                      sx={{ display: 'block', color: '#64748b', fontSize: '0.78rem' }}
+                    >
+                      {ref.email}
+                    </Typography>
+                  )}
+                  {ref.phone && (
+                    <Typography
+                      variant="caption"
+                      sx={{ display: 'block', color: '#64748b', fontSize: '0.78rem' }}
+                    >
+                      {ref.phone}
+                    </Typography>
+                  )}
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       ) : null,
   };
@@ -331,10 +408,10 @@ export function ModernTemplate({ data, themeColor = '#1e293b' }) {
     <Box
       sx={{
         width: '100%',
-        minHeight: '297mm',
+        minHeight: '100%',
         backgroundColor: (theme) => theme.palette.common.white,
         color: '#1e293b',
-        p: { xs: 3, sm: 5, md: 6 },
+        p: 0,
         boxSizing: 'border-box',
         fontFamily: data.fontFamily || 'inherit',
       }}

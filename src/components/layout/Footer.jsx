@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Container, Typography, Stack } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { useLocale } from '../../hooks/useLocale.js';
@@ -31,17 +30,20 @@ export function Footer() {
             gap: 2,
           }}
         >
-          <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
+          <Stack direction={{ md: 'row', xs: 'column' }} sx={{ alignItems: 'center', gap: 1 }}>
             <AutoAwesomeIcon sx={{ fontSize: 16, color: 'primary.main' }} />
             <Typography variant="body2" sx={{ fontWeight: 700 }}>
               OzCraft
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-              — {t('app.tagline')}
+              {t('app.tagline')}
             </Typography>
           </Stack>
 
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+          <Typography
+            variant="caption"
+            sx={{ color: 'text.secondary', textAlign: { xs: 'center' } }}
+          >
             {t('footer.tagline')}
           </Typography>
         </Stack>

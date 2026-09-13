@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Box,
   Stack,
@@ -24,16 +24,16 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 import { useSnackbar } from 'notistack';
-import { useResume } from '../hooks/useResume.js';
-import { useLocale } from '../hooks/useLocale.js';
-import { useExport } from '../hooks/useExport.js';
-import { PageTransition } from '../components/common/PageTransition.jsx';
-import { ConfirmDialog } from '../components/common/ConfirmDialog.jsx';
-import { SaveStatusBadge } from '../components/common/SaveStatusBadge.jsx';
-import { ResumeBuilder } from '../modules/builder/ResumeBuilder.jsx';
-import { ResumePreview } from '../modules/preview/ResumePreview.jsx';
-import { ApiKeyModal } from '../components/ai/ApiKeyModal.jsx';
-import { AIEnhanceModal } from '../components/ai/AIEnhanceModal.jsx';
+import { useResume, useLocale, useExport } from '../hooks/index.js';
+import { EXPORT_TYPE } from '../utils/constants.js';
+import {
+  PageTransition,
+  ConfirmDialog,
+  SaveStatusBadge,
+  ApiKeyModal,
+  AIEnhanceModal,
+} from '../components/index.js';
+import { ResumeBuilder, ResumePreview } from '../modules/index.js';
 
 /**
  * @file EditorPage.jsx
@@ -87,7 +87,7 @@ export function EditorPage() {
                 onClick={exportPdf}
                 disabled={isExporting}
                 startIcon={
-                  isExporting && exportType === 'pdf' ? (
+                  isExporting && exportType === EXPORT_TYPE.PDF ? (
                     <CircularProgress size={16} color="inherit" />
                   ) : (
                     <PictureAsPdfIcon fontSize="small" />
@@ -111,7 +111,7 @@ export function EditorPage() {
                 disabled={isExporting}
                 color="secondary"
                 startIcon={
-                  isExporting && exportType === 'docx' ? (
+                  isExporting && exportType === EXPORT_TYPE.DOCX ? (
                     <CircularProgress size={16} color="inherit" />
                   ) : (
                     <DescriptionIcon fontSize="small" />
@@ -151,12 +151,11 @@ export function EditorPage() {
                 {t('export.jsonShort')}
               </Box>
             </Button>
-
-            <SaveStatusBadge />
           </Stack>
 
           {/* Right Action Tools & More Menu */}
           <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
+            <SaveStatusBadge />
             <Tooltip title={t('nav.resetOrClear')} arrow>
               <IconButton
                 size="small"
@@ -222,8 +221,8 @@ export function EditorPage() {
           direction="row"
           sx={{
             display: { xs: 'flex', lg: 'none' },
-            justifyContent: 'center',
-            px: { xs: 1.5, sm: 3 },
+            width: '100%',
+            px: { xs: 1.5, sm: 2.5, md: 3 },
             pt: 2,
             pb: 0.5,
           }}
@@ -235,25 +234,33 @@ export function EditorPage() {
             size="small"
             fullWidth
             sx={{
-              maxWidth: 420,
+              width: '100%',
               backgroundColor: 'background.paper',
-              p: 0.5,
-              borderRadius: 2.5,
+              p: 0,
+              borderRadius: 2,
+              overflow: 'hidden',
               border: '1px solid',
               borderColor: 'divider',
               boxShadow: (theme) => `0 2px 8px ${alpha(theme.palette.common.black, 0.04)}`,
+              '& .MuiToggleButtonGroup-grouped': {
+                border: 0,
+                borderRadius: 0,
+                '&:not(:first-of-type)': {
+                  borderLeft: '1px solid',
+                  borderColor: 'divider',
+                },
+              },
             }}
           >
             <ToggleButton
               value="form"
               sx={{
                 flex: 1,
-                borderRadius: '8px !important',
                 fontWeight: 600,
-                fontSize: '0.82rem',
+                fontSize: '0.85rem',
                 gap: 0.75,
                 textTransform: 'none',
-                py: 0.8,
+                py: 1,
                 '&.Mui-selected': {
                   backgroundColor: 'primary.main',
                   color: 'common.white',
@@ -269,12 +276,11 @@ export function EditorPage() {
               value="preview"
               sx={{
                 flex: 1,
-                borderRadius: '8px !important',
                 fontWeight: 600,
-                fontSize: '0.82rem',
+                fontSize: '0.85rem',
                 gap: 0.75,
                 textTransform: 'none',
-                py: 0.8,
+                py: 1,
                 '&.Mui-selected': {
                   backgroundColor: 'primary.main',
                   color: 'common.white',

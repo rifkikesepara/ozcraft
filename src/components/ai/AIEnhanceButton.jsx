@@ -1,9 +1,8 @@
-import React from 'react';
 import { Tooltip, IconButton, Button, Box, alpha } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from 'framer-motion';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useLocale } from '../../hooks/index.js';
 
 /**
  * @file AIEnhanceButton.jsx
@@ -67,13 +66,13 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
           <Box
             sx={{
               position: 'absolute',
-              width: '280%',
-              height: '280%',
-              top: '-90%',
-              left: '-90%',
+              width: 'max(400%, 400px)',
+              aspectRatio: '1 / 1',
+              top: '50%',
+              left: '50%',
               background: ai.borderGradient,
               willChange: 'transform',
-              transform: 'translateZ(0)',
+              transform: 'translate(-50%, -50%)',
               animation: 'aiBorderRotate 4s linear infinite',
               pointerEvents: 'none',
               zIndex: 0,
@@ -169,13 +168,13 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
           <Box
             sx={{
               position: 'absolute',
-              width: '280%',
-              height: '280%',
-              top: '-90%',
-              left: '-90%',
+              width: 'max(400%, 200px)',
+              aspectRatio: '1 / 1',
+              top: '50%',
+              left: '50%',
               background: ai.borderGradient,
               willChange: 'transform',
-              transform: 'translateZ(0)',
+              transform: 'translate(-50%, -50%)',
               animation: 'aiBorderRotate 4s linear infinite',
               pointerEvents: 'none',
               zIndex: 0,

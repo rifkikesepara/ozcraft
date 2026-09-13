@@ -3,6 +3,7 @@ import { useSnackbar } from 'notistack';
 import { exportResumeToPdf } from '../utils/exportPdf.js';
 import { exportResumeToDocx } from '../utils/exportDocx.js';
 import { exportResumeToJson } from '../utils/jsonResume.js';
+import { EXPORT_TYPE } from '../utils/constants.js';
 import { useLocale } from './useLocale.js';
 
 /**
@@ -35,7 +36,7 @@ export function useExport(resumeData, previewRef) {
 
     try {
       setIsExporting(true);
-      setExportType('pdf');
+      setExportType(EXPORT_TYPE.PDF);
       enqueueSnackbar(t('export.generating'), { variant: 'info', autoHideDuration: 2500 });
       await exportResumeToPdf(previewRef.current, candidateName);
       enqueueSnackbar(t('export.success'), { variant: 'success' });
@@ -54,7 +55,7 @@ export function useExport(resumeData, previewRef) {
   const handleExportDocx = useCallback(async () => {
     try {
       setIsExporting(true);
-      setExportType('docx');
+      setExportType(EXPORT_TYPE.DOCX);
       enqueueSnackbar(t('export.generating'), { variant: 'info', autoHideDuration: 2500 });
       await exportResumeToDocx(resumeData, { locale });
       enqueueSnackbar(t('export.success'), { variant: 'success' });

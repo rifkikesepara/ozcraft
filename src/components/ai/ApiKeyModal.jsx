@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -15,8 +15,7 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import { useAI } from '../../hooks/useAI.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useAI, useLocale } from '../../hooks/index.js';
 import { axiosClient } from '../../utils/axiosClient.js';
 
 /**

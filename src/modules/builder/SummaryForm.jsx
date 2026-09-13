@@ -1,9 +1,6 @@
-import React from 'react';
-import { Stack, TextField, Typography } from '@mui/material';
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
-import { useAI } from '../../hooks/useAI.js';
-import { AIEnhanceButton } from '../../components/ai/AIEnhanceButton.jsx';
+import { Stack, TextField, Typography, Box } from '@mui/material';
+import { useResume, useLocale, useAI } from '../../hooks/index.js';
+import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 
 /**
@@ -28,9 +25,7 @@ export function SummaryForm() {
     openEnhanceModal({
       originalText: summary || `[${t('ai.generateSummary')} - ${jobTitle || 'Professional'}]`,
       prompt,
-      title: isEnhancing
-        ? t('ai.modalTitle') || 'Enhance Professional Summary'
-        : t('ai.generateSummary') || 'Generate Summary with AI',
+      title: isEnhancing ? t('ai.modalTitle') : t('ai.generateSummary'),
       promptType: isEnhancing ? 'bullet' : 'summary',
       metadata: { jobTitle, skills: allSkills },
       onApply: (enhancedText) => {
@@ -41,39 +36,41 @@ export function SummaryForm() {
 
   return (
     <Stack sx={{ gap: 1.5 }}>
-      <Stack
-        direction="row"
-        sx={{
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          gap: 1.5,
-        }}
-      >
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Geçmişinizin, temel yetkinliklerinizin ve kattığınız değerin 3-4 cümlelik kısa bir özetini oluşturun.'
-            : 'Craft a concise 3-4 sentence overview of your background, core strengths, and value proposition.'}
-        </Typography>
-        <AIEnhanceButton
-          iconOnly={false}
-          label={summary ? t('ai.button') : t('ai.generateSummary')}
-          onClick={handleAIEnhance}
-        />
-      </Stack>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        {t('form.summaryDesc')}
+      </Typography>
 
-      <TextField
-        fullWidth
-        multiline
-        minRows={5}
-        maxRows={20}
-        placeholder={
-          locale === 'tr'
-            ? 'Örn: 7+ yıllık deneyime sahip, ölçeklenebilir mikroservisler tasarlayan ve yüksek performanslı takımlara liderlik eden Sonuç Odaklı Kıdemli Yazılım Mühendisi...'
-            : 'e.g. Results-driven Senior Software Engineer with 7+ years of expertise designing scalable microservices and leading high-performing teams...'
-        }
-        value={summary}
-        onChange={(e) => updateSection('summary', e.target.value)}
-      />
+      <Box sx={{ position: 'relative' }}>
+        <TextField
+          fullWidth
+          multiline
+          minRows={5}
+          maxRows={20}
+          placeholder={t('form.summaryPlaceholder')}
+          value={summary}
+          onChange={(e) => updateSection('summary', e.target.value)}
+          sx={{
+            '& .MuiInputBase-root': {
+              pb: 6,
+            },
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 10,
+            right: 10,
+            zIndex: 2,
+            maxWidth: 'calc(100% - 20px)',
+          }}
+        >
+          <AIEnhanceButton
+            iconOnly={false}
+            label={summary ? t('ai.button') : t('ai.generateSummary')}
+            onClick={handleAIEnhance}
+          />
+        </Box>
+      </Box>
     </Stack>
   );
 }

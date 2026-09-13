@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Stack,
   Paper,
@@ -20,13 +20,13 @@ import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import CodeIcon from '@mui/icons-material/Code';
 import CardMembershipOutlinedIcon from '@mui/icons-material/CardMembershipOutlined';
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined';
+import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useResume, useLocale } from '../../hooks/index.js';
 
 import { PersonalInfoForm } from './PersonalInfoForm.jsx';
 import { SummaryForm } from './SummaryForm.jsx';
@@ -36,6 +36,7 @@ import { SkillsForm } from './SkillsForm.jsx';
 import { ProjectsForm } from './ProjectsForm.jsx';
 import { CertificationsForm } from './CertificationsForm.jsx';
 import { LanguagesForm } from './LanguagesForm.jsx';
+import { ReferencesForm } from './ReferencesForm.jsx';
 import { SectionOrderModal } from './SectionOrderModal.jsx';
 
 /**
@@ -58,6 +59,7 @@ export function ResumeBuilder() {
     'projects',
     'certifications',
     'languages',
+    'references',
   ];
 
   // Map of available sections
@@ -102,6 +104,11 @@ export function ResumeBuilder() {
       icon: <TranslateOutlinedIcon fontSize="small" />,
       component: <LanguagesForm />,
     },
+    references: {
+      label: t('builder.references'),
+      icon: <ContactMailOutlinedIcon fontSize="small" />,
+      component: <ReferencesForm />,
+    },
   };
 
   // Personal Info is always the primary first tab; remaining tabs follow dynamic sectionOrder
@@ -111,6 +118,7 @@ export function ResumeBuilder() {
     .filter(Boolean);
 
   const tabs = [sectionComponents.personalInfo, ...reorderableTabs];
+  const safeActiveTab = Math.min(activeTab, Math.max(0, tabs.length - 1));
 
   return (
     <Paper
@@ -141,8 +149,22 @@ export function ResumeBuilder() {
       >
         <FormControl size="small" sx={{ flex: 1, minWidth: 0 }}>
           <Select
-            value={activeTab}
+            value={safeActiveTab}
             onChange={(e) => setActiveTab(Number(e.target.value))}
+            renderValue={(selected) => {
+              const selectedTab = tabs[selected];
+              if (!selectedTab) return null;
+              return (
+                <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
+                  <Stack direction="row" sx={{ color: 'primary.main' }}>
+                    {selectedTab.icon}
+                  </Stack>
+                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    {selectedTab.label}
+                  </Typography>
+                </Stack>
+              );
+            }}
             sx={{
               borderRadius: 2,
               fontWeight: 600,
@@ -189,48 +211,44 @@ export function ResumeBuilder() {
 
         {/* Previous Section Button */}
         <Tooltip title={locale === 'tr' ? 'Önceki Bölüm' : 'Previous Section'} arrow>
-          <span>
-            <IconButton
-              size="small"
-              disabled={activeTab === 0}
-              onClick={() => setActiveTab((prev) => Math.max(0, prev - 1))}
-              sx={{
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2,
-                width: 38,
-                height: 38,
-                backgroundColor: 'background.paper',
-                color: 'text.primary',
-              }}
-              aria-label="previous section"
-            >
-              <NavigateBeforeIcon fontSize="small" />
-            </IconButton>
-          </span>
+          <IconButton
+            size="small"
+            disabled={activeTab === 0}
+            onClick={() => setActiveTab((prev) => Math.max(0, prev - 1))}
+            sx={{
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 2,
+              width: 38,
+              height: 38,
+              backgroundColor: 'background.paper',
+              color: 'text.primary',
+            }}
+            aria-label="previous section"
+          >
+            <NavigateBeforeIcon fontSize="small" />
+          </IconButton>
         </Tooltip>
 
         {/* Next Section Button */}
         <Tooltip title={locale === 'tr' ? 'Sonraki Bölüm' : 'Next Section'} arrow>
-          <span>
-            <IconButton
-              size="small"
-              disabled={activeTab === tabs.length - 1}
-              onClick={() => setActiveTab((prev) => Math.min(tabs.length - 1, prev + 1))}
-              sx={{
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2,
-                width: 38,
-                height: 38,
-                backgroundColor: 'background.paper',
-                color: 'text.primary',
-              }}
-              aria-label="next section"
-            >
-              <NavigateNextIcon fontSize="small" />
-            </IconButton>
-          </span>
+          <IconButton
+            size="small"
+            disabled={activeTab === tabs.length - 1}
+            onClick={() => setActiveTab((prev) => Math.min(tabs.length - 1, prev + 1))}
+            sx={{
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 2,
+              width: 38,
+              height: 38,
+              backgroundColor: 'background.paper',
+              color: 'text.primary',
+            }}
+            aria-label="next section"
+          >
+            <NavigateNextIcon fontSize="small" />
+          </IconButton>
         </Tooltip>
 
         {/* Section Reorder Modal Trigger */}
@@ -270,7 +288,7 @@ export function ResumeBuilder() {
         }}
       >
         <Tabs
-          value={activeTab}
+          value={safeActiveTab}
           onChange={(_, val) => setActiveTab(val)}
           variant="scrollable"
           scrollButtons="auto"
@@ -349,7 +367,7 @@ export function ResumeBuilder() {
               alignItems: 'stretch',
             }}
           >
-            {tabs[activeTab]?.component}
+            {tabs[safeActiveTab]?.component}
           </motion.div>
         </AnimatePresence>
       </Stack>

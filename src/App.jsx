@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Box, Stack } from '@mui/material';
@@ -8,8 +7,7 @@ import { AppThemeProvider } from './providers/AppThemeProvider.jsx';
 import { ResumeProvider } from './providers/ResumeProvider.jsx';
 import { AIProvider } from './providers/AIProvider.jsx';
 
-import { Navbar } from './components/layout/Navbar.jsx';
-import { Footer } from './components/layout/Footer.jsx';
+import { Navbar, Footer } from './components/index.js';
 import { AppRoutes } from './routes/AppRoutes.jsx';
 
 /**

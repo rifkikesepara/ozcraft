@@ -14,10 +14,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
-import { useAI } from '../../hooks/useAI.js';
-import { AIEnhanceButton } from '../../components/ai/AIEnhanceButton.jsx';
+import { useResume, useLocale, useAI, useThemeMode } from '../../hooks/index.js';
+import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 
 /**
@@ -26,8 +24,6 @@ import { AI_PROMPTS } from '../../utils/ai/index.js';
 function SkillCategoryItem({
   cat,
   catIndex,
-  locale,
-  t,
   handleUpdateCategoryName,
   handleAISuggestSkills,
   handleRemoveCategory,
@@ -38,6 +34,8 @@ function SkillCategoryItem({
   handleAddSkillItem,
 }) {
   const dragControls = useDragControls();
+  const { isMobile } = useThemeMode();
+  const { t, locale } = useLocale();
 
   return (
     <Reorder.Item
@@ -64,7 +62,7 @@ function SkillCategoryItem({
           gap: 2,
         }}
       >
-        <Stack direction="row" sx={{ alignItems: 'center', gap: 1.5 }}>
+        <Stack direction={'row'} sx={{ alignItems: 'center', gap: 1.5 }}>
           <Stack
             component="span"
             direction="row"
@@ -98,7 +96,7 @@ function SkillCategoryItem({
             sx={{ flex: 1 }}
           />
           <AIEnhanceButton
-            iconOnly={false}
+            iconOnly={isMobile}
             label={t('ai.suggestSkills')}
             onClick={() => handleAISuggestSkills(catIndex)}
           />
@@ -168,7 +166,7 @@ function SkillCategoryItem({
             sx={{ flex: 1 }}
           />
           <Button variant="contained" size="small" onClick={() => handleAddSkillItem(catIndex)}>
-            {locale === 'tr' ? 'Ekle' : 'Add'}
+            {t('common.add')}
           </Button>
         </Stack>
       </Paper>
@@ -182,10 +180,11 @@ function SkillCategoryItem({
  * and drag-and-drop reordering for both categories and skills.
  */
 export function SkillsForm() {
+  const [newSkillInput, setNewSkillInput] = useState({});
+
   const { resumeData, updateSection } = useResume();
   const { t, locale } = useLocale();
   const { openEnhanceModal } = useAI();
-  const [newSkillInput, setNewSkillInput] = useState({});
 
   const skills = React.useMemo(() => {
     const list = resumeData?.skills || [];
@@ -289,7 +288,7 @@ export function SkillsForm() {
   return (
     <Stack sx={{ gap: 2.5 }}>
       <Stack
-        direction="row"
+        direction={{ md: 'row', xs: 'column' }}
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -297,7 +296,13 @@ export function SkillsForm() {
             ? 'Teknik yetkinliklerinizi ve sosyal becerilerinizi net kategoriler altında düzenleyin. Kategorileri ve yetenekleri sürükleyerek sıralayabilirsiniz.'
             : 'Organize your technical competencies and soft skills into clear categories. Drag handles to reorder categories or chips.'}
         </Typography>
-        <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAddCategory}>
+        <Button
+          fullWidth
+          variant="outlined"
+          size="small"
+          startIcon={<AddIcon />}
+          onClick={handleAddCategory}
+        >
           {t('form.addSkillCategory')}
         </Button>
       </Stack>
@@ -320,8 +325,6 @@ export function SkillsForm() {
             key={cat.id || catIndex}
             cat={cat}
             catIndex={catIndex}
-            locale={locale}
-            t={t}
             handleUpdateCategoryName={handleUpdateCategoryName}
             handleAISuggestSkills={handleAISuggestSkills}
             handleRemoveCategory={handleRemoveCategory}

@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Stack, Typography, Divider, Avatar } from '@mui/material';
-import { useLocale } from '../../hooks/useLocale.js';
+import { Box, Stack, Typography, Divider, Avatar, Grid } from '@mui/material';
+import { useLocale } from '../../hooks/index.js';
 
 /**
  * @file CompactTemplate.jsx
@@ -23,6 +22,7 @@ export function CompactTemplate({ data, themeColor = '#1e293b' }) {
     projects = [],
     certifications = [],
     languages = [],
+    references = [],
     sectionOrder = [
       'summary',
       'experience',
@@ -31,6 +31,7 @@ export function CompactTemplate({ data, themeColor = '#1e293b' }) {
       'projects',
       'certifications',
       'languages',
+      'references',
     ],
   } = data || {};
 
@@ -249,16 +250,57 @@ export function CompactTemplate({ data, themeColor = '#1e293b' }) {
           </Typography>
         </Box>
       ) : null,
+
+    references: () =>
+      references.length > 0 ? (
+        <Box sx={{ mb: 1.5 }} key="references">
+          <Typography
+            sx={{
+              fontWeight: 800,
+              fontSize: '0.85rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: themeColor,
+              borderBottom: '1px solid #e2e8f0',
+              pb: 0.25,
+              mb: 0.5,
+            }}
+          >
+            {t('builder.references')}
+          </Typography>
+          <Grid container spacing={1}>
+            {references.map((ref) => (
+              <Grid size={{ xs: 12, sm: 6 }} key={ref.id}>
+                <Typography sx={{ fontWeight: 700, fontSize: '0.8rem', color: '#0f172a' }}>
+                  {ref.fullName}{' '}
+                  {(ref.position || ref.company) && (
+                    <span style={{ fontWeight: 400, color: '#475569' }}>
+                      • {ref.position}
+                      {ref.position && ref.company ? ', ' : ''}
+                      {ref.company}
+                    </span>
+                  )}
+                </Typography>
+                {(ref.email || ref.phone) && (
+                  <Typography sx={{ fontSize: '0.72rem', color: '#64748b' }}>
+                    {[ref.email, ref.phone].filter(Boolean).join(' • ')}
+                  </Typography>
+                )}
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      ) : null,
   };
 
   return (
     <Box
       sx={{
         width: '100%',
-        minHeight: '297mm',
+        minHeight: '100%',
         backgroundColor: (theme) => theme.palette.common.white,
         color: '#0f172a',
-        p: { xs: 2.5, sm: 4 },
+        p: 0,
         boxSizing: 'border-box',
         fontFamily: data.fontFamily || 'inherit',
       }}

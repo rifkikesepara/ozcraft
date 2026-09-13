@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Stack,
@@ -17,18 +17,15 @@ import {
   Alert,
   CircularProgress,
   alpha,
+  Divider,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import { useSnackbar } from 'notistack';
 
-import { useAI } from '../hooks/useAI.js';
-import { useThemeMode } from '../hooks/useThemeMode.js';
-import { useResume } from '../hooks/useResume.js';
-import { useLocale } from '../hooks/useLocale.js';
-import { PageTransition } from '../components/common/PageTransition.jsx';
-import { ConfirmDialog } from '../components/common/ConfirmDialog.jsx';
+import { useAI, useThemeMode, useResume, useLocale } from '../hooks/index.js';
+import { PageTransition, ConfirmDialog } from '../components/index.js';
 import { getAIAdapter } from '../utils/ai/index.js';
 import { getApiKey, getDisplayApiUrl } from '../utils/cookieStorage.js';
 
@@ -38,24 +35,6 @@ import { getApiKey, getDisplayApiUrl } from '../utils/cookieStorage.js';
  * custom API endpoints, color themes, dark mode toggle, and local storage data management.
  */
 export function SettingsPage() {
-  const {
-    providerId,
-    setProviderId,
-    model,
-    setModel,
-    updateApiUrl,
-    supportedProviders = [],
-    defaultModels = [],
-    saveApiKey,
-    clearApiKey,
-    hasApiKey: isKeyPresent,
-  } = useAI();
-
-  const { mode, toggleMode, activePaletteId, setPaletteId, palettes = [] } = useThemeMode();
-  const { resetToDefault, clearAll } = useResume();
-  const { t } = useLocale();
-  const { enqueueSnackbar } = useSnackbar();
-
   const [newKeyInput, setNewKeyInput] = useState('');
   const [endpointInput, setEndpointInput] = useState(() => getDisplayApiUrl());
   const [isTesting, setIsTesting] = useState(false);
@@ -67,6 +46,53 @@ export function SettingsPage() {
     confirmColor: 'primary',
     onConfirm: null,
   });
+
+  const {
+    providerId,
+    setProviderId,
+    model,
+    setModel,
+    updateApiUrl,
+    supportedProviders = [],
+    defaultModels = [],
+    listModels,
+    saveApiKey,
+    clearApiKey,
+    hasApiKey: isKeyPresent,
+  } = useAI();
+
+  const [availableModels, setAvailableModels] = useState(defaultModels);
+
+  useEffect(() => {
+    let isMounted = true;
+    listModels()
+      .then((fetchedModels) => {
+        if (isMounted && Array.isArray(fetchedModels) && fetchedModels.length > 0) {
+          setAvailableModels(fetchedModels);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setAvailableModels(defaultModels);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [listModels, providerId, defaultModels]);
+
+  const {
+    mode,
+    toggleMode,
+    activePaletteId,
+    setPaletteId,
+    palettes = [],
+    isMobile,
+  } = useThemeMode();
+  const { resetToDefault, clearAll } = useResume();
+  const { t } = useLocale();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSaveKey = () => {
     if (!newKeyInput.trim()) return;
@@ -82,13 +108,19 @@ export function SettingsPage() {
     enqueueSnackbar(t('settings.keyCleared'), { variant: 'info' });
   };
 
-  const handleSaveEndpoint = () => {
+  const handleSaveEndpoint = async () => {
     if (!endpointInput.trim()) return;
     updateApiUrl(endpointInput.trim());
     enqueueSnackbar(
       'API Endpoint URL updated! Requests are proxied via /api/ollama to avoid CORS.',
       { variant: 'success' }
     );
+    try {
+      const freshModels = await listModels();
+      if (Array.isArray(freshModels) && freshModels.length > 0) {
+        setAvailableModels(freshModels);
+      }
+    } catch {}
   };
 
   const handleTestConnection = async () => {
@@ -98,6 +130,12 @@ export function SettingsPage() {
       const res = await adapter.testConnection(cookieKey);
       if (res.success) {
         enqueueSnackbar(res.message || t('settings.testSuccess'), { variant: 'success' });
+        try {
+          const freshModels = await listModels();
+          if (Array.isArray(freshModels) && freshModels.length > 0) {
+            setAvailableModels(freshModels);
+          }
+        } catch {}
       } else {
         enqueueSnackbar(
           res.message ||
@@ -180,8 +218,6 @@ export function SettingsPage() {
 
           <Alert severity="info" sx={{ mb: 3, borderRadius: 2 }}>
             {t('settings.securityAlert')}
-            <br />
-            <strong>CORS:</strong> {t('settings.corsAlert')}
           </Alert>
 
           <Grid container spacing={2.5}>
@@ -210,11 +246,16 @@ export function SettingsPage() {
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
                 >
-                  {defaultModels.map((m) => (
+                  {availableModels.map((m) => (
                     <MenuItem key={m.id} value={m.id}>
                       {m.name}
                     </MenuItem>
                   ))}
+                  {!availableModels.some((m) => m.id === model) && (
+                    <MenuItem key={model} value={model}>
+                      {model}
+                    </MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Grid>
@@ -224,14 +265,14 @@ export function SettingsPage() {
               <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.75 }}>
                 {t('settings.apiUrl')}
               </Typography>
-              <Stack direction="row" sx={{ gap: 1 }}>
+              <Stack direction={{ md: 'row', xs: 'column' }} spacing={1}>
                 <TextField
                   fullWidth
                   size="small"
                   placeholder="https://ollama.com/api or http://localhost:11434"
                   value={endpointInput}
                   onChange={(e) => setEndpointInput(e.target.value)}
-                  helperText={t('settings.corsHelper')}
+                  helperText={!isMobile && t('settings.corsHelper')}
                 />
                 <Button
                   variant="contained"
@@ -248,7 +289,7 @@ export function SettingsPage() {
             {/* API Key */}
             <Grid size={12}>
               <Stack
-                direction="row"
+                direction={{ md: 'row', xs: 'column' }}
                 sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
               >
                 <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
@@ -267,7 +308,7 @@ export function SettingsPage() {
                 </Typography>
               </Stack>
 
-              <Stack direction="row" sx={{ gap: 1 }}>
+              <Stack direction={{ md: 'row', xs: 'column' }} sx={{ gap: 1 }}>
                 <TextField
                   fullWidth
                   size="small"
@@ -295,9 +336,12 @@ export function SettingsPage() {
                 )}
               </Stack>
             </Grid>
-
+            <Grid size={12}>
+              <Divider />
+            </Grid>
             <Grid size={12}>
               <Button
+                fullWidth
                 variant="outlined"
                 size="small"
                 onClick={handleTestConnection}
@@ -405,10 +449,20 @@ export function SettingsPage() {
           </Typography>
 
           <Stack direction="row" sx={{ gap: 2, flexWrap: 'wrap' }}>
-            <Button variant="outlined" color="primary" onClick={handleResetSampleData}>
+            <Button
+              fullWidth={isMobile}
+              variant="outlined"
+              color="primary"
+              onClick={handleResetSampleData}
+            >
               {t('settings.resetData')}
             </Button>
-            <Button variant="outlined" color="error" onClick={handleClearEverything}>
+            <Button
+              fullWidth={isMobile}
+              variant="outlined"
+              color="error"
+              onClick={handleClearEverything}
+            >
               {t('settings.clearAll')}
             </Button>
           </Stack>

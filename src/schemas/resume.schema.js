@@ -82,6 +82,18 @@ export const certificationItemSchema = z.object({
 });
 
 /**
+ * Reference entry schema.
+ */
+export const referenceItemSchema = z.object({
+  id: z.string(),
+  fullName: z.string().min(1, 'Reference name is required'),
+  company: z.string().optional().default(''),
+  position: z.string().optional().default(''),
+  email: z.string().optional().default(''),
+  phone: z.string().optional().default(''),
+});
+
+/**
  * Language proficiency schema.
  */
 export const languageItemSchema = z.object({
@@ -121,8 +133,10 @@ export const resumeSchema = z.object({
   projects: z.array(projectItemSchema).default([]),
   certifications: z.array(certificationItemSchema).default([]),
   languages: z.array(languageItemSchema).default([]),
+  references: z.array(referenceItemSchema).default([]),
   customSections: z.array(customSectionSchema).default([]),
   sectionOrder: z.array(z.string()).default(DEFAULT_SECTION_ORDER),
+  disabledSections: z.array(z.string()).default([]),
   templateId: z.string().default('modern'),
   themeColor: z.string().default('#0f172a'),
   fontFamily: z.string().default('Inter'),

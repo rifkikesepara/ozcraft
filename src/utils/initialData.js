@@ -174,6 +174,25 @@ export const INITIAL_RESUME_DATA = {
       proficiency: 'Professional Working',
     },
   ],
+  references: [
+    {
+      id: 'ref-1',
+      fullName: 'Sarah Jenkins',
+      company: 'TechFlow Systems',
+      position: 'VP of Engineering',
+      email: 'sarah.jenkins@techflow.io',
+      phone: '+1 (555) 345-6789',
+    },
+    {
+      id: 'ref-2',
+      fullName: 'David Martinez',
+      company: 'OmniStream Open Source',
+      position: 'Principal Architect',
+      email: 'david.m@omnistream.org',
+      phone: '+1 (555) 987-6543',
+    },
+  ],
   customSections: [],
   sectionOrder: DEFAULT_SECTION_ORDER,
+  disabledSections: [],
 };
