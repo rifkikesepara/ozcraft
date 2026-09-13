@@ -1,10 +1,8 @@
-import React from 'react';
 import { Box, Typography, Tooltip, CircularProgress, alpha } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SyncIcon from '@mui/icons-material/Sync';
 import { motion } from 'framer-motion';
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useResume, useLocale, useThemeMode } from '../../hooks/index.js';
 import { SAVING_STATUS } from '../../utils/constants.js';
 
 /**
@@ -14,6 +12,7 @@ import { SAVING_STATUS } from '../../utils/constants.js';
 export function SaveStatusBadge() {
   const { saveStatus, manualSave } = useResume();
   const { t } = useLocale();
+  const { isMobile } = useThemeMode();
 
   const getStatusConfig = () => {
     switch (saveStatus) {
@@ -33,7 +32,7 @@ export function SaveStatusBadge() {
       default:
         return {
           icon: <CheckCircleIcon sx={{ fontSize: 13 }} />,
-          text: t('status.saved'),
+          text: !isMobile ? t('status.saved') : t('status.saved.short'),
           colorKey: 'success.main',
         };
     }

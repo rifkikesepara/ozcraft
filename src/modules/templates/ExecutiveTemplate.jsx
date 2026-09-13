@@ -1,12 +1,11 @@
-import React from 'react';
-import { Box, Stack, Typography, Divider, Avatar, alpha } from '@mui/material';
+import { Box, Stack, Typography, Divider, Avatar, Grid, alpha } from '@mui/material';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useLocale } from '../../hooks/index.js';
 
 /**
  * @file ExecutiveTemplate.jsx
@@ -29,6 +28,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
     projects = [],
     certifications = [],
     languages = [],
+    references = [],
     sectionOrder = [
       'summary',
       'experience',
@@ -37,6 +37,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
       'projects',
       'certifications',
       'languages',
+      'references',
     ],
   } = data || {};
 
@@ -59,8 +60,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
   const sectionRenderers = {
     summary: () =>
       summary ? (
-        <Box sx={{ mb: 3 }} key="summary">
+        <Box sx={{ mb: 3 }} key="summary" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.9rem',
@@ -91,8 +93,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     experience: () =>
       experience.length > 0 ? (
-        <Box sx={{ mb: 3.5 }} key="experience">
+        <Box sx={{ mb: 3.5 }} key="experience" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.9rem',
@@ -110,7 +113,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
               : 'Career History & Professional Experience'}
           </Typography>
           {experience.map((exp) => (
-            <Box key={exp.id} sx={{ mb: 2.5 }}>
+            <Box key={exp.id} sx={{ mb: 2.5 }} className="resume-section-item">
               <Stack
                 direction="row"
                 sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}
@@ -154,8 +157,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     skills: () =>
       skills.length > 0 ? (
-        <Box sx={{ mb: 3 }} key="skills">
+        <Box sx={{ mb: 3 }} key="skills" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.9rem',
@@ -174,7 +178,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1.5 }}>
             {skills.map((cat) => (
-              <Box key={cat.id}>
+              <Box key={cat.id} className="resume-section-item">
                 <Typography
                   sx={{
                     fontSize: '0.8rem',
@@ -194,8 +198,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     education: () =>
       education.length > 0 ? (
-        <Box sx={{ mb: 3 }} key="education">
+        <Box sx={{ mb: 3 }} key="education" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.9rem',
@@ -211,7 +216,12 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
             {locale === 'tr' ? 'Akademik Geçmiş & Eğitim' : 'Academic Credentials'}
           </Typography>
           {education.map((edu) => (
-            <Stack direction="row" key={edu.id} sx={{ mb: 1.5, justifyContent: 'space-between' }}>
+            <Stack
+              direction="row"
+              key={edu.id}
+              className="resume-section-item"
+              sx={{ mb: 1.5, justifyContent: 'space-between' }}
+            >
               <Box>
                 <Typography sx={{ fontWeight: 700, fontSize: '0.9rem', color: '#0f172a' }}>
                   {edu.degree} {edu.field ? `${locale === 'tr' ? '—' : 'in'} ${edu.field}` : ''}
@@ -232,8 +242,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     projects: () =>
       projects.length > 0 ? (
-        <Box sx={{ mb: 3 }} key="projects">
+        <Box sx={{ mb: 3 }} key="projects" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.9rem',
@@ -251,7 +262,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
               : 'Key Projects & Initiatives'}
           </Typography>
           {projects.map((proj) => (
-            <Box key={proj.id} sx={{ mb: 1.5 }}>
+            <Box key={proj.id} className="resume-section-item" sx={{ mb: 1.5 }}>
               <Typography sx={{ fontWeight: 700, fontSize: '0.9rem', color: '#0f172a' }}>
                 {proj.name} {proj.link ? `(${proj.link})` : ''}
               </Typography>
@@ -269,8 +280,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     certifications: () =>
       certifications.length > 0 ? (
-        <Box sx={{ mb: 2.5 }} key="certifications">
+        <Box sx={{ mb: 2.5 }} key="certifications" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.85rem',
@@ -286,6 +298,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
           {certifications.map((c) => (
             <Typography
               key={c.id}
+              className="resume-section-item"
               sx={{
                 fontSize: '0.82rem',
                 color: '#334155',
@@ -293,7 +306,8 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
                 mb: 0.5,
               }}
             >
-              • {c.name} {c.issuer ? `(${c.issuer})` : ''} {c.date ? `— ${c.date}` : ''}
+              • <strong>{c.name}</strong> {c.issuer ? `(${c.issuer})` : ''}{' '}
+              {c.date ? `— ${c.date}` : ''}
             </Typography>
           ))}
         </Box>
@@ -301,8 +315,9 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
 
     languages: () =>
       languages.length > 0 ? (
-        <Box sx={{ mb: 2.5 }} key="languages">
+        <Box sx={{ mb: 2.5 }} key="languages" className="resume-section">
           <Typography
+            className="resume-section-title"
             sx={{
               fontWeight: 700,
               fontSize: '0.85rem',
@@ -316,10 +331,86 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
             {locale === 'tr' ? 'Yabancı Diller & Yetkinlikler' : 'Languages & Communication'}
           </Typography>
           <Typography
+            variant="body2"
+            className="resume-section-item"
             sx={{ fontSize: '0.85rem', color: '#334155', fontFamily: '"Inter", sans-serif' }}
           >
             {languages.map((l) => `${l.language} (${l.proficiency})`).join('  •  ')}
           </Typography>
+        </Box>
+      ) : null,
+
+    references: () =>
+      references.length > 0 ? (
+        <Box sx={{ mb: 3 }} key="references" className="resume-section">
+          <Typography
+            className="resume-section-title"
+            sx={{
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: themeColor,
+              mb: 1.5,
+              fontFamily: '"Inter", sans-serif',
+              borderBottom: '1px solid #e2e8f0',
+              pb: 0.5,
+            }}
+          >
+            {t('builder.references')}
+          </Typography>
+          <Grid container spacing={2}>
+            {references.map((ref) => (
+              <Grid size={{ xs: 12, sm: 6 }} key={ref.id} className="resume-section-item">
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: '0.88rem',
+                    color: '#0f172a',
+                    fontFamily: '"Merriweather", Georgia, serif',
+                  }}
+                >
+                  {ref.fullName}
+                </Typography>
+                {(ref.position || ref.company) && (
+                  <Typography
+                    sx={{
+                      fontSize: '0.82rem',
+                      color: '#475569',
+                      fontStyle: 'italic',
+                      fontFamily: '"Inter", sans-serif',
+                    }}
+                  >
+                    {ref.position}
+                    {ref.position && ref.company ? ', ' : ''}
+                    {ref.company}
+                  </Typography>
+                )}
+                {ref.email && (
+                  <Typography
+                    sx={{
+                      fontSize: '0.78rem',
+                      color: '#64748b',
+                      fontFamily: '"Inter", sans-serif',
+                    }}
+                  >
+                    {ref.email}
+                  </Typography>
+                )}
+                {ref.phone && (
+                  <Typography
+                    sx={{
+                      fontSize: '0.78rem',
+                      color: '#64748b',
+                      fontFamily: '"Inter", sans-serif',
+                    }}
+                  >
+                    {ref.phone}
+                  </Typography>
+                )}
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       ) : null,
   };
@@ -328,10 +419,10 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
     <Box
       sx={{
         width: '100%',
-        minHeight: '297mm',
+        minHeight: '100%',
         backgroundColor: (theme) => theme.palette.common.white,
         color: '#0f172a',
-        p: { xs: 3, sm: 5, md: 6 },
+        p: 0,
         boxSizing: 'border-box',
         fontFamily: data.fontFamily || '"Merriweather", Georgia, serif',
       }}

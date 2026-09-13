@@ -19,10 +19,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
-import { useAI } from '../../hooks/useAI.js';
-import { AIEnhanceButton } from '../../components/ai/AIEnhanceButton.jsx';
+import { useResume, useLocale, useAI } from '../../hooks/index.js';
+import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 
 /**

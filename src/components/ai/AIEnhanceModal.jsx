@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -24,8 +24,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-import { useAI } from '../../hooks/useAI.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useAI, useLocale } from '../../hooks/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 import { getSmartFallback } from '../../utils/ai/smartFallback.js';
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import {
   Stack,
   TextField,
@@ -15,8 +15,7 @@ import {
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useResume, useLocale } from '../../hooks/index.js';
 
 /**
  * @file PersonalInfoForm.jsx

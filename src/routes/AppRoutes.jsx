@@ -1,9 +1,5 @@
-import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage.jsx';
-import { EditorPage } from '../pages/EditorPage.jsx';
-import { TemplatesPage } from '../pages/TemplatesPage.jsx';
-import { SettingsPage } from '../pages/SettingsPage.jsx';
+import { HomePage, EditorPage, TemplatesPage, SettingsPage } from '../pages/index.js';
 
 /**
  * @file AppRoutes.jsx

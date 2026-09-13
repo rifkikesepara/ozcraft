@@ -17,14 +17,14 @@ import { Reorder, useDragControls } from 'framer-motion';
 import { useResume, useLocale } from '../../hooks/index.js';
 
 /**
- * Individual reorderable Certification card item.
+ * Individual reorderable Reference card item.
  */
-function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove }) {
+function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove }) {
   const dragControls = useDragControls();
 
   return (
     <Reorder.Item
-      value={cert}
+      value={item}
       dragListener={false}
       dragControls={dragControls}
       whileDrag={{
@@ -70,48 +70,59 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
               <DragIndicatorIcon fontSize="small" />
             </Stack>
             <Typography sx={{ fontWeight: 600 }}>
-              {cert.name || `${locale === 'tr' ? 'Sertifika' : 'Certification'} #${index + 1}`}
+              {item.fullName || `${locale === 'tr' ? 'Referans' : 'Reference'} #${index + 1}`}
             </Typography>
           </Stack>
           <IconButton size="small" color="error" onClick={() => handleRemove(index)}>
             <DeleteOutlinedIcon fontSize="small" />
           </IconButton>
         </Stack>
+
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              label={t('form.certName')}
-              placeholder="e.g. AWS Solutions Architect"
-              value={cert.name || ''}
-              onChange={(e) => handleUpdate(index, 'name', e.target.value)}
+              label={t('form.referenceName')}
+              placeholder="e.g. Sarah Jenkins"
+              value={item.fullName || ''}
+              onChange={(e) => handleUpdate(index, 'fullName', e.target.value)}
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              label={t('form.issuer')}
-              placeholder="e.g. Amazon Web Services"
-              value={cert.issuer || ''}
-              onChange={(e) => handleUpdate(index, 'issuer', e.target.value)}
+              label={t('form.referencePosition')}
+              placeholder="e.g. VP of Engineering"
+              value={item.position || ''}
+              onChange={(e) => handleUpdate(index, 'position', e.target.value)}
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              label={t('form.issueDate')}
-              placeholder="YYYY-MM"
-              value={cert.date || ''}
-              onChange={(e) => handleUpdate(index, 'date', e.target.value)}
+              label={t('form.referenceCompany')}
+              placeholder="e.g. TechFlow Systems"
+              value={item.company || ''}
+              onChange={(e) => handleUpdate(index, 'company', e.target.value)}
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              label={t('form.certUrl')}
-              placeholder="https://..."
-              value={cert.url || ''}
-              onChange={(e) => handleUpdate(index, 'url', e.target.value)}
+              type="email"
+              label={t('form.referenceEmail')}
+              placeholder="e.g. sarah.jenkins@techflow.io"
+              value={item.email || ''}
+              onChange={(e) => handleUpdate(index, 'email', e.target.value)}
+            />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <TextField
+              fullWidth
+              label={t('form.referencePhone')}
+              placeholder="e.g. +1 (555) 345-6789"
+              value={item.phone || ''}
+              onChange={(e) => handleUpdate(index, 'phone', e.target.value)}
             />
           </Grid>
         </Grid>
@@ -121,39 +132,39 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
 }
 
 /**
- * @file CertificationsForm.jsx
- * @description Form module for professional certificates, licenses, and issuing bodies
- * with drag-and-drop reordering.
+ * @file ReferencesForm.jsx
+ * @description Form module for professional references with drag-and-drop reordering.
  */
-export function CertificationsForm() {
+export function ReferencesForm() {
   const { resumeData, updateSection } = useResume();
   const { t, locale } = useLocale();
 
-  const certifications = React.useMemo(() => {
-    const list = resumeData?.certifications || [];
+  const references = React.useMemo(() => {
+    const list = resumeData?.references || [];
     return list.map((item, index) => {
       if (item.id) return item;
-      return { ...item, id: `cert-${index + 1}` };
+      return { ...item, id: `ref-${index + 1}` };
     });
-  }, [resumeData?.certifications]);
+  }, [resumeData?.references]);
 
   const handleReorder = (newOrder) => {
-    updateSection('certifications', newOrder);
+    updateSection('references', newOrder);
   };
 
   const handleAdd = () => {
     const newItem = {
-      id: `cert-${Date.now()}`,
-      name: '',
-      issuer: '',
-      date: '',
-      url: '',
+      id: `ref-${Date.now()}`,
+      fullName: '',
+      company: '',
+      position: '',
+      email: '',
+      phone: '',
     };
-    updateSection('certifications', (prev) => [newItem, ...prev]);
+    updateSection('references', (prev = []) => [newItem, ...prev]);
   };
 
   const handleUpdate = (index, field, value) => {
-    updateSection('certifications', (prev) => {
+    updateSection('references', (prev = []) => {
       const copy = [...prev];
       copy[index] = { ...copy[index], [field]: value };
       return copy;
@@ -161,7 +172,7 @@ export function CertificationsForm() {
   };
 
   const handleRemove = (index) => {
-    updateSection('certifications', (prev) => prev.filter((_, i) => i !== index));
+    updateSection('references', (prev = []) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -172,17 +183,17 @@ export function CertificationsForm() {
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {locale === 'tr'
-            ? 'Doğrulanmış sertifikalarınızı ve lisanslarınızı ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Add verified licenses, industry badges, and professional credentials. Drag handles to reorder.'}
+            ? 'Deneyimlerinizi ve yetkinliklerinizi doğrulayabilecek profesyonel referansları ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
+            : 'Add professional references who can vouch for your experience and work ethic. Drag handles to reorder.'}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
-          {t('form.addCert')}
+          {t('form.addReference')}
         </Button>
       </Stack>
 
       <Reorder.Group
         axis="y"
-        values={certifications}
+        values={references}
         onReorder={handleReorder}
         style={{
           listStyle: 'none',
@@ -193,10 +204,10 @@ export function CertificationsForm() {
           gap: '16px',
         }}
       >
-        {certifications.map((cert, index) => (
-          <CertificationItem
-            key={cert.id || index}
-            cert={cert}
+        {references.map((item, index) => (
+          <ReferenceItem
+            key={item.id || index}
+            item={item}
             index={index}
             locale={locale}
             t={t}

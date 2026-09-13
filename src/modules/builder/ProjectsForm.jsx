@@ -17,8 +17,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume } from '../../hooks/useResume.js';
-import { useLocale } from '../../hooks/useLocale.js';
+import { useResume, useLocale } from '../../hooks/index.js';
 
 /**
  * Individual reorderable Project card item.

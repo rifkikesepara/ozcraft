@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Stack,
@@ -18,10 +17,9 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';
 
-import { useResume } from '../hooks/useResume.js';
-import { useLocale } from '../hooks/useLocale.js';
-import { PageTransition } from '../components/common/PageTransition.jsx';
-import { getTemplateList } from '../modules/templates/templateRegistry.js';
+import { useResume, useLocale } from '../hooks/index.js';
+import { PageTransition } from '../components/index.js';
+import { getTemplateList } from '../modules/index.js';
 
 /**
  * @file TemplatesPage.jsx

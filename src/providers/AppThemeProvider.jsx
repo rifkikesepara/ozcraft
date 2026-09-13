@@ -1,7 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
-import { ThemeProvider as MuiThemeProvider, createTheme, CssBaseline, alpha } from '@mui/material';
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+  CssBaseline,
+  alpha,
+  useMediaQuery,
+} from '@mui/material';
 import {
   COLOR_PALETTES,
+  THEME_MODE,
+  MODE_LIGHT,
+  MODE_DARK,
   THEME_MODE_STORAGE_KEY,
   LEGACY_THEME_MODE_STORAGE_KEY,
   THEME_PALETTE_STORAGE_KEY,
@@ -15,7 +24,7 @@ import {
  * and minimalist design tokens.
  */
 
-export { COLOR_PALETTES };
+export { COLOR_PALETTES, THEME_MODE, MODE_LIGHT, MODE_DARK };
 
 const ThemeCustomizerContext = createContext(null);
 
@@ -28,6 +37,7 @@ const ThemeCustomizerContext = createContext(null);
  *   setPaletteId: (id: string) => void,
  *   currentPalette: { id: string, name: string, primary: string, secondary: string },
  *   palettes: typeof COLOR_PALETTES
+ * isMobile: boolean
  * }}
  */
 export function useThemeMode() {
@@ -50,11 +60,11 @@ export function AppThemeProvider({ children }) {
       const saved =
         localStorage.getItem(THEME_MODE_STORAGE_KEY) ||
         localStorage.getItem(LEGACY_THEME_MODE_STORAGE_KEY);
-      if (saved === 'dark' || saved === 'light') return saved;
+      if (saved === THEME_MODE.DARK || saved === THEME_MODE.LIGHT) return saved;
     } catch {}
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+      ? THEME_MODE.DARK
+      : THEME_MODE.LIGHT;
   });
 
   const [activePaletteId, setActivePaletteId] = useState(() => {
@@ -79,11 +89,11 @@ export function AppThemeProvider({ children }) {
   }, [activePaletteId]);
 
   const toggleMode = () => {
-    setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setMode((prev) => (prev === THEME_MODE.LIGHT ? THEME_MODE.DARK : THEME_MODE.LIGHT));
   };
 
   const theme = useMemo(() => {
-    const isDark = mode === 'dark';
+    const isDark = mode === THEME_MODE.DARK;
     const commonWhite = '#ffffff';
     const commonBlack = '#000000';
 
@@ -141,7 +151,7 @@ export function AppThemeProvider({ children }) {
         },
       },
       shape: {
-        borderRadius: 12,
+        borderRadius: 6,
       },
       typography: {
         fontFamily: ['"Plus Jakarta Sans"', '"Inter"', '-apple-system', 'sans-serif'].join(','),
@@ -244,6 +254,8 @@ export function AppThemeProvider({ children }) {
     });
   }, [mode, currentPalette]);
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const contextValue = useMemo(
     () => ({
       mode,
@@ -252,8 +264,9 @@ export function AppThemeProvider({ children }) {
       setPaletteId: setActivePaletteId,
       currentPalette,
       palettes: COLOR_PALETTES,
+      isMobile,
     }),
-    [mode, activePaletteId, currentPalette]
+    [mode, activePaletteId, currentPalette, isMobile]
   );
 
   return (

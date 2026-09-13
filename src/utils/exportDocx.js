@@ -31,6 +31,7 @@ export async function exportResumeToDocx(data, { locale = 'en' } = {}) {
     projects = [],
     certifications = [],
     languages = [],
+    references = [],
     sectionOrder = [
       'summary',
       'experience',
@@ -39,6 +40,7 @@ export async function exportResumeToDocx(data, { locale = 'en' } = {}) {
       'projects',
       'certifications',
       'languages',
+      'references',
     ],
   } = data || {};
 
@@ -52,6 +54,7 @@ export async function exportResumeToDocx(data, { locale = 'en' } = {}) {
           projects: 'Projeler',
           certifications: 'Sertifikalar',
           languages: 'Diller',
+          references: 'Referanslar',
           present: 'Devam Ediyor',
         }
       : {
@@ -62,6 +65,7 @@ export async function exportResumeToDocx(data, { locale = 'en' } = {}) {
           projects: 'Projects',
           certifications: 'Certifications',
           languages: 'Languages',
+          references: 'References',
           present: 'Present',
         };
 
@@ -380,6 +384,59 @@ export async function exportResumeToDocx(data, { locale = 'en' } = {}) {
             spacing: { after: 120 },
           })
         );
+      }
+    },
+
+    references: () => {
+      if (references && references.length > 0) {
+        addSectionHeading(titles.references);
+        references.forEach((ref) => {
+          const detailParts = [];
+          if (ref.position) detailParts.push(ref.position);
+          if (ref.company) detailParts.push(ref.company);
+          const contactParts = [];
+          if (ref.email) contactParts.push(ref.email);
+          if (ref.phone) contactParts.push(ref.phone);
+
+          const titleRuns = [
+            new TextRun({
+              text: ref.fullName || '',
+              bold: true,
+              size: 21,
+            }),
+          ];
+          if (detailParts.length > 0) {
+            titleRuns.push(
+              new TextRun({
+                text: ` — ${detailParts.join(', ')}`,
+                size: 20,
+                color: '475569',
+              })
+            );
+          }
+
+          children.push(
+            new Paragraph({
+              children: titleRuns,
+              spacing: { before: 80, after: contactParts.length > 0 ? 30 : 80 },
+            })
+          );
+
+          if (contactParts.length > 0) {
+            children.push(
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: contactParts.join('  |  '),
+                    size: 19,
+                    color: '64748b',
+                  }),
+                ],
+                spacing: { after: 80 },
+              })
+            );
+          }
+        });
       }
     },
   };

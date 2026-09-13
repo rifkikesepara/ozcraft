@@ -272,6 +272,14 @@ export function AIProvider({ children }) {
     closeEnhanceModal();
   }, [enhanceModalState, closeEnhanceModal]);
 
+  /**
+   * Discovers available models from the active AI provider adapter.
+   * @returns {Promise<Array<{ id: string, name: string }>>}
+   */
+  const listModels = useCallback(async () => {
+    return await activeAdapter.listModels();
+  }, [activeAdapter]);
+
   const value = {
     providerId,
     setProviderId,
@@ -281,6 +289,7 @@ export function AIProvider({ children }) {
     updateApiUrl,
     supportedProviders: SUPPORTED_AI_PROVIDERS,
     defaultModels: DEFAULT_OLLAMA_MODELS,
+    listModels,
     hasApiKey: hasApiKey(),
     cookieKey: getApiKey(),
     updateApiKey: handleSaveApiKey,

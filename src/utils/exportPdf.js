@@ -23,8 +23,37 @@ export async function exportResumeToPdf(element, candidateName = 'Resume') {
     .replace(/_+/g, '_');
   const filename = `${safeName || 'resume'}_cv.pdf`;
 
+  // Count rendered A4 page sheets to know exact expected page count
+  const sheets = element.querySelectorAll('.resume-page-sheet');
+  const expectedPageCount = sheets.length || 1;
+
+  // Temporarily hide UI headers and remove card shadows/margins for clean PDF rasterization
+  const uiHeaders = element.querySelectorAll('.html2pdf__ignore');
+  const originalHeaderDisplays = [];
+  uiHeaders.forEach((el, i) => {
+    originalHeaderDisplays[i] = el.style.display;
+    el.style.display = 'none';
+  });
+
+  const wrappers = element.querySelectorAll('.resume-page-wrapper');
+  const originalWrapperMargins = [];
+  wrappers.forEach((w, i) => {
+    originalWrapperMargins[i] = w.style.marginBottom;
+    w.style.marginBottom = '0';
+    w.style.paddingBottom = '0';
+  });
+
+  const originalShadows = [];
+  const originalRadii = [];
+  sheets.forEach((s, i) => {
+    originalShadows[i] = s.style.boxShadow;
+    originalRadii[i] = s.style.borderRadius;
+    s.style.boxShadow = 'none';
+    s.style.borderRadius = '0';
+  });
+
   const opt = {
-    margin: [0, 0, 0, 0], // Margins handled by template CSS padding
+    margin: [0, 0, 0, 0], // Default 16mm padding is built into each page sheet
     filename,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
@@ -32,14 +61,40 @@ export async function exportResumeToPdf(element, candidateName = 'Resume') {
       useCORS: true,
       letterRendering: true,
       logging: false,
+      backgroundColor: '#ffffff',
     },
     jsPDF: {
       unit: 'mm',
       format: 'a4',
       orientation: 'portrait',
     },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+    pagebreak: { mode: ['css', 'legacy'] },
   };
 
-  return html2pdf().set(opt).from(element).save();
+  try {
+    return await html2pdf()
+      .set(opt)
+      .from(element)
+      .toPdf()
+      .get('pdf')
+      .then((pdf) => {
+        // Strip any trailing blank pages caused by subpixel floating point overflow
+        while (pdf.internal.getNumberOfPages() > expectedPageCount) {
+          pdf.deletePage(pdf.internal.getNumberOfPages());
+        }
+      })
+      .save();
+  } finally {
+    // Restore UI styles for preview
+    uiHeaders.forEach((el, i) => {
+      el.style.display = originalHeaderDisplays[i];
+    });
+    wrappers.forEach((w, i) => {
+      w.style.marginBottom = originalWrapperMargins[i];
+    });
+    sheets.forEach((s, i) => {
+      s.style.boxShadow = originalShadows[i];
+      s.style.borderRadius = originalRadii[i];
+    });
+  }
 }

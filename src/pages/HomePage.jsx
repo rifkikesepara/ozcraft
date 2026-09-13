@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Stack,
@@ -20,10 +19,9 @@ import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import { motion } from 'framer-motion';
 
-import { useLocale } from '../hooks/useLocale.js';
-import { useResume } from '../hooks/useResume.js';
-import { PageTransition } from '../components/common/PageTransition.jsx';
-import { getTemplateList } from '../modules/templates/templateRegistry.js';
+import { useLocale, useResume } from '../hooks/index.js';
+import { PageTransition } from '../components/index.js';
+import { getTemplateList } from '../modules/index.js';
 
 /**
  * @file HomePage.jsx
@@ -62,17 +60,20 @@ export function HomePage() {
 
   return (
     <PageTransition>
-      <Box sx={{ overflow: 'hidden' }}>
+      <Box
+        sx={{
+          background: (theme) =>
+            theme.palette.mode === 'dark'
+              ? `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.12)} 0%, transparent 60%)`
+              : `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.08)} 0%, transparent 60%)`,
+        }}
+      >
         {/* Hero Section */}
         <Box
           sx={{
             py: { xs: 8, md: 13 },
             textAlign: 'center',
             position: 'relative',
-            background: (theme) =>
-              theme.palette.mode === 'dark'
-                ? `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.12)} 0%, transparent 60%)`
-                : `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.08)} 0%, transparent 60%)`,
           }}
         >
           <Container maxWidth="md">

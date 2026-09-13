@@ -14,6 +14,14 @@ export const LEGACY_LOCALE_STORAGE_KEY = 'resumio_locale';
 export const THEME_MODE_STORAGE_KEY = 'ozcraft_theme_mode';
 export const LEGACY_THEME_MODE_STORAGE_KEY = 'resumio_theme_mode';
 
+// --- Theme Modes ---
+export const THEME_MODE = {
+  LIGHT: 'light',
+  DARK: 'dark',
+};
+export const MODE_LIGHT = THEME_MODE.LIGHT;
+export const MODE_DARK = THEME_MODE.DARK;
+
 export const THEME_PALETTE_STORAGE_KEY = 'ozcraft_theme_palette';
 export const LEGACY_THEME_PALETTE_STORAGE_KEY = 'resumio_theme_palette';
 
@@ -46,6 +54,7 @@ export const DEFAULT_SECTION_ORDER = [
   'projects',
   'certifications',
   'languages',
+  'references',
 ];
 
 export const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" fill="%231e293b"/><circle cx="60" cy="45" r="22" fill="%2394a3b8"/><path d="M25 105 c0 -22 18 -35 35 -35 s35 13 35 35 Z" fill="%2394a3b8"/></svg>`;
@@ -57,6 +66,13 @@ export const SAVING_STATUS = {
   UNSAVED: 'unsaved',
 };
 export const SAVE_STATUS = SAVING_STATUS;
+
+// --- Export Types ---
+export const EXPORT_TYPE = {
+  PDF: 'pdf',
+  DOCX: 'docx',
+  JSON: 'json',
+};
 
 // --- AI Providers & Models ---
 export const SUPPORTED_AI_PROVIDERS = [
