@@ -231,7 +231,7 @@ export function EducationForm() {
           startIcon={<AddIcon />}
           onClick={handleAddEducation}
         >
-          {t('form.addEducation')}
+          {t('common.add')}
         </Button>
       </Stack>
 

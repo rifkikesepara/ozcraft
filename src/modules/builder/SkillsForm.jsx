@@ -296,14 +296,8 @@ export function SkillsForm() {
             ? 'Teknik yetkinliklerinizi ve sosyal becerilerinizi net kategoriler altında düzenleyin. Kategorileri ve yetenekleri sürükleyerek sıralayabilirsiniz.'
             : 'Organize your technical competencies and soft skills into clear categories. Drag handles to reorder categories or chips.'}
         </Typography>
-        <Button
-          fullWidth
-          variant="outlined"
-          size="small"
-          startIcon={<AddIcon />}
-          onClick={handleAddCategory}
-        >
-          {t('form.addSkillCategory')}
+        <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAddCategory}>
+          {t('common.add')}
         </Button>
       </Stack>
 

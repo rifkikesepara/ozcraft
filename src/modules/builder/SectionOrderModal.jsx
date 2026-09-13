@@ -107,6 +107,7 @@ export function SectionOrderModal({ open, onClose }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
+          flexDirection: { md: 'row', xs: 'column' },
           gap: 1.5,
           borderBottom: '1px solid',
           borderColor: 'divider',
@@ -138,9 +139,12 @@ export function SectionOrderModal({ open, onClose }) {
       </DialogTitle>
 
       <DialogContent sx={{ py: 2.5, px: { xs: 2, sm: 3 } }}>
-        <Stack sx={{ gap: 2 }}>
+        <Stack sx={{ gap: 2, pt: 2.5 }}>
           {/* Active Sections Header */}
-          <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+          <Stack
+            direction={{ md: 'row', xs: 'column' }}
+            sx={{ alignItems: 'center', justifyContent: 'space-between' }}
+          >
             <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary' }}>
               {t('builder.visibleSections')} ({sectionOrder.length})
             </Typography>

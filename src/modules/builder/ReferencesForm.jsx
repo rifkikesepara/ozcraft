@@ -187,7 +187,7 @@ export function ReferencesForm() {
             : 'Add professional references who can vouch for your experience and work ethic. Drag handles to reorder.'}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
-          {t('form.addReference')}
+          {t('common.add')}
         </Button>
       </Stack>
 

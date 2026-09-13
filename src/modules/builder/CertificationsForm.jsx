@@ -176,7 +176,7 @@ export function CertificationsForm() {
             : 'Add verified licenses, industry badges, and professional credentials. Drag handles to reorder.'}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
-          {t('form.addCert')}
+          {t('common.add')}
         </Button>
       </Stack>
 

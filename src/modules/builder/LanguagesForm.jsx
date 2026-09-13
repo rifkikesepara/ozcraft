@@ -184,7 +184,7 @@ export function LanguagesForm() {
             : 'Add your spoken and written languages with fluency levels. Drag handles to reorder.'}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
-          {t('form.addLanguage')}
+          {t('common.add')}
         </Button>
       </Stack>
 
