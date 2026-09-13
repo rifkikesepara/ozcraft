@@ -68,8 +68,9 @@ export function AIProvider({ children }) {
    */
   const updateApiUrl = useCallback((url) => {
     setApiUrl(url);
-    setApiUrlState(url);
-    setClientBaseURL(url);
+    const resolvedUrl = getApiUrl();
+    setApiUrlState(resolvedUrl);
+    setClientBaseURL(resolvedUrl);
   }, []);
 
   /**
