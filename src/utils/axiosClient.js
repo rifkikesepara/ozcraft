@@ -51,11 +51,12 @@ axiosClient.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 403) {
         message = 'Invalid or expired API Key. Please check your Ollama credentials.';
-      } else if (error.response.data?.error) {
+      } else if (error.response.data?.error || error.response.data?.message) {
+        const rawErr = error.response.data.error || error.response.data.message;
         message =
-          typeof error.response.data.error === 'string'
-            ? error.response.data.error
-            : error.response.data.error.message || message;
+          typeof rawErr === 'string'
+            ? rawErr
+            : rawErr.message || message;
       } else {
         message = `Server responded with status ${error.response.status}`;
       }
