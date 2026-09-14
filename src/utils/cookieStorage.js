@@ -72,11 +72,16 @@ export function hasApiKey() {
  */
 export function getApiUrl() {
   const cookieUrl = Cookies.get(OLLAMA_URL_COOKIE) || Cookies.get(LEGACY_OLLAMA_URL_COOKIE);
-  const rawUrl = cookieUrl && cookieUrl.trim().length > 0
-    ? cookieUrl.trim()
-    : (import.meta.env.VITE_OLLAMA_API_URL || DEFAULT_OLLAMA_URL).trim();
+  const rawUrl =
+    cookieUrl && cookieUrl.trim().length > 0
+      ? cookieUrl.trim()
+      : (
+          import.meta.env.VITE_OLLAMA_API_URL ||
+          import.meta.env.VITE_BACKEND_URL ||
+          DEFAULT_OLLAMA_URL
+        ).trim();
 
-  if (rawUrl.includes('ollama.com')) {
+  if (rawUrl.includes('ollama.com') || rawUrl === '/api/ollama') {
     return PROXY_OLLAMA_URL;
   }
   return rawUrl;

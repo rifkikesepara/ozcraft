@@ -69,6 +69,7 @@ export function AIProvider({ children }) {
   const updateApiUrl = useCallback((url) => {
     setApiUrl(url);
     const resolvedUrl = getApiUrl();
+    console.log(resolvedUrl);
     setApiUrlState(resolvedUrl);
     setClientBaseURL(resolvedUrl);
   }, []);
@@ -84,7 +85,8 @@ export function AIProvider({ children }) {
       const isProxyBackend =
         apiUrl.startsWith('/api') ||
         apiUrl.includes('localhost') ||
-        apiUrl.includes('127.0.0.1');
+        apiUrl.includes('127.0.0.1') ||
+        apiUrl.includes('workers.dev');
 
       if (existingKey || isProxyBackend) {
         resolve(existingKey || '');
@@ -155,7 +157,8 @@ export function AIProvider({ children }) {
         const isProxyBackend =
           apiUrl.startsWith('/api') ||
           apiUrl.includes('localhost') ||
-          apiUrl.includes('127.0.0.1');
+          apiUrl.includes('127.0.0.1') ||
+          apiUrl.includes('workers.dev');
         const key = await ensureApiKey();
         if (!key && !isProxyBackend) {
           throw new Error('API key is required to use AI features.');
@@ -304,7 +307,8 @@ export function AIProvider({ children }) {
       hasApiKey() ||
       apiUrl.startsWith('/api') ||
       apiUrl.includes('localhost') ||
-      apiUrl.includes('127.0.0.1'),
+      apiUrl.includes('127.0.0.1') ||
+      apiUrl.includes('workers.dev'),
     cookieKey: getApiKey(),
     updateApiKey: handleSaveApiKey,
     ensureApiKey,

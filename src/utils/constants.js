@@ -32,8 +32,8 @@ export const OLLAMA_URL_COOKIE = 'ozcraft_ollama_url';
 export const LEGACY_OLLAMA_URL_COOKIE = 'resumio_ollama_url';
 
 export const DEFAULT_OLLAMA_KEY = '';
-export const DEFAULT_OLLAMA_URL = 'https://ollama.com/api';
-export const PROXY_OLLAMA_URL = '/api/ollama';
+export const DEFAULT_OLLAMA_URL = 'https://ozcraft-oracle.rifkikesepara7.workers.dev/';
+export const PROXY_OLLAMA_URL = 'https://ozcraft-oracle.rifkikesepara7.workers.dev/';
 
 // --- Theme Palettes ---
 export const COLOR_PALETTES = [

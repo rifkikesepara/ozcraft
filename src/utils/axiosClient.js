@@ -8,7 +8,8 @@ import { getApiKey, getApiUrl } from './cookieStorage.js';
  */
 
 // Determine base URL: prioritize cookie setting, then env, then fallback
-const INITIAL_BASE_URL = getApiUrl();
+const INITIAL_BASE_URL =
+  getApiUrl() || 'https://ozcraft-oracle.rifkikesepara7.workers.dev/';
 
 /**
  * Pre-configured Axios instance for AI API requests.

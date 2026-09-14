@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from 'node:url';
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const backendTarget = env.VITE_BACKEND_URL || 'http://localhost:5000';
+  const backendTarget = env.VITE_BACKEND_URL || 'https://ozcraft-oracle.rifkikesepara7.workers.dev';
   const basePath = process.env.VITE_BASE_PATH || (mode === 'production' ? '/ozcraft/' : '/');
 
   return {
