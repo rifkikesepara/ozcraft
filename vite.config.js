@@ -7,8 +7,10 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const backendTarget = env.VITE_BACKEND_URL || 'http://localhost:5000';
+  const basePath = process.env.VITE_BASE_PATH || (mode === 'production' ? '/resume-builder/' : '/');
 
   return {
+    base: basePath,
     plugins: [
       react(),
       eslint({
