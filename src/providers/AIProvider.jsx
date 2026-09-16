@@ -221,8 +221,13 @@ export function AIProvider({ children }) {
       });
 
       try {
+        const isProxyBackend =
+          apiUrl.startsWith('/api') ||
+          apiUrl.includes('localhost') ||
+          apiUrl.includes('127.0.0.1') ||
+          apiUrl.includes('workers.dev');
         const key = await ensureApiKey();
-        if (!key) {
+        if (!key && !isProxyBackend) {
           setEnhanceModalState((prev) => ({ ...prev, isOpen: false, isLoading: false }));
           return;
         }
