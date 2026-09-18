@@ -1,8 +1,8 @@
 import { Box, Container, Typography, Stack, Button } from '@mui/material';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import { useLocale } from '../../hooks/useLocale.js';
+import { Logo } from '../common/Logo.jsx';
 
 /**
  * @file Footer.jsx
@@ -33,11 +33,8 @@ export function Footer() {
           }}
         >
           <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
-            <AutoAwesomeIcon sx={{ fontSize: 16, color: 'primary.main' }} />
-            <Typography variant="body2" sx={{ fontWeight: 700 }}>
-              OzCraft
-            </Typography>
-            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+            <Logo sx={{ height: 38 }} />
+            <Typography variant="caption" sx={{ color: 'text.secondary', ml: 1 }}>
               {t('app.tagline')}
             </Typography>
           </Stack>

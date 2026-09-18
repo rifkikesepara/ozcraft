@@ -8,6 +8,7 @@ export { ConfirmDialog } from './common/ConfirmDialog.jsx';
 export { ImportJsonModal } from './common/ImportJsonModal.jsx';
 export { PageTransition } from './common/PageTransition.jsx';
 export { SaveStatusBadge } from './common/SaveStatusBadge.jsx';
+export { Logo } from './common/Logo.jsx';
 
 // Layout Components
 export { Footer } from './layout/Footer.jsx';

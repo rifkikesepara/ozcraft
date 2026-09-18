@@ -16,7 +16,6 @@ import {
   Switch,
   alpha,
 } from '@mui/material';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CloseIcon from '@mui/icons-material/Close';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -25,6 +24,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 import { useThemeMode, useLocale } from '../../hooks/index.js';
+import { Logo } from '../common/Logo.jsx';
 
 /**
  * @file MobileNavDrawer.jsx
@@ -75,25 +75,9 @@ export function MobileNavDrawer({ open, onClose, onOpenImport, navItems }) {
             navigate('/');
             onClose();
           }}
-          sx={{ alignItems: 'center', gap: 1.25, cursor: 'pointer' }}
+          sx={{ alignItems: 'center', cursor: 'pointer' }}
         >
-          <Stack
-            direction="row"
-            sx={{
-              width: 32,
-              height: 32,
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #4f46e5, #06b6d4)',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'common.white',
-            }}
-          >
-            <AutoAwesomeIcon sx={{ fontSize: 16, color: 'common.white' }} />
-          </Stack>
-          <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1.15rem' }}>
-            OzCraft
-          </Typography>
+          <Logo sx={{ height: 48 }} />
         </Stack>
         <IconButton
           size="small"
