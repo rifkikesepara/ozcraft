@@ -15,9 +15,9 @@ function LowPolyResume({ isDark }) {
     group.current.rotation.z = Math.sin(t / 4) / 6;
   });
 
-  const paperColor = isDark ? '#1a1a1a' : '#ffffff';
-  const lineColor = isDark ? '#333333' : '#e0e0e0';
-  const accentColor = isDark ? '#ffffff' : '#000000';
+  const paperColor = '#ffffff';
+  const lineColor = '#e0e0e0';
+  const accentColor = '#000000';
 
   return (
     <group ref={group} position={[0, 0, 0]}>
@@ -104,35 +104,28 @@ export function ResumeModel() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <Box sx={{ width: '100%', height: '100%', minHeight: isDesktop ? '600px' : '400px', cursor: 'default' }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: { md: '70%', xs: 200 },
+        minHeight: isDesktop ? 600 : 200,
+        cursor: 'default',
+      }}
+    >
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={isDark ? 0.4 : 0.8} />
-        <directionalLight 
-          position={[5, 5, 5]} 
-          intensity={isDark ? 1.5 : 1} 
-          castShadow 
-        />
-        <directionalLight 
-          position={[-5, -5, 2]} 
-          intensity={0.5} 
-        />
-        <Float
-          speed={2} 
-          rotationIntensity={0.5} 
-          floatIntensity={1}
-          floatingRange={[-0.1, 0.1]}
-        >
-          <group scale={isDesktop ? 1.15 : 1}>
-            <LowPolyResume isDark={isDark} />
-          </group>
+        <directionalLight position={[5, 5, 5]} intensity={isDark ? 1.5 : 1} castShadow />
+        <directionalLight position={[-5, -5, 2]} intensity={0.5} />
+        <Float speed={2} rotationIntensity={0.5} floatIntensity={1} floatingRange={[-0.1, 0.1]}>
+          <LowPolyResume isDark={isDark} />
         </Float>
         <Environment preset="city" />
-        <OrbitControls 
-          enableZoom={false} 
+        <OrbitControls
+          enableZoom={false}
           enablePan={false}
-          enableRotate={false} 
-          minPolarAngle={Math.PI / 3} 
-          maxPolarAngle={Math.PI / 1.5} 
+          enableRotate={false}
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 1.5}
           minAzimuthAngle={-Math.PI / 4}
           maxAzimuthAngle={Math.PI / 4}
         />
