@@ -1,19 +1,10 @@
-import {
-  Box,
-  Stack,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Chip,
-  Paper,
-} from '@mui/material';
+import { Box, Stack, Container, Typography, Button, Grid, Chip, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';
 
 import { useLocale, useResume } from '../hooks/index.js';
-import { PageTransition, Logo, ResumeModel } from '../components/index.js';
+import { PageTransition, ResumeModel } from '../components/index.js';
 import { getTemplateList } from '../modules/index.js';
 
 export function HomePage() {
@@ -79,9 +70,6 @@ export function HomePage() {
             <Grid container spacing={4}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
-                  <Box sx={{ mb: 4 }}>
-                    <Logo sx={{ height: { xs: 40, md: 50 } }} animate={false} />
-                  </Box>
                   <Typography
                     variant="h1"
                     sx={{
@@ -136,8 +124,19 @@ export function HomePage() {
                   </Stack>
                 </motion.div>
               </Grid>
-              <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <motion.div variants={itemVariants} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <Grid
+                size={{ xs: 12, md: 6 }}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <motion.div
+                  variants={itemVariants}
+                  style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                >
                   <ResumeModel />
                 </motion.div>
               </Grid>
@@ -172,7 +171,10 @@ export function HomePage() {
                     p: 4,
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 2, color: 'text.secondary' }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 600, mb: 2, color: 'text.secondary' }}
+                  >
                     {feat.number}
                   </Typography>
                   <Typography variant="h4" sx={{ fontSize: '1.5rem', mb: 2 }}>
@@ -196,9 +198,25 @@ export function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Box sx={{ mb: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 4 }}>
+              <Box
+                sx={{
+                  mb: 8,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end',
+                  flexWrap: 'wrap',
+                  gap: 4,
+                }}
+              >
                 <Box>
-                  <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, mb: 2, textTransform: 'uppercase' }}>
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      fontSize: { xs: '2.5rem', md: '3.5rem' },
+                      mb: 2,
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     {t('templates.galleryTitle')}
                   </Typography>
                   <Typography variant="body1" sx={{ fontSize: '1.25rem', maxWidth: 600 }}>
@@ -229,7 +247,8 @@ export function HomePage() {
                         overflow: 'hidden',
                         transition: 'background-color 0.2s ease',
                         '&:hover': {
-                          backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#111' : '#f5f5f5',
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === 'dark' ? '#111' : '#f5f5f5',
                         },
                       }}
                       onClick={() => {
@@ -251,12 +270,20 @@ export function HomePage() {
                         <Typography variant="h3" sx={{ fontSize: '2rem', mb: 2 }}>
                           {tpl.name}
                         </Typography>
-                        <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
+                        <Typography
+                          variant="body1"
+                          sx={{ color: 'text.secondary', fontSize: '1.1rem' }}
+                        >
                           {tpl.description}
                         </Typography>
                       </Box>
 
-                      <Stack direction="row" alignItems="center" spacing={1} sx={{ fontWeight: 600 }}>
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        spacing={1}
+                        sx={{ fontWeight: 600 }}
+                      >
                         <Typography variant="button">{t('templates.useTemplate')}</Typography>
                         <ArrowForwardIcon fontSize="small" />
                       </Stack>

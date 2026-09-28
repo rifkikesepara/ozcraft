@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, Environment, ContactShadows } from '@react-three/drei';
+import { OrbitControls, Float, Environment } from '@react-three/drei';
 import { useTheme } from '@mui/material/styles';
 
 function LowPolyResume({ isDark }) {
@@ -102,7 +102,7 @@ export function ResumeModel() {
   const isDark = theme.palette.mode === 'dark';
 
   return (
-    <div style={{ width: '100%', height: '400px', cursor: 'grab' }}>
+    <div style={{ width: '100%', height: '400px', cursor: 'default' }}>
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={isDark ? 0.4 : 0.8} />
         <directionalLight 
@@ -122,18 +122,11 @@ export function ResumeModel() {
         >
           <LowPolyResume isDark={isDark} />
         </Float>
-        <ContactShadows 
-          position={[0, -2.5, 0]} 
-          opacity={isDark ? 0.8 : 0.4} 
-          scale={10} 
-          blur={2} 
-          far={4} 
-          color={isDark ? '#000000' : '#000000'}
-        />
         <Environment preset="city" />
         <OrbitControls 
           enableZoom={false} 
-          enablePan={false} 
+          enablePan={false}
+          enableRotate={false} 
           minPolarAngle={Math.PI / 3} 
           maxPolarAngle={Math.PI / 1.5} 
           minAzimuthAngle={-Math.PI / 4}
