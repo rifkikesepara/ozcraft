@@ -57,9 +57,9 @@ export function Footer() {
               color="inherit"
               startIcon={<GitHubIcon sx={{ fontSize: '1.05rem !important' }} />}
               sx={{
-                borderRadius: 2,
+                borderRadius: 0,
                 fontSize: '0.78rem',
-                textTransform: 'none',
+                textTransform: 'uppercase',
                 fontWeight: 600,
                 borderColor: 'divider',
                 color: 'text.primary',
@@ -84,9 +84,9 @@ export function Footer() {
               color="inherit"
               startIcon={<FeedbackOutlinedIcon sx={{ fontSize: '1.05rem !important' }} />}
               sx={{
-                borderRadius: 2,
+                borderRadius: 0,
                 fontSize: '0.78rem',
-                textTransform: 'none',
+                textTransform: 'uppercase',
                 fontWeight: 600,
                 borderColor: 'divider',
                 color: 'text.primary',

@@ -58,9 +58,7 @@ export function Navbar() {
         position="sticky"
         elevation={0}
         sx={{
-          backgroundColor: (theme) =>
-            alpha(isDark ? theme.palette.background.paper : theme.palette.common.white, 0.92),
-          backdropFilter: 'blur(12px)',
+          backgroundColor: (theme) => isDark ? '#000000' : '#ffffff',
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
@@ -105,7 +103,8 @@ export function Navbar() {
                   fontSize: '0.88rem',
                   px: 1.75,
                   py: 0.75,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  textTransform: 'uppercase',
                   '&.active': {
                     color: 'primary.main',
                     backgroundColor: (theme) =>
@@ -135,11 +134,12 @@ export function Navbar() {
                 }
                 sx={{
                   display: { xs: 'none', md: 'inline-flex' },
-                  borderRadius: 2,
+                  borderRadius: 0,
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   color: 'text.primary',
                   borderColor: (theme) => alpha(theme.palette.divider, 0.8),
+                  textTransform: 'uppercase',
                 }}
               >
                 {t('nav.importJson')}
@@ -261,7 +261,7 @@ export function Navbar() {
                   isDark
                     ? alpha(theme.palette.common.white, 0.08)
                     : alpha(theme.palette.common.black, 0.05),
-                borderRadius: 2,
+                borderRadius: 0,
                 p: 0.75,
                 ml: 0.5,
                 '&:hover': {

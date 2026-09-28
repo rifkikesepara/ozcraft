@@ -5,29 +5,17 @@ import {
   Typography,
   Button,
   Grid,
-  Card,
-  CardContent,
   Chip,
   Paper,
-  alpha,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
-import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import { motion } from 'framer-motion';
 
 import { useLocale, useResume } from '../hooks/index.js';
 import { PageTransition, Logo } from '../components/index.js';
 import { getTemplateList } from '../modules/index.js';
 
-/**
- * @file HomePage.jsx
- * @description Modern minimalist landing page with hero banner, centered feature cards,
- * and centered template showcase cards.
- */
 export function HomePage() {
   const navigate = useNavigate();
   const { t } = useLocale();
@@ -37,280 +25,247 @@ export function HomePage() {
 
   const features = [
     {
-      icon: <StyleOutlinedIcon sx={{ fontSize: 28, color: 'primary.main' }} />,
       title: t('home.feature1Title'),
       desc: t('home.feature1Desc'),
+      number: '01',
     },
     {
-      icon: <AutoAwesomeIcon sx={{ fontSize: 28, color: 'primary.main' }} />,
       title: t('home.feature2Title'),
       desc: t('home.feature2Desc'),
+      number: '02',
     },
     {
-      icon: <PictureAsPdfOutlinedIcon sx={{ fontSize: 28, color: 'primary.main' }} />,
       title: t('home.feature3Title'),
       desc: t('home.feature3Desc'),
+      number: '03',
     },
     {
-      icon: <SecurityOutlinedIcon sx={{ fontSize: 28, color: 'primary.main' }} />,
       title: t('home.feature4Title'),
       desc: t('home.feature4Desc'),
+      number: '04',
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
     <PageTransition>
-      <Box
-        sx={{
-          background: (theme) =>
-            theme.palette.mode === 'dark'
-              ? `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.12)} 0%, transparent 60%)`
-              : `radial-gradient(circle at 50% 20%, ${alpha(theme.palette.primary.main, 0.08)} 0%, transparent 60%)`,
-        }}
-      >
+      <Box sx={{ width: '100%', overflowX: 'hidden' }}>
         {/* Hero Section */}
         <Box
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
           sx={{
-            py: { xs: 8, md: 13 },
-            textAlign: 'center',
-            position: 'relative',
+            pt: { xs: 8, md: 16 },
+            pb: { xs: 8, md: 12 },
+            px: { xs: 3, md: 6 },
+            borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
           }}
         >
-          <Container maxWidth="md">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Logo sx={{ height: { xs: 100, md: 150 }, mb: 4, mx: 'auto', display: 'block' }} animate />
-              <Chip
-                icon={<AutoAwesomeIcon sx={{ fontSize: { xs: '14px !important', sm: '15px !important' } }} />}
-                label={t('home.heroBadge')}
-                color="primary"
-                variant="outlined"
-                sx={{
-                  mb: 3,
-                  fontWeight: 600,
-                  fontSize: { xs: '0.75rem', sm: '0.82rem' },
-                  height: 'auto',
-                  py: { xs: 0.25, sm: 0.5 },
-                  borderRadius: 3,
-                  backgroundColor: (theme) =>
-                    alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.1 : 0.05),
-                  '& .MuiChip-label': {
-                    display: 'block',
-                    whiteSpace: 'normal',
-                    padding: { xs: '6px 10px', sm: '8px 12px' },
-                    lineHeight: 1.4,
-                  },
-                }}
-              />
-
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.2rem' },
-                  lineHeight: 1.15,
-                  fontWeight: 800,
-                  letterSpacing: '-0.03em',
-                  mb: 2.5,
-                }}
-              >
-                {t('home.heroTitle')}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: { xs: '1.05rem', sm: '1.25rem' },
-                  color: 'text.secondary',
-                  maxWidth: 680,
-                  mx: 'auto',
-                  mb: 4.5,
-                  lineHeight: 1.6,
-                }}
-              >
-                {t('home.heroSubtitle')}
-              </Typography>
-
-              <Stack direction="row" sx={{ justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
-                <Button
-                  component={motion.button}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  onClick={() => navigate('/editor')}
-                  endIcon={<ArrowForwardIcon />}
-                  sx={{
-                    px: 4,
-                    py: 1.5,
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    borderRadius: 3,
-                    boxShadow: (theme) => `0 8px 25px ${alpha(theme.palette.primary.main, 0.25)}`,
-                  }}
-                >
-                  {t('home.ctaStart')}
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  size="large"
-                  onClick={() => navigate('/templates')}
-                  sx={{
-                    px: 3.5,
-                    py: 1.5,
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    borderRadius: 3,
-                  }}
-                >
-                  {t('home.ctaTemplates')}
-                </Button>
-              </Stack>
-            </motion.div>
+          <Container maxWidth="lg" disableGutters>
+            <Grid container spacing={4}>
+              <Grid size={{ xs: 12, md: 8 }}>
+                <motion.div variants={itemVariants}>
+                  <Box sx={{ mb: 4 }}>
+                    <Logo sx={{ height: { xs: 40, md: 50 } }} animate={false} />
+                  </Box>
+                  <Typography
+                    variant="h1"
+                    sx={{
+                      fontSize: { xs: '3rem', sm: '4.5rem', md: '5.5rem' },
+                      lineHeight: 1,
+                      fontWeight: 700,
+                      letterSpacing: '-0.04em',
+                      mb: 4,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {t('home.heroTitle')}
+                  </Typography>
+                </motion.div>
+              </Grid>
+              <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <motion.div variants={itemVariants}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: '1.25rem',
+                      lineHeight: 1.5,
+                      mb: 4,
+                      fontWeight: 400,
+                    }}
+                  >
+                    {t('home.heroSubtitle')}
+                  </Typography>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      onClick={() => navigate('/editor')}
+                      sx={{
+                        py: 2,
+                        px: 4,
+                        fontSize: '1.1rem',
+                        flex: 1,
+                      }}
+                    >
+                      {t('home.ctaStart')}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      onClick={() => navigate('/templates')}
+                      sx={{
+                        py: 2,
+                        px: 4,
+                        fontSize: '1.1rem',
+                      }}
+                    >
+                      {t('home.ctaTemplates')}
+                    </Button>
+                  </Stack>
+                </motion.div>
+              </Grid>
+            </Grid>
           </Container>
         </Box>
 
-        {/* Features Grid */}
-        <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
-          <Grid container spacing={3} justifyContent="center">
-            {features.map((feat, idx) => (
-              <Grid
-                size={{ xs: 12, sm: 6, md: 3 }}
-                key={idx}
-                sx={{ display: 'flex', justifyContent: 'center' }}
-              >
-                <Card
+        {/* Features Section */}
+        <Box sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
+          <Container maxWidth="lg" disableGutters>
+            <Grid container>
+              {features.map((feat, idx) => (
+                <Grid
+                  size={{ xs: 12, sm: 6, md: 3 }}
+                  key={idx}
                   component={motion.div}
-                  whileHover={{ y: -6 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
                   sx={{
-                    height: '100%',
-                    width: '100%',
-                    maxWidth: 320,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    p: 1.5,
-                    backgroundColor: 'background.paper',
-                    borderRadius: 3,
+                    borderRight: (theme) => ({
+                      xs: 'none',
+                      sm: idx % 2 === 0 ? `1px solid ${theme.palette.divider}` : 'none',
+                      md: idx < 3 ? `1px solid ${theme.palette.divider}` : 'none',
+                    }),
+                    borderBottom: (theme) => ({
+                      xs: `1px solid ${theme.palette.divider}`,
+                      sm: idx < 2 ? `1px solid ${theme.palette.divider}` : 'none',
+                      md: 'none',
+                    }),
+                    p: 4,
                   }}
                 >
-                  <CardContent sx={{ flex: 1 }}>
-                    <Stack
-                      direction="row"
+                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 2, color: 'text.secondary' }}>
+                    {feat.number}
+                  </Typography>
+                  <Typography variant="h4" sx={{ fontSize: '1.5rem', mb: 2 }}>
+                    {feat.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                    {feat.desc}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+
+        {/* Template Showcase */}
+        <Box sx={{ py: 12, px: { xs: 3, md: 6 } }}>
+          <Container maxWidth="lg" disableGutters>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Box sx={{ mb: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 4 }}>
+                <Box>
+                  <Typography variant="h2" sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, mb: 2, textTransform: 'uppercase' }}>
+                    {t('templates.galleryTitle')}
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontSize: '1.25rem', maxWidth: 600 }}>
+                    {t('templates.gallerySubtitle')}
+                  </Typography>
+                </Box>
+              </Box>
+            </motion.div>
+
+            <Grid container spacing={4}>
+              {templates.map((tpl, i) => (
+                <Grid size={{ xs: 12, md: 6 }} key={tpl.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                  >
+                    <Paper
+                      variant="outlined"
                       sx={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: '12px',
-                        backgroundColor: (theme) =>
-                          alpha(
-                            theme.palette.primary.main,
-                            theme.palette.mode === 'dark' ? 0.15 : 0.08
-                          ),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        mb: 2,
+                        p: 4,
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        cursor: 'pointer',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'background-color 0.2s ease',
+                        '&:hover': {
+                          backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#111' : '#f5f5f5',
+                        },
+                      }}
+                      onClick={() => {
+                        setTemplateId(tpl.id);
+                        navigate('/editor');
                       }}
                     >
-                      {feat.icon}
-                    </Stack>
-                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.05rem', mb: 1 }}>
-                      {feat.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
-                      {feat.desc}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+                      <Box sx={{ flex: 1, mb: 4 }}>
+                        <Stack direction="row" sx={{ gap: 1, flexWrap: 'wrap', mb: 3 }}>
+                          {(tpl.tags || []).slice(0, 3).map((tag, i) => (
+                            <Chip
+                              key={i}
+                              label={tag}
+                              variant="outlined"
+                              sx={{ borderRadius: 0, fontWeight: 500 }}
+                            />
+                          ))}
+                        </Stack>
+                        <Typography variant="h3" sx={{ fontSize: '2rem', mb: 2 }}>
+                          {tpl.name}
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
+                          {tpl.description}
+                        </Typography>
+                      </Box>
 
-        {/* Template Showcase Strip */}
-        <Container maxWidth="lg" sx={{ pb: 12 }}>
-          <Box sx={{ textAlign: 'center', mb: 5 }}>
-            <Typography
-              variant="h3"
-              sx={{ fontSize: { xs: '1.75rem', md: '2.25rem' }, fontWeight: 800, mb: 1 }}
-            >
-              {t('templates.galleryTitle')}
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-              {t('templates.gallerySubtitle')}
-            </Typography>
-          </Box>
-
-          <Grid container spacing={3} justifyContent="center">
-            {templates.map((tpl) => (
-              <Grid
-                size={{ xs: 12, sm: 6, md: 3 }}
-                key={tpl.id}
-                sx={{ display: 'flex', justifyContent: 'center' }}
-              >
-                <Paper
-                  component={motion.div}
-                  whileHover={{ y: -6 }}
-                  variant="outlined"
-                  sx={{
-                    p: 2.5,
-                    borderRadius: 3,
-                    height: '100%',
-                    width: '100%',
-                    maxWidth: 320,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.2s ease',
-                    '&:hover': {
-                      borderColor: 'primary.main',
-                    },
-                  }}
-                  onClick={() => {
-                    setTemplateId(tpl.id);
-                    navigate('/editor');
-                  }}
-                >
-                  <Box>
-                    <Stack direction="row" sx={{ gap: 0.75, flexWrap: 'wrap', mb: 1.5 }}>
-                      {(tpl.tags || []).slice(0, 2).map((tag, i) => (
-                        <Chip
-                          key={i}
-                          label={tag}
-                          size="small"
-                          sx={{ fontSize: '0.7rem', height: 22 }}
-                        />
-                      ))}
-                    </Stack>
-                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.05rem', mb: 1 }}>
-                      {tpl.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: 'text.secondary', fontSize: '0.85rem', mb: 2 }}
-                    >
-                      {tpl.description}
-                    </Typography>
-                  </Box>
-
-                  <Button
-                    variant="text"
-                    color="primary"
-                    size="small"
-                    endIcon={<ArrowForwardIcon fontSize="small" />}
-                    sx={{ alignSelf: 'flex-start', fontWeight: 700 }}
-                  >
-                    {t('templates.useTemplate')}
-                  </Button>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+                      <Stack direction="row" alignItems="center" spacing={1} sx={{ fontWeight: 600 }}>
+                        <Typography variant="button">{t('templates.useTemplate')}</Typography>
+                        <ArrowForwardIcon fontSize="small" />
+                      </Stack>
+                    </Paper>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
       </Box>
     </PageTransition>
   );
