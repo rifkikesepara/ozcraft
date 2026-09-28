@@ -21,7 +21,7 @@ import { Reorder, useDragControls } from 'framer-motion';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
-import { useResume, useLocale, useAI } from '../../hooks/index.js';
+import { useResume, useLocale, useAI, useLocalReorder } from '../../hooks/index.js';
 import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 
@@ -33,7 +33,7 @@ import { AI_PROMPTS } from '../../utils/ai/index.js';
 function ExperienceItem({
   exp,
   expIndex,
-  locale,
+  locale: _locale,
   t,
   handleUpdateItem,
   handleRemoveItem,

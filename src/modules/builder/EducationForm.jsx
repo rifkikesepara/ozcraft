@@ -23,7 +23,8 @@ import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 /**
  * Individual reorderable Education card item.
  */
-function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveItem   handleDragEnd,
+function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveItem,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -190,7 +191,7 @@ export function EducationForm() {
   const {
     localItems: localEducation,
     handleReorder: handleReorderLocal,
-    handleDragEnd,
+  handleDragEnd,
   } = useLocalReorder(education, (newOrder) => updateSection('education', newOrder));
 
 

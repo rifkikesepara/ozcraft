@@ -20,7 +20,8 @@ import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 /**
  * Individual reorderable Certification card item.
  */
-function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -137,7 +138,7 @@ export function CertificationsForm() {
   const {
     localItems: localCertifications,
     handleReorder: handleReorderLocal,
-    handleDragEnd,
+  handleDragEnd,
   } = useLocalReorder(certifications, (newOrder) => updateSection('certifications', newOrder));
 
 

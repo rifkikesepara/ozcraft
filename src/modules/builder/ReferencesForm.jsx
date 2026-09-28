@@ -18,7 +18,8 @@ import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 /**
  * Individual reorderable Reference card item.
  */
-function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -141,7 +142,7 @@ export function ReferencesForm() {
   const {
     localItems: localReferences,
     handleReorder: handleReorderLocal,
-    handleDragEnd,
+  handleDragEnd,
   } = useLocalReorder(references, (newOrder) => updateSection('references', newOrder));
 
 

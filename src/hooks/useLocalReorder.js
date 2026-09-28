@@ -20,6 +20,7 @@ export function useLocalReorder(globalItems, onSave) {
 
   useEffect(() => {
     // Only sync from global if drag is not active to prevent jumping
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocalItems(globalItems || []);
   }, [globalItems]);
 

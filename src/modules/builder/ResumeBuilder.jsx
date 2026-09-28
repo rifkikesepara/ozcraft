@@ -46,7 +46,7 @@ import { SectionOrderModal } from './SectionOrderModal.jsx';
  */
 export function ResumeBuilder() {
   const { resumeData } = useResume();
-  const { locale, t } = useLocale();
+  const { locale: _locale, t } = useLocale();
   const [activeTab, setActiveTab] = useState(0);
   const [isReorderOpen, setIsReorderOpen] = useState(false);
 

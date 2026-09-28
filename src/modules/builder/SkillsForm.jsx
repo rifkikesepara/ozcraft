@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import {
-  Stack,
-  TextField,
-  Typography,
-  Button,
-  IconButton,
-  Chip,
-  Paper,
-} from '@mui/material';
+import { Stack, TextField, Typography, Button, IconButton, Chip, Paper } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume, useLocale, useAI, useThemeMode } from '../../hooks/index.js';
+import { useResume, useLocale, useAI, useThemeMode, useLocalReorder } from '../../hooks/index.js';
 import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 
@@ -35,7 +27,7 @@ function SkillCategoryItem({
 }) {
   const dragControls = useDragControls();
   const { isMobile } = useThemeMode();
-  const { t, locale } = useLocale();
+  const { t, locale: _locale } = useLocale();
 
   const {
     localItems: localChips,
@@ -129,7 +121,12 @@ function SkillCategoryItem({
               key={item + '-' + itemIdx}
               value={item}
               onDragEnd={handleDragEndChips}
-              whileDrag={{ scale: 1.08, zIndex: 999, borderRadius: '8px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
+              whileDrag={{
+                scale: 1.08,
+                zIndex: 999,
+                borderRadius: '8px',
+                boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)',
+              }}
               style={{ listStyle: 'none', cursor: 'grab', borderRadius: '8px' }}
             >
               <Chip
@@ -182,7 +179,7 @@ export function SkillsForm() {
   const [newSkillInput, setNewSkillInput] = useState({});
 
   const { resumeData, updateSection } = useResume();
-  const { t, locale } = useLocale();
+  const { t, locale: _locale } = useLocale();
   const { openEnhanceModal } = useAI();
 
   const skills = React.useMemo(() => {
@@ -263,7 +260,7 @@ export function SkillsForm() {
   const handleAISuggestSkills = (catIndex) => {
     openEnhanceModal({
       originalText: `Role: ${targetRole}`,
-      prompt: AI_PROMPTS.suggestSkills(targetRole, locale),
+      prompt: AI_PROMPTS.suggestSkills(targetRole, _locale),
       title: `${t('ai.suggestSkills')} (${targetRole})`,
       promptType: 'skills',
       metadata: { role: targetRole },

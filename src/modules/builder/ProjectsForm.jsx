@@ -21,7 +21,8 @@ import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 /**
  * Individual reorderable Project card item.
  */
-function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveItem   handleDragEnd,
+function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveItem,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -158,7 +159,7 @@ export function ProjectsForm() {
   const {
     localItems: localProjects,
     handleReorder: handleReorderLocal,
-    handleDragEnd,
+  handleDragEnd,
   } = useLocalReorder(projects, (newOrder) => updateSection('projects', newOrder));
 
 

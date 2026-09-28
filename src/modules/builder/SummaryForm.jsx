@@ -1,5 +1,5 @@
 import { Stack, TextField, Typography, Box } from '@mui/material';
-import { useResume, useLocale, useAI, useLocalReorder } from '../../hooks/index.js';
+import { useResume, useLocale, useAI } from '../../hooks/index.js';
 import { AIEnhanceButton } from '../../components/index.js';
 import { AI_PROMPTS } from '../../utils/ai/index.js';
 

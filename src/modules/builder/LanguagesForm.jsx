@@ -31,7 +31,8 @@ const PROFICIENCY_LEVELS = [
 /**
  * Individual reorderable Language card item.
  */
-function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -141,7 +142,7 @@ export function LanguagesForm() {
   const {
     localItems: localLanguages,
     handleReorder: handleReorderLocal,
-    handleDragEnd,
+  handleDragEnd,
   } = useLocalReorder(languages, (newOrder) => updateSection('languages', newOrder));
 
 
