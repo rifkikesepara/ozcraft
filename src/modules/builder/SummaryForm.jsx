@@ -40,7 +40,7 @@ export function SummaryForm() {
         {t('form.summaryDesc')}
       </Typography>
 
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', zIndex: 0 }}>
         <TextField
           fullWidth
           multiline

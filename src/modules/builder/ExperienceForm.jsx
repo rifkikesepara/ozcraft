@@ -50,7 +50,7 @@ function ExperienceItem({
       dragListener={false}
       dragControls={dragControls}
       whileDrag={{ scale: 1.02, zIndex: 999 }}
-      style={{ listStyle: 'none', position: 'relative' }}
+      style={{ listStyle: 'none', position: 'relative', zIndex: 0 }}
     >
       <Accordion
         defaultExpanded={expIndex === 0}

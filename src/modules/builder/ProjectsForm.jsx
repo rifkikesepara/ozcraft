@@ -30,7 +30,7 @@ function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveIte
       dragListener={false}
       dragControls={dragControls}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '14px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
-      style={{ listStyle: 'none', position: 'relative', borderRadius: '14px' }}
+      style={{ listStyle: 'none', position: 'relative', zIndex: 0, borderRadius: '14px' }}
     >
       <Accordion
         defaultExpanded={index === 0}

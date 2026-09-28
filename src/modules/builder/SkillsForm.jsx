@@ -47,7 +47,7 @@ function SkillCategoryItem({
         borderRadius: '16px',
         boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16), 0 4px 12px -2px rgba(0,0,0,0.08)',
       }}
-      style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
+      style={{ listStyle: 'none', position: 'relative', zIndex: 0, borderRadius: '16px' }}
     >
       <Paper
         variant="outlined"
