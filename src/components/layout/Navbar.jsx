@@ -13,7 +13,6 @@ import {
   alpha,
 } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
@@ -28,6 +27,7 @@ import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import { useThemeMode, useLocale } from '../../hooks/index.js';
 import { ImportJsonModal } from '../common/ImportJsonModal.jsx';
 import { MobileNavDrawer } from './MobileNavDrawer.jsx';
+import { Logo } from '../common/Logo.jsx';
 
 /**
  * @file Navbar.jsx
@@ -82,41 +82,11 @@ export function Navbar() {
             onClick={() => navigate('/')}
             sx={{
               alignItems: 'center',
-              gap: 1.25,
               cursor: 'pointer',
               userSelect: 'none',
             }}
           >
-            <Stack
-              direction="row"
-              sx={{
-                width: 34,
-                height: 34,
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #4f46e5, #06b6d4)',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'common.white',
-                boxShadow: (theme) => `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
-              }}
-            >
-              <AutoAwesomeIcon sx={{ fontSize: 18, color: 'common.white' }} />
-            </Stack>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 800,
-                fontSize: '1.25rem',
-                letterSpacing: '-0.02em',
-                background: isDark
-                  ? 'linear-gradient(135deg, #ffffff, #cbd5e1)'
-                  : 'linear-gradient(135deg, #0f172a, #334155)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              OzCraft
-            </Typography>
+            <Logo sx={{ height: 56 }} />
           </Stack>
 
           {/* Desktop Navigation Links */}

@@ -73,9 +73,18 @@ export class OllamaAdapter extends BaseAIAdapter {
       const response = await axiosClient.get('/tags', { timeout: 8000 });
       if (response.status >= 200 && response.status < 300) {
         const modelCount = response.data?.models?.length || 0;
+        let models = DEFAULT_OLLAMA_MODELS;
+        if (response.data && Array.isArray(response.data.models) && response.data.models.length > 0) {
+          models = response.data.models.map((m) => ({
+            id: m.name,
+            name: m.name,
+            size: m.size,
+          }));
+        }
         return {
           success: true,
           message: `Connected to Ollama Cloud successfully! (${modelCount} models detected)`,
+          models,
         };
       }
       return { success: false, message: 'Server returned non-200 status' };

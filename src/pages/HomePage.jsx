@@ -20,7 +20,7 @@ import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import { motion } from 'framer-motion';
 
 import { useLocale, useResume } from '../hooks/index.js';
-import { PageTransition } from '../components/index.js';
+import { PageTransition, Logo } from '../components/index.js';
 import { getTemplateList } from '../modules/index.js';
 
 /**
@@ -82,19 +82,27 @@ export function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
+              <Logo sx={{ height: { xs: 100, md: 150 }, mb: 4, mx: 'auto', display: 'block' }} animate />
               <Chip
-                icon={<AutoAwesomeIcon sx={{ fontSize: '15px !important' }} />}
+                icon={<AutoAwesomeIcon sx={{ fontSize: { xs: '14px !important', sm: '15px !important' } }} />}
                 label={t('home.heroBadge')}
                 color="primary"
                 variant="outlined"
                 sx={{
                   mb: 3,
                   fontWeight: 600,
-                  fontSize: '0.82rem',
-                  py: 0.5,
+                  fontSize: { xs: '0.75rem', sm: '0.82rem' },
+                  height: 'auto',
+                  py: { xs: 0.25, sm: 0.5 },
                   borderRadius: 3,
                   backgroundColor: (theme) =>
                     alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.1 : 0.05),
+                  '& .MuiChip-label': {
+                    display: 'block',
+                    whiteSpace: 'normal',
+                    padding: { xs: '6px 10px', sm: '8px 12px' },
+                    lineHeight: 1.4,
+                  },
                 }}
               />
 

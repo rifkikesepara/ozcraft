@@ -18,6 +18,8 @@ import {
   CircularProgress,
   alpha,
   Divider,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
@@ -28,6 +30,8 @@ import { useAI, useThemeMode, useResume, useLocale } from '../hooks/index.js';
 import { PageTransition, ConfirmDialog } from '../components/index.js';
 import { getAIAdapter } from '../utils/ai/index.js';
 import { getApiKey, getDisplayApiUrl } from '../utils/cookieStorage.js';
+import Cookies from 'js-cookie';
+import { PROXY_OLLAMA_URL, OLLAMA_URL_COOKIE, LEGACY_OLLAMA_URL_COOKIE, OLLAMA_KEY_COOKIE, LEGACY_OLLAMA_KEY_COOKIE } from '../utils/constants.js';
 
 /**
  * @file SettingsPage.jsx
@@ -39,6 +43,30 @@ export function SettingsPage() {
   const [endpointInput, setEndpointInput] = useState(() => getDisplayApiUrl());
   const [isTesting, setIsTesting] = useState(false);
   const [cookieKey, setCookieKey] = useState(() => getApiKey() || '');
+  
+  // Default to OzCraft Default Backend unless they explicitly have a custom setting saved in cookies
+  const [isCustomBackend, setIsCustomBackend] = useState(() => {
+    const hasCustomUrl = Cookies.get(OLLAMA_URL_COOKIE) || Cookies.get(LEGACY_OLLAMA_URL_COOKIE);
+    const hasCustomKey = Cookies.get(OLLAMA_KEY_COOKIE) || Cookies.get(LEGACY_OLLAMA_KEY_COOKIE);
+    return !!(hasCustomUrl || hasCustomKey);
+  });
+
+  const handleBackendModeChange = (event, newMode) => {
+    if (newMode !== null) {
+      const isCustom = newMode === 'custom';
+      setIsCustomBackend(isCustom);
+
+      if (!isCustom) {
+        setEndpointInput(PROXY_OLLAMA_URL);
+        updateApiUrl(''); // Clear cookie instead of explicitly setting default
+        if (cookieKey) {
+          clearApiKey();
+          setCookieKey('');
+        }
+      }
+    }
+  };
+
   const [confirmModal, setConfirmModal] = useState({
     open: false,
     title: '',
@@ -130,12 +158,9 @@ export function SettingsPage() {
       const res = await adapter.testConnection(cookieKey);
       if (res.success) {
         enqueueSnackbar(res.message || t('settings.testSuccess'), { variant: 'success' });
-        try {
-          const freshModels = await listModels();
-          if (Array.isArray(freshModels) && freshModels.length > 0) {
-            setAvailableModels(freshModels);
-          }
-        } catch {}
+        if (Array.isArray(res.models) && res.models.length > 0) {
+          setAvailableModels(res.models);
+        }
       } else {
         enqueueSnackbar(
           res.message ||
@@ -220,6 +245,28 @@ export function SettingsPage() {
             {t('settings.securityAlert')}
           </Alert>
 
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+              Backend Connection Type
+            </Typography>
+            <ToggleButtonGroup
+              value={isCustomBackend ? 'custom' : 'default'}
+              exclusive
+              onChange={handleBackendModeChange}
+              size="small"
+              fullWidth
+              sx={{
+                '& .MuiToggleButton-root': {
+                  textTransform: 'none',
+                  fontWeight: 600,
+                },
+              }}
+            >
+              <ToggleButton value="default">Use OzCraft Default Backend</ToggleButton>
+              <ToggleButton value="custom">Use Custom Endpoint & API Key</ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+
           <Grid container spacing={2.5}>
             <Grid size={{ xs: 12, sm: 6 }}>
               <FormControl fullWidth size="small">
@@ -261,81 +308,90 @@ export function SettingsPage() {
             </Grid>
 
             {/* Configurable Endpoint URL */}
-            <Grid size={12}>
-              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.75 }}>
-                {t('settings.apiUrl')}
-              </Typography>
-              <Stack direction={{ md: 'row', xs: 'column' }} spacing={1}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="https://ollama.com/api or http://localhost:11434"
-                  value={endpointInput}
-                  onChange={(e) => setEndpointInput(e.target.value)}
-                  helperText={!isMobile && t('settings.corsHelper')}
-                />
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={handleSaveEndpoint}
-                  disabled={!endpointInput.trim()}
-                  sx={{ height: 40, whiteSpace: 'nowrap' }}
-                >
-                  {t('settings.saveUrl')}
-                </Button>
-              </Stack>
-            </Grid>
+            {isCustomBackend && (
+              <>
+                <Grid size={12}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.75 }}>
+                    {t('settings.apiUrl')}
+                  </Typography>
+                  <Stack direction={{ md: 'row', xs: 'column' }} spacing={1}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      placeholder="https://ollama.com/api or http://localhost:11434"
+                      value={endpointInput}
+                      onChange={(e) => setEndpointInput(e.target.value)}
+                      helperText={!isMobile && t('settings.corsHelper')}
+                    />
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={handleSaveEndpoint}
+                      disabled={!endpointInput.trim()}
+                      sx={{ height: 40, whiteSpace: 'nowrap' }}
+                    >
+                      {t('settings.saveUrl')}
+                    </Button>
+                  </Stack>
+                </Grid>
 
-            {/* API Key */}
-            <Grid size={12}>
-              <Stack
-                direction={{ md: 'row', xs: 'column' }}
-                sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
-              >
-                <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  {t('settings.apiKey')}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: cookieKey || isKeyPresent ? 'success.main' : 'text.secondary',
-                    fontWeight: 600,
-                  }}
-                >
-                  {cookieKey || isKeyPresent
-                    ? t('settings.keyActive')
-                    : t('settings.keyNotConfigured')}
-                </Typography>
-              </Stack>
+                {/* API Key */}
+                <Grid size={12}>
+                  <Stack
+                    direction={{ md: 'row', xs: 'column' }}
+                    sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
+                  >
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                      {t('settings.apiKey')}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: cookieKey || isKeyPresent ? 'success.main' : 'text.secondary',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {cookieKey || isKeyPresent
+                        ? t('settings.keyActive')
+                        : t('settings.keyNotConfigured')}
+                    </Typography>
+                  </Stack>
 
-              <Stack direction={{ md: 'row', xs: 'column' }} sx={{ gap: 1 }}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  type="password"
-                  placeholder={
-                    cookieKey || isKeyPresent
-                      ? '••••••••••••••••••••'
-                      : t('settings.keyPlaceholder')
-                  }
-                  value={newKeyInput}
-                  onChange={(e) => setNewKeyInput(e.target.value)}
-                />
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={handleSaveKey}
-                  disabled={!newKeyInput.trim()}
-                >
-                  {t('settings.save')}
-                </Button>
-                {(cookieKey || isKeyPresent) && (
-                  <Button variant="outlined" color="error" size="small" onClick={handleClearKey}>
-                    {t('settings.clearKey')}
-                  </Button>
-                )}
-              </Stack>
-            </Grid>
+                  <Stack direction={{ md: 'row', xs: 'column' }} sx={{ gap: 1 }}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      type="password"
+                      placeholder={
+                        cookieKey || isKeyPresent
+                          ? '••••••••••••••••••••'
+                          : t('settings.keyPlaceholder')
+                      }
+                      value={newKeyInput}
+                      onChange={(e) => setNewKeyInput(e.target.value)}
+                    />
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={handleSaveKey}
+                      disabled={!newKeyInput.trim()}
+                    >
+                      {t('settings.save')}
+                    </Button>
+                    {(cookieKey || isKeyPresent) && (
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        size="small"
+                        onClick={handleClearKey}
+                      >
+                        {t('settings.clearKey')}
+                      </Button>
+                    )}
+                  </Stack>
+                </Grid>
+              </>
+            )}
             <Grid size={12}>
               <Divider />
             </Grid>

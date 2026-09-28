@@ -68,8 +68,10 @@ export function AIProvider({ children }) {
    */
   const updateApiUrl = useCallback((url) => {
     setApiUrl(url);
-    setApiUrlState(url);
-    setClientBaseURL(url);
+    const resolvedUrl = getApiUrl();
+    console.log(resolvedUrl);
+    setApiUrlState(resolvedUrl);
+    setClientBaseURL(resolvedUrl);
   }, []);
 
   /**
@@ -80,15 +82,21 @@ export function AIProvider({ children }) {
   const ensureApiKey = useCallback(() => {
     return new Promise((resolve) => {
       const existingKey = getApiKey();
-      if (existingKey) {
-        resolve(existingKey);
+      const isProxyBackend =
+        apiUrl.startsWith('/api') ||
+        apiUrl.includes('localhost') ||
+        apiUrl.includes('127.0.0.1') ||
+        apiUrl.includes('workers.dev');
+
+      if (existingKey || isProxyBackend) {
+        resolve(existingKey || '');
         return;
       }
       // Open modal and store resolver
       setKeyModalResolver(() => resolve);
       setIsKeyModalOpen(true);
     });
-  }, []);
+  }, [apiUrl]);
 
   /**
    * Called when user submits an API key from the modal.
@@ -146,8 +154,13 @@ export function AIProvider({ children }) {
     async (prompt, systemPrompt = '') => {
       const activeSystemPrompt = systemPrompt || getSystemPromptForLocale();
       try {
+        const isProxyBackend =
+          apiUrl.startsWith('/api') ||
+          apiUrl.includes('localhost') ||
+          apiUrl.includes('127.0.0.1') ||
+          apiUrl.includes('workers.dev');
         const key = await ensureApiKey();
-        if (!key) {
+        if (!key && !isProxyBackend) {
           throw new Error('API key is required to use AI features.');
         }
         return await activeAdapter.generateText({
@@ -172,7 +185,7 @@ export function AIProvider({ children }) {
         throw err;
       }
     },
-    [activeAdapter, model, ensureApiKey, getSystemPromptForLocale, locale]
+    [activeAdapter, model, ensureApiKey, getSystemPromptForLocale, locale, apiUrl]
   );
 
   /**
@@ -208,8 +221,13 @@ export function AIProvider({ children }) {
       });
 
       try {
+        const isProxyBackend =
+          apiUrl.startsWith('/api') ||
+          apiUrl.includes('localhost') ||
+          apiUrl.includes('127.0.0.1') ||
+          apiUrl.includes('workers.dev');
         const key = await ensureApiKey();
-        if (!key) {
+        if (!key && !isProxyBackend) {
           setEnhanceModalState((prev) => ({ ...prev, isOpen: false, isLoading: false }));
           return;
         }
@@ -290,7 +308,12 @@ export function AIProvider({ children }) {
     supportedProviders: SUPPORTED_AI_PROVIDERS,
     defaultModels: DEFAULT_OLLAMA_MODELS,
     listModels,
-    hasApiKey: hasApiKey(),
+    hasApiKey:
+      hasApiKey() ||
+      apiUrl.startsWith('/api') ||
+      apiUrl.includes('localhost') ||
+      apiUrl.includes('127.0.0.1') ||
+      apiUrl.includes('workers.dev'),
     cookieKey: getApiKey(),
     updateApiKey: handleSaveApiKey,
     ensureApiKey,

@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+dist
+.git
+.gitignore
+.temp-chrome-profile
+.vscode
+.env
+.env.local
+docs
+scripts
+README.md

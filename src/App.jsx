@@ -18,7 +18,7 @@ import { AppRoutes } from './routes/AppRoutes.jsx';
  */
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <LocaleProvider>
         <AppThemeProvider>
           <SnackbarProvider
