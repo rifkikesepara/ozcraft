@@ -78,12 +78,12 @@ function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove }) {
                 '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                 '&:active': { cursor: 'grabbing' },
               }}
-              title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+              title={t('builder.dragToReorderItem')}
             >
               <DragIndicatorIcon fontSize="small" />
             </Stack>
             <Typography sx={{ fontWeight: 600 }}>
-              {lang.language || `${locale === 'tr' ? 'Dil' : 'Language'} #${index + 1}`}
+              {lang.language || `${t('form.defaultLanguage')} #${index + 1}`}
             </Typography>
           </Stack>
           <IconButton size="small" color="error" onClick={() => handleRemove(index)}>
@@ -179,9 +179,7 @@ export function LanguagesForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Konuştuğunuz ve yazdığınız dilleri yetkinlik düzeyleriyle ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Add your spoken and written languages with fluency levels. Drag handles to reorder.'}
+          {t('form.languagesDesc')}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
           {t('common.add')}

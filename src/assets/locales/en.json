@@ -2,7 +2,6 @@
   "app.title": "OzCraft",
   "app.tagline": "Craft ATS-Friendly, Beautiful Resumes with AI",
   "app.subtitle": "Free, customizable, and exportable to PDF, Word, and JSON.",
-
   "nav.builder": "Builder",
   "nav.templates": "Templates",
   "nav.settings": "Settings",
@@ -11,13 +10,11 @@
   "nav.theme": "Theme",
   "nav.language": "Language",
   "nav.aiStatus": "AI Ready",
-
   "status.saved": "Saved locally",
   "status.saved.short": "Saved",
   "status.saving": "Saving...",
   "status.unsaved": "Unsaved changes",
   "status.forceSave": "Click to force immediate save to browser storage",
-
   "home.heroTitle": "Build a Job-Winning Resume in Minutes",
   "home.heroSubtitle": "Free professional CV builder with modern templates, AI enhancement powered by Ollama, and one-click PDF & DOCX export.",
   "home.ctaStart": "Start Building Now — Free",
@@ -30,7 +27,6 @@
   "home.feature3Desc": "Download pixel-perfect PDF, native Microsoft Word (.docx), or backup JSON.",
   "home.feature4Title": "Private & Secure",
   "home.feature4Desc": "Data stays in your browser storage. Your API keys are kept safely in secure cookies.",
-
   "builder.sections": "Resume Sections",
   "builder.personal": "Personal Information",
   "builder.personalInfo": "Personal Information",
@@ -54,7 +50,6 @@
   "builder.hidden": "Hidden",
   "builder.visible": "Visible",
   "builder.atLeastOneSection": "At least one section must remain visible",
-
   "form.fullName": "Full Name",
   "form.jobTitle": "Target Job Title",
   "form.email": "Email Address",
@@ -72,7 +67,6 @@
   "form.shapeSquare": "Square",
   "form.summaryDesc": "Craft a concise 3-4 sentence overview of your background, core strengths, and value proposition.",
   "form.summaryPlaceholder": "e.g. Results-driven Senior Software Engineer with 7+ years of expertise designing scalable microservices and leading high-performing teams...",
-
   "form.company": "Company Name",
   "form.position": "Position / Role",
   "form.startDate": "Start Date",
@@ -83,40 +77,34 @@
   "form.highlights": "Key Achievements & Responsibilities",
   "form.addHighlight": "Add Bullet Point",
   "form.addExperience": "Add Work Experience",
-
   "form.institution": "School / University",
   "form.degree": "Degree / Major",
   "form.field": "Field of Study",
   "form.gpa": "GPA / Grade (Optional)",
   "form.addEducation": "Add Education",
-
   "form.skillCategory": "Category (e.g. Frontend, DevOps)",
   "form.skillItems": "Skills (press Enter to add)",
   "form.addSkillCategory": "Add Skill Category",
-
   "form.projectName": "Project Title",
   "form.projectDesc": "Short Overview",
   "form.projectLink": "Project URL / Repository",
   "form.technologies": "Technologies Used",
   "form.addProject": "Add Project",
-
   "form.certName": "Certification Name",
   "form.issuer": "Issuing Organization",
   "form.issueDate": "Issue Date",
   "form.certUrl": "Credential URL",
   "form.addCert": "Add Certification",
-
   "form.language": "Language",
   "form.proficiency": "Proficiency Level",
   "form.addLanguage": "Add Language",
-
+  "form.languagesDesc": "Add your spoken and written languages with fluency levels. Drag handles to reorder.",
   "form.referenceName": "Full Name",
   "form.referenceCompany": "Company / Organization",
   "form.referencePosition": "Position / Title",
   "form.referenceEmail": "Email Address",
   "form.referencePhone": "Phone Number",
   "form.addReference": "Add Reference",
-
   "preview.title": "Live Preview",
   "preview.zoom": "Zoom",
   "preview.zoomIn": "Zoom In",
@@ -128,20 +116,17 @@
   "preview.pages": "Pages",
   "preview.pageBreak": "A4 Page Break",
   "preview.pageGuide": "A4 Print Layout",
-
   "export.pdf": "Export PDF",
   "export.word": "Export Word (.docx)",
   "export.json": "Export JSON Backup",
   "export.generating": "Generating your document...",
   "export.success": "Downloaded successfully!",
-
   "import.title": "Import Resume JSON",
   "import.desc": "Upload a previously exported OzCraft JSON file to restore all fields.",
   "import.dragDrop": "Drag & drop your JSON file here or click to browse",
   "import.button": "Import & Load",
   "import.success": "Resume data imported successfully!",
   "import.error": "Invalid resume JSON format.",
-
   "ai.button": "AI Enhance",
   "ai.generateSummary": "Generate Summary with AI",
   "ai.suggestSkills": "Suggest Skills with AI",
@@ -163,7 +148,6 @@
   "ai.regenerate": "Regenerate",
   "ai.targetLanguage": "Output Language",
   "ai.fallbackBadge": "Built-in AI Fallback",
-
   "templates.galleryTitle": "Professional Resume Templates",
   "templates.gallerySubtitle": "Clean, modern, and proven layouts ready for any career stage.",
   "templates.useTemplate": "Use This Template",
@@ -188,7 +172,6 @@
   "templates.tags.highDensity": "High Density",
   "templates.tags.onePage": "1-Page",
   "templates.tags.academicNewGrad": "Academic & New Grad",
-
   "settings.title": "Application Settings",
   "settings.aiConfig": "AI & Ollama Configuration",
   "settings.provider": "AI Provider",
@@ -248,5 +231,26 @@
   "ai.tryAnother": "Try Another",
   "ai.acceptInsert": "Accept & Insert",
   "common.save": "Save",
-  "common.close": "Close"
+  "common.close": "Close",
+  "builder.dragToReorderItem": "Drag to reorder",
+  "builder.dragCategory": "Drag category to reorder",
+  "builder.prevSection": "Previous Section",
+  "builder.nextSection": "Next Section",
+  "form.defaultRole": "Role",
+  "form.defaultProject": "Project",
+  "form.defaultReference": "Reference",
+  "form.defaultEducation": "Degree",
+  "form.defaultCert": "Certification",
+  "form.defaultLanguage": "Language",
+  "form.defaultJobTitle": "Software Engineer",
+  "form.highlightsLabel": "Key Responsibilities & Achievements",
+  "form.highlightPlaceholder": "• Spearheaded design system migration cutting build times by 40%...",
+  "ai.starMethod": "Method",
+  "form.experienceDesc": "Highlight your career progression, quantifiable achievements, and leadership impact. Drag handles to reorder.",
+  "form.educationDesc": "Add your degrees, certifications, and academic background. Drag handles to reorder.",
+  "form.certificationsDesc": "Add verified licenses, industry badges, and professional credentials. Drag handles to reorder.",
+  "form.projectsDesc": "Feature your top engineering or design projects, apps, and open-source packages. Drag handles to reorder.",
+  "form.referencesDesc": "Add professional references who can vouch for your experience and work ethic. Drag handles to reorder.",
+  "form.skillsDesc": "Organize your technical competencies and soft skills into clear categories. Drag handles to reorder categories or chips.",
+  "form.skillCategoryPlaceholder": "Category Name (e.g. Core Languages, Cloud & DevOps)"
 }

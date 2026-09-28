@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { IntlProvider } from 'react-intl';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/tr';
+import 'dayjs/locale/en';
 import enMessages from '../assets/locales/en.json';
 import trMessages from '../assets/locales/tr.json';
 import { LOCALE_STORAGE_KEY, LEGACY_LOCALE_STORAGE_KEY } from '../utils/constants.js';
@@ -93,7 +97,9 @@ export function LocaleProvider({ children }) {
   return (
     <LocaleContext.Provider value={contextValue}>
       <IntlProvider locale={locale} messages={activeMessages} defaultLocale="en">
-        {children}
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+          {children}
+        </LocalizationProvider>
       </IntlProvider>
     </LocaleContext.Provider>
   );

@@ -6,6 +6,7 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useLocale } from '../../hooks/index.js';
+import { formatDisplayDate } from '../../utils/dateFormatter.js';
 
 /**
  * @file ExecutiveTemplate.jsx
@@ -48,13 +49,13 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
   };
 
   const formatExpDate = (exp) => {
-    const isPresent =
-      Boolean(exp.current) || (exp.endDate && exp.endDate.trim().toLowerCase() === 'present');
-    const endText = isPresent ? t('common.present') : exp.endDate || '';
-    if (!exp.startDate && !endText) return '';
-    if (!exp.startDate) return endText;
-    if (!endText) return exp.startDate;
-    return `${exp.startDate} – ${endText}`;
+    const isPresent = Boolean(exp.current) || (exp.endDate && exp.endDate.trim().toLowerCase() === 'present');
+    const endText = isPresent ? t('common.present') : formatDisplayDate(exp.endDate, locale) || '';
+    const startText = formatDisplayDate(exp.startDate, locale) || '';
+    if (!startText && !endText) return '';
+    if (!startText) return endText;
+    if (!endText) return startText;
+    return `${startText} – ${endText}`;
   };
 
   const sectionRenderers = {
@@ -233,7 +234,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
               <Typography
                 sx={{ fontFamily: '"Inter", sans-serif', fontSize: '0.8rem', color: '#64748b' }}
               >
-                {edu.startDate} – {edu.endDate}
+                {formatDisplayDate(edu.startDate, locale)} – {formatDisplayDate(edu.endDate, locale)}
               </Typography>
             </Stack>
           ))}
@@ -307,7 +308,7 @@ export function ExecutiveTemplate({ data, themeColor = '#0f172a' }) {
               }}
             >
               • <strong>{c.name}</strong> {c.issuer ? `(${c.issuer})` : ''}{' '}
-              {c.date ? `— ${c.date}` : ''}
+              {c.date ? `— ${formatDisplayDate(c.date, locale)}` : ''}
             </Typography>
           ))}
         </Box>

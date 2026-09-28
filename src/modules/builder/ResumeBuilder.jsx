@@ -210,7 +210,7 @@ export function ResumeBuilder() {
         </FormControl>
 
         {/* Previous Section Button */}
-        <Tooltip title={locale === 'tr' ? 'Önceki Bölüm' : 'Previous Section'} arrow>
+        <Tooltip title={t('builder.prevSection')} arrow>
           <IconButton
             size="small"
             disabled={activeTab === 0}
@@ -231,7 +231,7 @@ export function ResumeBuilder() {
         </Tooltip>
 
         {/* Next Section Button */}
-        <Tooltip title={locale === 'tr' ? 'Sonraki Bölüm' : 'Next Section'} arrow>
+        <Tooltip title={t('builder.nextSection')} arrow>
           <IconButton
             size="small"
             disabled={activeTab === tabs.length - 1}

@@ -18,6 +18,8 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 import { useResume, useLocale, useAI } from '../../hooks/index.js';
 import { AIEnhanceButton } from '../../components/index.js';
@@ -82,14 +84,14 @@ function ExperienceItem({
                   '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                   '&:active': { cursor: 'grabbing' },
                 }}
-                title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+                title={t('builder.dragToReorderItem')}
               >
                 <DragIndicatorIcon fontSize="small" />
               </Stack>
               <Typography sx={{ fontWeight: 600 }}>
                 {exp.position || exp.company
                   ? `${exp.position || 'Position'} ${exp.company ? `@ ${exp.company}` : ''}`
-                  : `${locale === 'tr' ? 'Pozisyon' : 'Role'} #${expIndex + 1}`}
+                  : `${t('form.defaultRole')} #${expIndex + 1}`}
               </Typography>
             </Stack>
             <IconButton
@@ -132,22 +134,24 @@ function ExperienceItem({
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <TextField
-                fullWidth
+              <DatePicker
                 label={t('form.startDate')}
-                placeholder="YYYY-MM"
-                value={exp.startDate || ''}
-                onChange={(e) => handleUpdateItem(expIndex, 'startDate', e.target.value)}
+                views={['year', 'month']}
+                format="MMM YYYY"
+                value={exp.startDate ? dayjs(exp.startDate) : null}
+                onChange={(newValue) => handleUpdateItem(expIndex, 'startDate', newValue ? newValue.format('YYYY-MM') : '')}
+                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <TextField
-                fullWidth
+              <DatePicker
                 label={t('form.endDate')}
-                placeholder={exp.current ? t('common.present') : 'YYYY-MM'}
+                views={['year', 'month']}
+                format="MMM YYYY"
                 disabled={Boolean(exp.current)}
-                value={exp.endDate || ''}
-                onChange={(e) => handleUpdateItem(expIndex, 'endDate', e.target.value)}
+                value={exp.endDate && !exp.current ? dayjs(exp.endDate) : null}
+                onChange={(newValue) => handleUpdateItem(expIndex, 'endDate', newValue ? newValue.format('YYYY-MM') : '')}
+                slotProps={{ textField: { fullWidth: true, placeholder: exp.current ? t('common.present') : 'YYYY-MM', size: 'small' } }}
               />
             </Grid>
             <Grid size={12}>
@@ -169,9 +173,7 @@ function ExperienceItem({
               variant="caption"
               sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase' }}
             >
-              {locale === 'tr'
-                ? 'Önemli Sorumluluklar ve Başarılar'
-                : 'Key Responsibilities & Achievements'}
+              {t('form.highlightsLabel')}
             </Typography>
 
             <Stack sx={{ gap: 1.5, mt: 1.5 }}>
@@ -182,9 +184,7 @@ function ExperienceItem({
                     multiline
                     rows={2}
                     placeholder={
-                      locale === 'tr'
-                        ? '• Tasarım sistemi dönüşümüne öncülük ederek derleme sürelerini %40 kısalttı...'
-                        : '• Spearheaded design system migration cutting build times by 40%...'
+                      t('form.highlightPlaceholder')
                     }
                     value={hl}
                     onChange={(e) => handleUpdateHighlight(expIndex, hlIndex, e.target.value)}
@@ -307,7 +307,7 @@ export function ExperienceForm() {
     openEnhanceModal({
       originalText,
       prompt: AI_PROMPTS.enhanceBullet(originalText, 'action', locale),
-      title: `${t('ai.button')} (STAR ${locale === 'tr' ? 'Yöntemi' : 'Method'})`,
+      title: `${t('ai.button')} (STAR ${t('ai.starMethod')})`,
       promptType: 'bullet',
       metadata: { originalText },
       onApply: (enhancedText) => {
@@ -323,9 +323,7 @@ export function ExperienceForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Kariyer gelişiminizi, ölçülebilir başarılarınızı ve liderlik etkinizi vurgulayın. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Highlight your career progression, quantifiable achievements, and leadership impact. Drag handles to reorder.'}
+          {t('form.experienceDesc')}
         </Typography>
         <Button
           variant="outlined"
