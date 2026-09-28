@@ -15,12 +15,13 @@ import { Reorder, useDragControls } from 'framer-motion';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
-import { useResume, useLocale } from '../../hooks/index.js';
+import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 
 /**
  * Individual reorderable Certification card item.
  */
-function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove }) {
+function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+}) {
   const dragControls = useDragControls();
 
   return (
@@ -28,6 +29,7 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
       value={cert}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '16px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
@@ -47,10 +49,7 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
             <Stack
               component="span"
               direction="row"
-              onPointerDown={(e) => {
-                e.stopPropagation();
-                dragControls.start(e);
-              }}
+              onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); dragControls.start(e); }} onClick={(e) => e.stopPropagation()}
               sx={{
                 cursor: 'grab',
                 color: 'text.secondary',
@@ -135,9 +134,14 @@ export function CertificationsForm() {
     });
   }, [resumeData?.certifications]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('certifications', newOrder);
-  };
+  const {
+    localItems: localCertifications,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(certifications, (newOrder) => updateSection('certifications', newOrder));
+
+
+  
 
   const handleAdd = () => {
     const newItem = {
@@ -178,8 +182,8 @@ export function CertificationsForm() {
 
       <Reorder.Group
         axis="y"
-        values={certifications}
-        onReorder={handleReorder}
+        values={localCertifications}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -189,7 +193,7 @@ export function CertificationsForm() {
           gap: '16px',
         }}
       >
-        {certifications.map((cert, index) => (
+        {localCertifications.map((cert, index) => (
           <CertificationItem
             key={cert.id || index}
             cert={cert}

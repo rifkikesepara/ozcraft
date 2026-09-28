@@ -16,12 +16,13 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume, useLocale } from '../../hooks/index.js';
+import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 
 /**
  * Individual reorderable Project card item.
  */
-function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveItem }) {
+function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveItem   handleDragEnd,
+}) {
   const dragControls = useDragControls();
 
   return (
@@ -29,6 +30,7 @@ function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveIte
       value={proj}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '14px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '14px' }}
     >
@@ -52,10 +54,7 @@ function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveIte
               <Stack
                 component="span"
                 direction="row"
-                onPointerDown={(e) => {
-                  e.stopPropagation();
-                  dragControls.start(e);
-                }}
+                onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); dragControls.start(e); }} onClick={(e) => e.stopPropagation()}
                 sx={{
                   cursor: 'grab',
                   color: 'text.secondary',
@@ -156,9 +155,14 @@ export function ProjectsForm() {
     });
   }, [resumeData?.projects]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('projects', newOrder);
-  };
+  const {
+    localItems: localProjects,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(projects, (newOrder) => updateSection('projects', newOrder));
+
+
+  
 
   const handleAddProject = () => {
     const newItem = {
@@ -199,8 +203,8 @@ export function ProjectsForm() {
 
       <Reorder.Group
         axis="y"
-        values={projects}
-        onReorder={handleReorder}
+        values={localProjects}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -210,7 +214,7 @@ export function ProjectsForm() {
           gap: '16px',
         }}
       >
-        {projects.map((proj, index) => (
+        {localProjects.map((proj, index) => (
           <ProjectItem
             key={proj.id || index}
             proj={proj}
@@ -219,6 +223,7 @@ export function ProjectsForm() {
             t={t}
             handleUpdateItem={handleUpdateItem}
             handleRemoveItem={handleRemoveItem}
+            handleDragEnd={handleDragEnd}
           />
         ))}
       </Reorder.Group>

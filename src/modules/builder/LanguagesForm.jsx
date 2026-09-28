@@ -14,7 +14,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume, useLocale } from '../../hooks/index.js';
+import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 
 const PROFICIENCY_LEVELS = [
   { value: 'native', labelTr: 'Ana Dil', labelEn: 'Native / Bilingual' },
@@ -31,7 +31,8 @@ const PROFICIENCY_LEVELS = [
 /**
  * Individual reorderable Language card item.
  */
-function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove }) {
+function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+}) {
   const dragControls = useDragControls();
 
   return (
@@ -39,6 +40,7 @@ function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove }) {
       value={lang}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '16px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
@@ -58,10 +60,7 @@ function LanguageItem({ lang, index, locale, t, handleUpdate, handleRemove }) {
             <Stack
               component="span"
               direction="row"
-              onPointerDown={(e) => {
-                e.stopPropagation();
-                dragControls.start(e);
-              }}
+              onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); dragControls.start(e); }} onClick={(e) => e.stopPropagation()}
               sx={{
                 cursor: 'grab',
                 color: 'text.secondary',
@@ -139,9 +138,14 @@ export function LanguagesForm() {
     });
   }, [resumeData?.languages]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('languages', newOrder);
-  };
+  const {
+    localItems: localLanguages,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(languages, (newOrder) => updateSection('languages', newOrder));
+
+
+  
 
   const handleAdd = () => {
     const newItem = {
@@ -180,8 +184,8 @@ export function LanguagesForm() {
 
       <Reorder.Group
         axis="y"
-        values={languages}
-        onReorder={handleReorder}
+        values={localLanguages}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -191,7 +195,7 @@ export function LanguagesForm() {
           gap: '16px',
         }}
       >
-        {languages.map((lang, index) => (
+        {localLanguages.map((lang, index) => (
           <LanguageItem
             key={lang.id || index}
             lang={lang}

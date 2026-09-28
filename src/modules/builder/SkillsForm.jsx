@@ -31,16 +31,24 @@ function SkillCategoryItem({
   newSkillInput,
   setNewSkillInput,
   handleAddSkillItem,
+  handleDragEndCategories,
 }) {
   const dragControls = useDragControls();
   const { isMobile } = useThemeMode();
   const { t, locale } = useLocale();
+
+  const {
+    localItems: localChips,
+    handleReorder: handleReorderChipsLocal,
+    handleDragEnd: handleDragEndChips,
+  } = useLocalReorder(cat.items || [], (newItems) => handleReorderChips(catIndex, newItems));
 
   return (
     <Reorder.Item
       value={cat}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEndCategories}
       whileDrag={{
         scale: 1.015,
         zIndex: 999,
@@ -65,9 +73,11 @@ function SkillCategoryItem({
             component="span"
             direction="row"
             onPointerDown={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               dragControls.start(e);
             }}
+            onClick={(e) => e.stopPropagation()}
             sx={{
               cursor: 'grab',
               color: 'text.secondary',
@@ -101,8 +111,8 @@ function SkillCategoryItem({
         {/* Reorderable Chips List */}
         <Reorder.Group
           axis="x"
-          values={cat.items || []}
-          onReorder={(newItems) => handleReorderChips(catIndex, newItems)}
+          values={localChips}
+          onReorder={handleReorderChipsLocal}
           style={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -118,6 +128,7 @@ function SkillCategoryItem({
             <Reorder.Item
               key={item + '-' + itemIdx}
               value={item}
+              onDragEnd={handleDragEndChips}
               whileDrag={{ scale: 1.08, zIndex: 999, borderRadius: '8px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
               style={{ listStyle: 'none', cursor: 'grab', borderRadius: '8px' }}
             >
@@ -184,9 +195,11 @@ export function SkillsForm() {
 
   const targetRole = resumeData?.personalInfo?.jobTitle || t('form.defaultJobTitle');
 
-  const handleReorderCategories = (newOrder) => {
-    updateSection('skills', newOrder);
-  };
+  const {
+    localItems: localSkills,
+    handleReorder: handleReorderCategories,
+    handleDragEnd: handleDragEndCategories,
+  } = useLocalReorder(skills, (newOrder) => updateSection('skills', newOrder));
 
   const handleReorderChips = (catIndex, newItems) => {
     updateSection('skills', (prev) => {
@@ -287,7 +300,7 @@ export function SkillsForm() {
 
       <Reorder.Group
         axis="y"
-        values={skills}
+        values={localSkills}
         onReorder={handleReorderCategories}
         style={{
           listStyle: 'none',
@@ -298,7 +311,7 @@ export function SkillsForm() {
           gap: '20px',
         }}
       >
-        {skills.map((cat, catIndex) => (
+        {localSkills.map((cat, catIndex) => (
           <SkillCategoryItem
             key={cat.id || catIndex}
             cat={cat}
@@ -311,6 +324,7 @@ export function SkillsForm() {
             newSkillInput={newSkillInput}
             setNewSkillInput={setNewSkillInput}
             handleAddSkillItem={handleAddSkillItem}
+            handleDragEndCategories={handleDragEndCategories}
           />
         ))}
       </Reorder.Group>

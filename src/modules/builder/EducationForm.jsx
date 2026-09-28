@@ -18,12 +18,13 @@ import { Reorder, useDragControls } from 'framer-motion';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
-import { useResume, useLocale } from '../../hooks/index.js';
+import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 
 /**
  * Individual reorderable Education card item.
  */
-function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveItem }) {
+function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveItem   handleDragEnd,
+}) {
   const dragControls = useDragControls();
 
   return (
@@ -31,6 +32,7 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
       value={edu}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '14px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '14px' }}
     >
@@ -54,10 +56,7 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
               <Stack
                 component="span"
                 direction="row"
-                onPointerDown={(e) => {
-                  e.stopPropagation();
-                  dragControls.start(e);
-                }}
+                onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); dragControls.start(e); }} onClick={(e) => e.stopPropagation()}
                 sx={{
                   cursor: 'grab',
                   color: 'text.secondary',
@@ -188,9 +187,14 @@ export function EducationForm() {
     });
   }, [resumeData?.education]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('education', newOrder);
-  };
+  const {
+    localItems: localEducation,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(education, (newOrder) => updateSection('education', newOrder));
+
+
+  
 
   const handleAddEducation = () => {
     const newItem = {
@@ -239,8 +243,8 @@ export function EducationForm() {
 
       <Reorder.Group
         axis="y"
-        values={education}
-        onReorder={handleReorder}
+        values={localEducation}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -250,7 +254,7 @@ export function EducationForm() {
           gap: '16px',
         }}
       >
-        {education.map((edu, index) => (
+        {localEducation.map((edu, index) => (
           <EducationItem
             key={edu.id || index}
             edu={edu}
@@ -259,6 +263,7 @@ export function EducationForm() {
             t={t}
             handleUpdateItem={handleUpdateItem}
             handleRemoveItem={handleRemoveItem}
+            handleDragEnd={handleDragEnd}
           />
         ))}
       </Reorder.Group>

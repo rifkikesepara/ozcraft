@@ -13,12 +13,13 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
 
-import { useResume, useLocale } from '../../hooks/index.js';
+import { useResume, useLocale, useLocalReorder } from '../../hooks/index.js';
 
 /**
  * Individual reorderable Reference card item.
  */
-function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove }) {
+function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove   handleDragEnd,
+}) {
   const dragControls = useDragControls();
 
   return (
@@ -26,6 +27,7 @@ function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove }) {
       value={item}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '16px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
@@ -45,10 +47,7 @@ function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove }) {
             <Stack
               component="span"
               direction="row"
-              onPointerDown={(e) => {
-                e.stopPropagation();
-                dragControls.start(e);
-              }}
+              onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); dragControls.start(e); }} onClick={(e) => e.stopPropagation()}
               sx={{
                 cursor: 'grab',
                 color: 'text.secondary',
@@ -139,9 +138,14 @@ export function ReferencesForm() {
     });
   }, [resumeData?.references]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('references', newOrder);
-  };
+  const {
+    localItems: localReferences,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(references, (newOrder) => updateSection('references', newOrder));
+
+
+  
 
   const handleAdd = () => {
     const newItem = {
@@ -183,8 +187,8 @@ export function ReferencesForm() {
 
       <Reorder.Group
         axis="y"
-        values={references}
-        onReorder={handleReorder}
+        values={localReferences}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -194,7 +198,7 @@ export function ReferencesForm() {
           gap: '16px',
         }}
       >
-        {references.map((item, index) => (
+        {localReferences.map((item, index) => (
           <ReferenceItem
             key={item.id || index}
             item={item}

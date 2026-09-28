@@ -41,6 +41,7 @@ function ExperienceItem({
   handleUpdateHighlight,
   handleRemoveHighlight,
   handleEnhanceHighlight,
+  handleDragEnd,
 }) {
   const dragControls = useDragControls();
 
@@ -49,6 +50,7 @@ function ExperienceItem({
       value={exp}
       dragListener={false}
       dragControls={dragControls}
+      onDragEnd={handleDragEnd}
       whileDrag={{ scale: 1.02, zIndex: 999 }}
       style={{ listStyle: 'none', position: 'relative' }}
     >
@@ -73,9 +75,11 @@ function ExperienceItem({
                 component="span"
                 direction="row"
                 onPointerDown={(e) => {
+                  e.preventDefault();
                   e.stopPropagation();
                   dragControls.start(e);
                 }}
+                onClick={(e) => e.stopPropagation()}
                 sx={{
                   cursor: 'grab',
                   color: 'text.secondary',
@@ -255,9 +259,13 @@ export function ExperienceForm() {
     });
   }, [resumeData?.experience]);
 
-  const handleReorder = (newOrder) => {
-    updateSection('experience', newOrder);
-  };
+  const {
+    localItems: localExperience,
+    handleReorder: handleReorderLocal,
+    handleDragEnd,
+  } = useLocalReorder(experience, (newOrder) => updateSection('experience', newOrder));
+
+
 
   const handleAddExperience = () => {
     const newItem = {
@@ -351,8 +359,8 @@ export function ExperienceForm() {
 
       <Reorder.Group
         axis="y"
-        values={experience}
-        onReorder={handleReorder}
+        values={localExperience}
+        onReorder={handleReorderLocal}
         style={{
           listStyle: 'none',
           padding: 0,
@@ -362,7 +370,7 @@ export function ExperienceForm() {
           gap: '16px',
         }}
       >
-        {experience.map((exp, expIndex) => (
+        {localExperience.map((exp, expIndex) => (
           <ExperienceItem
             key={exp.id || expIndex}
             exp={exp}
@@ -375,6 +383,7 @@ export function ExperienceForm() {
             handleUpdateHighlight={handleUpdateHighlight}
             handleRemoveHighlight={handleRemoveHighlight}
             handleEnhanceHighlight={handleEnhanceHighlight}
+            handleDragEnd={handleDragEnd}
           />
         ))}
       </Reorder.Group>
