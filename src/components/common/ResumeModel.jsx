@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float, Environment } from '@react-three/drei';
 import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 
 function LowPolyResume({ isDark }) {
   const group = useRef();
@@ -100,9 +101,10 @@ function LowPolyResume({ isDark }) {
 export function ResumeModel() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <div style={{ width: '100%', height: '400px', cursor: 'default' }}>
+    <div style={{ width: '100%', height: isDesktop ? '550px' : '400px', cursor: 'default' }}>
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={isDark ? 0.4 : 0.8} />
         <directionalLight 
@@ -120,7 +122,9 @@ export function ResumeModel() {
           floatIntensity={1}
           floatingRange={[-0.1, 0.1]}
         >
-          <LowPolyResume isDark={isDark} />
+          <group scale={isDesktop ? 1.35 : 1}>
+            <LowPolyResume isDark={isDark} />
+          </group>
         </Float>
         <Environment preset="city" />
         <OrbitControls 
