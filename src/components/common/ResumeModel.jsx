@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float, Environment } from '@react-three/drei';
 import { useTheme } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Box } from '@mui/material';
 
 function LowPolyResume({ isDark }) {
   const group = useRef();
@@ -104,7 +104,7 @@ export function ResumeModel() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <div style={{ width: '100%', height: '100%', minHeight: isDesktop ? '600px' : '400px', cursor: 'default' }}>
+    <Box sx={{ width: '100%', height: '100%', minHeight: isDesktop ? '600px' : '400px', cursor: 'default' }}>
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={isDark ? 0.4 : 0.8} />
         <directionalLight 
@@ -137,6 +137,6 @@ export function ResumeModel() {
           maxAzimuthAngle={Math.PI / 4}
         />
       </Canvas>
-    </div>
+    </Box>
   );
 }
