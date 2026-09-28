@@ -122,7 +122,7 @@ export function ResumeModel() {
           floatIntensity={1}
           floatingRange={[-0.1, 0.1]}
         >
-          <group scale={isDesktop ? 1.35 : 1}>
+          <group scale={isDesktop ? 1.15 : 1}>
             <LowPolyResume isDark={isDark} />
           </group>
         </Float>
