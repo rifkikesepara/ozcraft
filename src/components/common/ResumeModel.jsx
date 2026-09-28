@@ -104,7 +104,7 @@ export function ResumeModel() {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <div style={{ width: '100%', height: isDesktop ? '550px' : '400px', cursor: 'default' }}>
+    <div style={{ width: '100%', height: '100%', minHeight: isDesktop ? '600px' : '400px', cursor: 'default' }}>
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
         <ambientLight intensity={isDark ? 0.4 : 0.8} />
         <directionalLight 

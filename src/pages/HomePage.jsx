@@ -135,7 +135,7 @@ export function HomePage() {
               >
                 <motion.div
                   variants={itemVariants}
-                  style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                  style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}
                 >
                   <ResumeModel />
                 </motion.div>
