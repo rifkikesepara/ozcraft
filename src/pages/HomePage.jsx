@@ -13,7 +13,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';
 
 import { useLocale, useResume } from '../hooks/index.js';
-import { PageTransition, Logo } from '../components/index.js';
+import { PageTransition, Logo, ResumeModel } from '../components/index.js';
 import { getTemplateList } from '../modules/index.js';
 
 export function HomePage() {
@@ -77,7 +77,7 @@ export function HomePage() {
         >
           <Container maxWidth="lg" disableGutters>
             <Grid container spacing={4}>
-              <Grid size={{ xs: 12, md: 8 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
                   <Box sx={{ mb: 4 }}>
                     <Logo sx={{ height: { xs: 40, md: 50 } }} animate={false} />
@@ -95,10 +95,6 @@ export function HomePage() {
                   >
                     {t('home.heroTitle')}
                   </Typography>
-                </motion.div>
-              </Grid>
-              <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                <motion.div variants={itemVariants}>
                   <Typography
                     variant="body1"
                     sx={{
@@ -138,6 +134,11 @@ export function HomePage() {
                       {t('home.ctaTemplates')}
                     </Button>
                   </Stack>
+                </motion.div>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <motion.div variants={itemVariants} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                  <ResumeModel />
                 </motion.div>
               </Grid>
             </Grid>

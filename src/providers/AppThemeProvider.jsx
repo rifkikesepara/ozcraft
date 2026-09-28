@@ -166,8 +166,8 @@ export function AppThemeProvider({ children }) {
           styleOverrides: {
             body: {
               fontVariantNumeric: 'tabular-nums',
-            }
-          }
+            },
+          },
         },
         MuiIconButton: {
           styleOverrides: {
@@ -206,8 +206,8 @@ export function AppThemeProvider({ children }) {
               boxShadow: 'none',
               '&:before': { display: 'none' },
               '&.Mui-expanded': { margin: 0 },
-            }
-          }
+            },
+          },
         },
         MuiAccordionSummary: {
           styleOverrides: {
@@ -222,7 +222,7 @@ export function AppThemeProvider({ children }) {
         MuiButton: {
           styleOverrides: {
             root: {
-              borderRadius: 6,
+              borderRadius: 10,
               padding: '10px 20px',
               transition: 'background-color 0.1s ease, color 0.1s ease',
               boxShadow: 'none',
@@ -232,7 +232,7 @@ export function AppThemeProvider({ children }) {
               '&.Mui-focusVisible': {
                 outline: `2px solid ${isDark ? '#ffffff' : '#000000'}`,
                 outlineOffset: 2,
-              }
+              },
             },
             containedPrimary: {
               border: 'none',
@@ -240,14 +240,14 @@ export function AppThemeProvider({ children }) {
               backgroundColor: isDark ? '#ffffff' : '#000000',
               '&:hover': {
                 backgroundColor: isDark ? '#e0e0e0' : '#333333',
-              }
+              },
             },
             outlined: {
               border: `1px solid ${isDark ? '#333' : '#ddd'}`,
               '&:hover': {
                 backgroundColor: isDark ? alpha(commonWhite, 0.1) : alpha(commonBlack, 0.05),
-              }
-            }
+              },
+            },
           },
         },
         MuiPaper: {
@@ -281,10 +281,10 @@ export function AppThemeProvider({ children }) {
                 '&.Mui-focused fieldset': {
                   borderColor: isDark ? '#ffffff' : '#000000',
                   borderWidth: '1px',
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
       },
     });

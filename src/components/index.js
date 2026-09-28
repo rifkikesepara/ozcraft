@@ -9,6 +9,7 @@ export { ImportJsonModal } from './common/ImportJsonModal.jsx';
 export { PageTransition } from './common/PageTransition.jsx';
 export { SaveStatusBadge } from './common/SaveStatusBadge.jsx';
 export { Logo } from './common/Logo.jsx';
+export { ResumeModel } from './common/ResumeModel.jsx';
 
 // Layout Components
 export { Footer } from './layout/Footer.jsx';

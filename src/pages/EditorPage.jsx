@@ -139,7 +139,6 @@ export function EditorPage() {
               startIcon={<FileDownloadOutlinedIcon fontSize="small" />}
               sx={{
                 fontWeight: 600,
-                borderRadius: 1,
                 fontSize: { xs: '0.75rem', sm: '0.82rem' },
                 px: { xs: 1, sm: 1.5 },
               }}
