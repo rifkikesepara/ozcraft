@@ -16,6 +16,8 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 import { useResume, useLocale } from '../../hooks/index.js';
 
@@ -72,14 +74,14 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
                   '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                   '&:active': { cursor: 'grabbing' },
                 }}
-                title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+                title={t('builder.dragToReorderItem')}
               >
                 <DragIndicatorIcon fontSize="small" />
               </Stack>
               <Typography sx={{ fontWeight: 600 }}>
                 {edu.degree || edu.institution
                   ? `${edu.degree || 'Degree'} ${edu.institution ? `@ ${edu.institution}` : ''}`
-                  : `${locale === 'tr' ? 'Eğitim' : 'Degree'} #${index + 1}`}
+                  : `${t('form.defaultEducation')} #${index + 1}`}
               </Typography>
             </Stack>
             <IconButton
@@ -134,21 +136,23 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <TextField
-                fullWidth
+              <DatePicker
                 label={t('form.startDate')}
-                placeholder="YYYY-MM"
-                value={edu.startDate || ''}
-                onChange={(e) => handleUpdateItem(index, 'startDate', e.target.value)}
+                views={['year', 'month']}
+                format="MMM YYYY"
+                value={edu.startDate ? dayjs(edu.startDate) : null}
+                onChange={(newValue) => handleUpdateItem(index, 'startDate', newValue ? newValue.format('YYYY-MM') : '')}
+                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <TextField
-                fullWidth
+              <DatePicker
                 label={t('form.endDate')}
-                placeholder="YYYY-MM"
-                value={edu.endDate || ''}
-                onChange={(e) => handleUpdateItem(index, 'endDate', e.target.value)}
+                views={['year', 'month']}
+                format="MMM YYYY"
+                value={edu.endDate ? dayjs(edu.endDate) : null}
+                onChange={(newValue) => handleUpdateItem(index, 'endDate', newValue ? newValue.format('YYYY-MM') : '')}
+                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>
@@ -221,9 +225,7 @@ export function EducationForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Akademik geçmişinizi ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Add your degrees, certifications, and academic background. Drag handles to reorder.'}
+          {t('form.educationDesc')}
         </Typography>
         <Button
           variant="outlined"

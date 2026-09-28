@@ -2,7 +2,6 @@
   "app.title": "OzCraft",
   "app.tagline": "Yapay Zeka ile Modern ve ATS Uyumlu Özgeçmişler Hazırlayın",
   "app.subtitle": "Ücretsiz, özelleştirilebilir; PDF, Word ve JSON formatlarında dışa aktarılabilir.",
-
   "nav.builder": "Düzenleyici",
   "nav.templates": "Şablonlar",
   "nav.settings": "Ayarlar",
@@ -11,13 +10,11 @@
   "nav.theme": "Tema",
   "nav.language": "Dil",
   "nav.aiStatus": "YZ Hazır",
-
   "status.saved": "Yerel olarak kaydedildi",
   "status.saved.short": "Kaydedildi",
   "status.saving": "Kaydediliyor...",
   "status.unsaved": "Kaydedilmemiş değişiklikler",
   "status.forceSave": "Tarayıcı hafızasına hemen kaydetmek için tıklayın",
-
   "home.heroTitle": "Dakikalar İçinde Etkileyici Bir Özgeçmiş Oluşturun",
   "home.heroSubtitle": "Modern şablonlar, Ollama destekli yapay zeka geliştirmeleri ve tek tıkla PDF & DOCX indirme sunan ücretsiz profesyonel CV hazırlayıcı.",
   "home.ctaStart": "Hemen Ücretsiz Başla",
@@ -30,7 +27,6 @@
   "home.feature3Desc": "Kusursuz PDF, yerel Microsoft Word (.docx) veya yedek JSON dosyanızı hemen indirin.",
   "home.feature4Title": "Gizli ve Güvenli",
   "home.feature4Desc": "Verileriniz yalnızca tarayıcınızda kalır. API anahtarlarınız güvenli çerezlerde saklanır.",
-
   "builder.sections": "Özgeçmiş Bölümleri",
   "builder.personal": "Kişisel Bilgiler",
   "builder.personalInfo": "Kişisel Bilgiler",
@@ -54,7 +50,6 @@
   "builder.hidden": "Gizli",
   "builder.visible": "Görünür",
   "builder.atLeastOneSection": "En az bir bölüm görünür kalmalıdır",
-
   "form.fullName": "Ad Soyad",
   "form.jobTitle": "Hedef Unvan / Pozisyon",
   "form.email": "E-posta Adresi",
@@ -72,7 +67,6 @@
   "form.shapeSquare": "Kare",
   "form.summaryDesc": "Geçmişinizi, temel güçlü yönlerinizi ve değer teklifinizi özetleyen 3-4 cümlelik kısa ve etkileyici bir giriş yazın.",
   "form.summaryPlaceholder": "Örn. Ölçeklenebilir mikroservisler tasarlama ve yüksek performanslı ekipleri yönetme konusunda 7+ yıl deneyimli Kıdemli Yazılım Mühendisi...",
-
   "form.company": "Şirket / Kurum Adı",
   "form.position": "Pozisyon / Unvan",
   "form.startDate": "Başlangıç Tarihi",
@@ -83,40 +77,34 @@
   "form.highlights": "Temel Başarılar ve Sorumluluklar",
   "form.addHighlight": "Madde Ekle",
   "form.addExperience": "İş Deneyimi Ekle",
-
   "form.institution": "Okul / Üniversite",
   "form.degree": "Derece / Bölüm",
   "form.field": "Öğrenim Alanı",
   "form.gpa": "Not Ortalaması (İsteğe bağlı)",
   "form.addEducation": "Eğitim Ekle",
-
   "form.skillCategory": "Kategori (örn. Frontend, DevOps)",
   "form.skillItems": "Beceriler (eklemek için Enter'a basın)",
   "form.addSkillCategory": "Beceri Kategorisi Ekle",
-
   "form.projectName": "Proje Başlığı",
   "form.projectDesc": "Kısa Açıklama",
   "form.projectLink": "Proje Bağlantısı / Depo",
   "form.technologies": "Kullanılan Teknolojiler",
   "form.addProject": "Proje Ekle",
-
   "form.certName": "Sertifika Adı",
   "form.issuer": "Veren Kurum",
   "form.issueDate": "Alınış Tarihi",
   "form.certUrl": "Doğrulama Bağlantısı",
   "form.addCert": "Sertifika Ekle",
-
   "form.language": "Dil",
   "form.proficiency": "Yetkinlik Seviyesi",
   "form.addLanguage": "Dil Ekle",
-
+  "form.languagesDesc": "Konuştuğunuz ve yazdığınız dilleri yetkinlik düzeyleriyle ekleyin. Sıralamak için tutamaçlardan sürükleyin.",
   "form.referenceName": "Ad Soyad",
   "form.referenceCompany": "Şirket / Kurum",
   "form.referencePosition": "Pozisyon / Unvan",
   "form.referenceEmail": "E-posta Adresi",
   "form.referencePhone": "Telefon Numarası",
   "form.addReference": "Referans Ekle",
-
   "preview.title": "Canlı Önizleme",
   "preview.zoom": "Yakınlaştırma",
   "preview.zoomIn": "Yakınlaştır",
@@ -128,20 +116,17 @@
   "preview.pages": "Sayfa",
   "preview.pageBreak": "A4 Sayfa Sonu",
   "preview.pageGuide": "A4 Baskı Düzeni",
-
   "export.pdf": "PDF Olarak İndir",
   "export.word": "Word (.docx) İndir",
   "export.json": "JSON Yedeği İndir",
   "export.generating": "Belgeniz hazırlanıyor...",
   "export.success": "Başarıyla indirildi!",
-
   "import.title": "Özgeçmiş JSON Yükle",
   "import.desc": "Tüm bilgileri otomatik geri yüklemek için daha önce dışa aktarılmış OzCraft JSON dosyasını yükleyin.",
   "import.dragDrop": "JSON dosyanızı buraya sürükleyin veya seçmek için tıklayın",
   "import.button": "Yükle ve Aktar",
   "import.success": "Özgeçmiş verileri başarıyla yüklendi!",
   "import.error": "Geçersiz JSON formatı.",
-
   "ai.button": "YZ ile Geliştir",
   "ai.generateSummary": "YZ ile Özet Oluştur",
   "ai.suggestSkills": "YZ ile Yetenek Öner",
@@ -163,7 +148,6 @@
   "ai.regenerate": "Yeniden Üret",
   "ai.targetLanguage": "Çıktı Dili",
   "ai.fallbackBadge": "Dahili YZ Yedekleme",
-
   "templates.galleryTitle": "Profesyonel CV Şablonları",
   "templates.gallerySubtitle": "Kariyerinizin her aşaması için özenle tasarlanmış modern düzenler.",
   "templates.useTemplate": "Bu Şablonu Kullan",
@@ -188,7 +172,6 @@
   "templates.tags.highDensity": "Yüksek Yoğunluk",
   "templates.tags.onePage": "Tek Sayfa",
   "templates.tags.academicNewGrad": "Akademik & Yeni Mezun",
-
   "settings.title": "Uygulama Ayarları",
   "settings.aiConfig": "Yapay Zeka & Ollama Yapılandırması",
   "settings.provider": "YZ Sağlayıcı",
@@ -249,5 +232,26 @@
   "ai.acceptInsert": "Kabul Et ve Ekle",
   "common.save": "Kaydet",
   "common.close": "Kapat",
-  "common.add": "Ekle"
+  "common.add": "Ekle",
+  "builder.dragToReorderItem": "Sıralamak için sürükleyin",
+  "builder.dragCategory": "Kategoriyi sürükleyin",
+  "builder.prevSection": "Önceki Bölüm",
+  "builder.nextSection": "Sonraki Bölüm",
+  "form.defaultRole": "Pozisyon",
+  "form.defaultProject": "Proje",
+  "form.defaultReference": "Referans",
+  "form.defaultEducation": "Eğitim",
+  "form.defaultCert": "Sertifika",
+  "form.defaultLanguage": "Dil",
+  "form.defaultJobTitle": "Yazılım Mühendisi",
+  "form.highlightsLabel": "Önemli Sorumluluklar ve Başarılar",
+  "form.highlightPlaceholder": "• Tasarım sistemi dönüşümüne öncülük ederek derleme sürelerini %40 kısalttı...",
+  "ai.starMethod": "Yöntemi",
+  "form.experienceDesc": "Kariyer gelişiminizi, ölçülebilir başarılarınızı ve liderlik etkinizi vurgulayın. Sıralamak için tutamaçlardan sürükleyin.",
+  "form.educationDesc": "Akademik geçmişinizi ekleyin. Sıralamak için tutamaçlardan sürükleyin.",
+  "form.certificationsDesc": "Doğrulanmış sertifikalarınızı ve lisanslarınızı ekleyin. Sıralamak için tutamaçlardan sürükleyin.",
+  "form.projectsDesc": "Öne çıkan projelerinizi, kullandığınız teknolojileri ve bağlantıları ekleyin. Sıralamak için tutamaçlardan sürükleyin.",
+  "form.referencesDesc": "Deneyimlerinizi ve yetkinliklerinizi doğrulayabilecek profesyonel referansları ekleyin. Sıralamak için tutamaçlardan sürükleyin.",
+  "form.skillsDesc": "Teknik yetkinliklerinizi ve sosyal becerilerinizi net kategoriler altında düzenleyin. Kategorileri ve yetenekleri sürükleyerek sıralayabilirsiniz.",
+  "form.skillCategoryPlaceholder": "Kategori Adı (Örn: Programlama Dilleri, Bulut & DevOps)"
 }

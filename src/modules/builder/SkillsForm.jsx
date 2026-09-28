@@ -79,7 +79,7 @@ function SkillCategoryItem({
               '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
               '&:active': { cursor: 'grabbing' },
             }}
-            title={locale === 'tr' ? 'Kategoriyi sürükleyin' : 'Drag category to reorder'}
+            title={t('builder.dragCategory')}
           >
             <DragIndicatorIcon fontSize="small" />
           </Stack>
@@ -87,9 +87,7 @@ function SkillCategoryItem({
           <TextField
             size="small"
             placeholder={
-              locale === 'tr'
-                ? 'Kategori Adı (Örn: Programlama Dilleri, Bulut & DevOps)'
-                : 'Category Name (e.g. Core Languages, Cloud & DevOps)'
+              t('form.skillCategoryPlaceholder')
             }
             value={cat.category}
             onChange={(e) => handleUpdateCategoryName(catIndex, e.target.value)}
@@ -196,7 +194,7 @@ export function SkillsForm() {
 
   const targetRole =
     resumeData?.personalInfo?.jobTitle ||
-    (locale === 'tr' ? 'Yazılım Mühendisi' : 'Software Engineer');
+    (t('form.defaultJobTitle'));
 
   const handleReorderCategories = (newOrder) => {
     updateSection('skills', newOrder);
@@ -292,9 +290,7 @@ export function SkillsForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Teknik yetkinliklerinizi ve sosyal becerilerinizi net kategoriler altında düzenleyin. Kategorileri ve yetenekleri sürükleyerek sıralayabilirsiniz.'
-            : 'Organize your technical competencies and soft skills into clear categories. Drag handles to reorder categories or chips.'}
+          {t('form.skillsDesc')}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAddCategory}>
           {t('common.add')}

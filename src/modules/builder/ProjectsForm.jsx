@@ -72,12 +72,12 @@ function ProjectItem({ proj, index, locale, t, handleUpdateItem, handleRemoveIte
                   '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                   '&:active': { cursor: 'grabbing' },
                 }}
-                title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+                title={t('builder.dragToReorderItem')}
               >
                 <DragIndicatorIcon fontSize="small" />
               </Stack>
               <Typography sx={{ fontWeight: 600 }}>
-                {proj.name || `${locale === 'tr' ? 'Proje' : 'Project'} #${index + 1}`}
+                {proj.name || `${t('form.defaultProject')} #${index + 1}`}
               </Typography>
             </Stack>
             <IconButton
@@ -198,9 +198,7 @@ export function ProjectsForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Öne çıkan projelerinizi, kullandığınız teknolojileri ve bağlantıları ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Feature your top engineering or design projects, apps, and open-source packages. Drag handles to reorder.'}
+          {t('form.projectsDesc')}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAddProject}>
           {t('common.add')}

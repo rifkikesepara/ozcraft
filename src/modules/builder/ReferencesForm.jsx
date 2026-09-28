@@ -65,12 +65,12 @@ function ReferenceItem({ item, index, locale, t, handleUpdate, handleRemove }) {
                 '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                 '&:active': { cursor: 'grabbing' },
               }}
-              title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+              title={t('builder.dragToReorderItem')}
             >
               <DragIndicatorIcon fontSize="small" />
             </Stack>
             <Typography sx={{ fontWeight: 600 }}>
-              {item.fullName || `${locale === 'tr' ? 'Referans' : 'Reference'} #${index + 1}`}
+              {item.fullName || `${t('form.defaultReference')} #${index + 1}`}
             </Typography>
           </Stack>
           <IconButton size="small" color="error" onClick={() => handleRemove(index)}>
@@ -182,9 +182,7 @@ export function ReferencesForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Deneyimlerinizi ve yetkinliklerinizi doğrulayabilecek profesyonel referansları ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Add professional references who can vouch for your experience and work ethic. Drag handles to reorder.'}
+          {t('form.referencesDesc')}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
           {t('common.add')}

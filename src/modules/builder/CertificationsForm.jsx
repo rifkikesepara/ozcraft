@@ -13,6 +13,8 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { Reorder, useDragControls } from 'framer-motion';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 import { useResume, useLocale } from '../../hooks/index.js';
 
@@ -65,12 +67,12 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
                 '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                 '&:active': { cursor: 'grabbing' },
               }}
-              title={locale === 'tr' ? 'Sıralamak için sürükleyin' : 'Drag to reorder'}
+              title={t('builder.dragToReorderItem')}
             >
               <DragIndicatorIcon fontSize="small" />
             </Stack>
             <Typography sx={{ fontWeight: 600 }}>
-              {cert.name || `${locale === 'tr' ? 'Sertifika' : 'Certification'} #${index + 1}`}
+              {cert.name || `${t('form.defaultCert')} #${index + 1}`}
             </Typography>
           </Stack>
           <IconButton size="small" color="error" onClick={() => handleRemove(index)}>
@@ -97,12 +99,13 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
-            <TextField
-              fullWidth
+            <DatePicker
               label={t('form.issueDate')}
-              placeholder="YYYY-MM"
-              value={cert.date || ''}
-              onChange={(e) => handleUpdate(index, 'date', e.target.value)}
+              views={['year', 'month']}
+              format="MMM YYYY"
+              value={cert.date ? dayjs(cert.date) : null}
+              onChange={(newValue) => handleUpdate(index, 'date', newValue ? newValue.format('YYYY-MM') : '')}
+              slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
@@ -171,9 +174,7 @@ export function CertificationsForm() {
         sx={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5 }}
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {locale === 'tr'
-            ? 'Doğrulanmış sertifikalarınızı ve lisanslarınızı ekleyin. Sıralamak için tutamaçlardan sürükleyin.'
-            : 'Add verified licenses, industry badges, and professional credentials. Drag handles to reorder.'}
+          {t('form.certificationsDesc')}
         </Typography>
         <Button variant="outlined" size="small" startIcon={<AddIcon />} onClick={handleAdd}>
           {t('common.add')}

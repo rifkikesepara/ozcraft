@@ -156,6 +156,7 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
     typeof window !== 'undefined' && window.innerWidth < 640 ? 0.45 : 0.85
   );
   const [pageOffsets, setPageOffsets] = useState([0]);
+  const [docHeight, setDocHeight] = useState(0);
   const measureRef = useRef(null);
   const a4PrintableRef = useRef(null);
 
@@ -194,6 +195,17 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
     if (measureRef.current) {
       resizeObserver.observe(measureRef.current);
     }
+    
+    let docObserver;
+    const previewDoc = document.getElementById('resume-preview-document');
+    if (previewDoc) {
+      docObserver = new ResizeObserver((entries) => {
+        if (entries[0]) {
+          setDocHeight(entries[0].contentRect.height);
+        }
+      });
+      docObserver.observe(previewDoc);
+    }
 
     if (typeof document !== 'undefined' && document.fonts) {
       document.fonts.ready.then(updatePagination);
@@ -201,6 +213,7 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
 
     return () => {
       resizeObserver.disconnect();
+      if (docObserver) docObserver.disconnect();
     };
   }, [resumeData, activeTemplateId, activeThemeColor, isSidebarTemplate]);
 
@@ -336,7 +349,6 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
           p: { xs: 1, sm: 2, md: 3 },
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           minHeight: 0,
         }}
       >
@@ -349,6 +361,7 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
             flexDirection: 'column',
             alignItems: 'flex-start',
             mb: 4,
+            mx: 'auto',
           }}
         >
           {/* Transform container scaled from top-left */}
@@ -358,6 +371,7 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
               transform: `scale(${zoom})`,
               transformOrigin: 'top left',
               transition: 'transform 0.2s ease-out',
+              marginBottom: docHeight ? `-${docHeight * (1 - zoom)}px` : 0,
             }}
           >
             {/* A4 Multi-Page Container for Display & PDF Export */}
