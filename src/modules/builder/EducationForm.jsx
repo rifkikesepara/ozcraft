@@ -32,13 +32,7 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
       value={edu}
       dragListener={false}
       dragControls={dragControls}
-      whileDrag={{
-        scale: 1.015,
-        zIndex: 25,
-        borderRadius: '14px',
-        boxShadow: (theme) =>
-          `0 12px 28px -4px ${alpha(theme.palette.common.black, 0.16)}, 0 4px 12px -2px ${alpha(theme.palette.common.black, 0.08)}`,
-      }}
+      whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '14px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '14px' }}
     >
       <Accordion
@@ -70,7 +64,6 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
                   color: 'text.secondary',
                   alignItems: 'center',
                   p: 0.5,
-                  borderRadius: 1,
                   '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                   '&:active': { cursor: 'grabbing' },
                 }}
@@ -141,8 +134,12 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
                 views={['year', 'month']}
                 format="MMM YYYY"
                 value={edu.startDate ? dayjs(edu.startDate) : null}
-                onChange={(newValue) => handleUpdateItem(index, 'startDate', newValue ? newValue.format('YYYY-MM') : '')}
-                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
+                onChange={(newValue) =>
+                  handleUpdateItem(index, 'startDate', newValue ? newValue.format('YYYY-MM') : '')
+                }
+                slotProps={{
+                  textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' },
+                }}
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
@@ -151,8 +148,12 @@ function EducationItem({ edu, index, locale, t, handleUpdateItem, handleRemoveIt
                 views={['year', 'month']}
                 format="MMM YYYY"
                 value={edu.endDate ? dayjs(edu.endDate) : null}
-                onChange={(newValue) => handleUpdateItem(index, 'endDate', newValue ? newValue.format('YYYY-MM') : '')}
-                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
+                onChange={(newValue) =>
+                  handleUpdateItem(index, 'endDate', newValue ? newValue.format('YYYY-MM') : '')
+                }
+                slotProps={{
+                  textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' },
+                }}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>

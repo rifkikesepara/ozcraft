@@ -50,7 +50,8 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
   };
 
   const formatExpDate = (exp) => {
-    const isPresent = Boolean(exp.current) || (exp.endDate && exp.endDate.trim().toLowerCase() === 'present');
+    const isPresent =
+      Boolean(exp.current) || (exp.endDate && exp.endDate.trim().toLowerCase() === 'present');
     const endText = isPresent ? t('common.present') : formatDisplayDate(exp.endDate, locale) || '';
     const startText = formatDisplayDate(exp.startDate, locale) || '';
     if (!startText && !endText) return '';
@@ -227,7 +228,8 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
                 {edu.institution}
               </Typography>
               <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>
-                {formatDisplayDate(edu.startDate, locale)} – {formatDisplayDate(edu.endDate, locale)} {edu.gpa ? `• GPA: ${edu.gpa}` : ''}
+                {formatDisplayDate(edu.startDate, locale)} –{' '}
+                {formatDisplayDate(edu.endDate, locale)} {edu.gpa ? `• GPA: ${edu.gpa}` : ''}
               </Typography>
             </Box>
           ))}
@@ -352,7 +354,8 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
                   {edu.degree}
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600 }}>
-                  {formatDisplayDate(edu.startDate, locale)} – {formatDisplayDate(edu.endDate, locale)}
+                  {formatDisplayDate(edu.startDate, locale)} –{' '}
+                  {formatDisplayDate(edu.endDate, locale)}
                 </Typography>
               </Stack>
               <Typography
@@ -414,12 +417,18 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
                 )}
               </Typography>
               {proj.description && (
-                <Typography variant="body2" sx={{ color: '#475569', mb: 0.15, fontSize: '0.78rem', lineHeight: 1.38 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#475569', mb: 0.15, fontSize: '0.78rem', lineHeight: 1.38 }}
+                >
                   {proj.description}
                 </Typography>
               )}
               {proj.technologies && proj.technologies.length > 0 && (
-                <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600, fontSize: '0.74rem' }}>
+                <Typography
+                  variant="caption"
+                  sx={{ color: '#64748b', fontWeight: 600, fontSize: '0.74rem' }}
+                >
                   {locale === 'tr' ? 'Teknolojiler' : 'Tech'}: {proj.technologies.join(', ')}
                 </Typography>
               )}
@@ -515,7 +524,6 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
                 <Box
                   sx={{
                     p: 0.75,
-                    borderRadius: 1.5,
                     backgroundColor: '#f8fafc',
                     border: '1px solid #f1f5f9',
                   }}
@@ -562,11 +570,11 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
 
   const hasContactInfo = Boolean(
     personalInfo.email ||
-      personalInfo.phone ||
-      personalInfo.location ||
-      personalInfo.website ||
-      personalInfo.linkedin ||
-      personalInfo.github
+    personalInfo.phone ||
+    personalInfo.location ||
+    personalInfo.website ||
+    personalInfo.linkedin ||
+    personalInfo.github
   );
 
   return (
@@ -758,7 +766,6 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
               width: 40,
               height: 2.5,
               backgroundColor: themeColor,
-              borderRadius: 1,
             }}
           />
         </Box>
@@ -769,4 +776,3 @@ export function SidebarSplitTemplate({ data, themeColor = '#1e293b' }) {
     </Box>
   );
 }
-

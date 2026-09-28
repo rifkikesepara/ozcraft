@@ -103,10 +103,7 @@ function calculateSmartPageOffsets(container, printableH) {
     } else {
       // 2. Find any item or element that crosses theoreticalEnd (straddles page break)
       const crossingItems = sectionNodes.filter(
-        (n) =>
-          n.top > currentOffset + 100 &&
-          n.top < theoreticalEnd &&
-          n.bottom > theoreticalEnd
+        (n) => n.top > currentOffset + 100 && n.top < theoreticalEnd && n.bottom > theoreticalEnd
       );
 
       if (crossingItems.length > 0) {
@@ -195,7 +192,7 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
     if (measureRef.current) {
       resizeObserver.observe(measureRef.current);
     }
-    
+
     let docObserver;
     const previewDoc = document.getElementById('resume-preview-document');
     if (previewDoc) {
@@ -447,7 +444,6 @@ export const ResumePreview = forwardRef(function ResumePreview(_props, ref) {
                       position: 'relative',
                       overflow: 'hidden',
                       backgroundColor: '#ffffff',
-                      borderRadius: 1,
                       boxShadow: (tTheme) =>
                         `0 10px 30px ${alpha(tTheme.palette.common.black, tTheme.palette.mode === 'dark' ? 0.6 : 0.15)}`,
                       p: isSidebarTemplate ? 0 : '16mm',

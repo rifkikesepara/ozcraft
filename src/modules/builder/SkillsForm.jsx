@@ -44,10 +44,9 @@ function SkillCategoryItem({
       dragControls={dragControls}
       whileDrag={{
         scale: 1.015,
-        zIndex: 25,
+        zIndex: 999,
         borderRadius: '16px',
-        boxShadow: (theme) =>
-          `0 12px 28px -4px ${alpha(theme.palette.common.black, 0.16)}, 0 4px 12px -2px ${alpha(theme.palette.common.black, 0.08)}`,
+        boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16), 0 4px 12px -2px rgba(0,0,0,0.08)',
       }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
@@ -75,7 +74,6 @@ function SkillCategoryItem({
               color: 'text.secondary',
               alignItems: 'center',
               p: 0.5,
-              borderRadius: 1,
               '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
               '&:active': { cursor: 'grabbing' },
             }}
@@ -86,9 +84,7 @@ function SkillCategoryItem({
 
           <TextField
             size="small"
-            placeholder={
-              t('form.skillCategoryPlaceholder')
-            }
+            placeholder={t('form.skillCategoryPlaceholder')}
             value={cat.category}
             onChange={(e) => handleUpdateCategoryName(catIndex, e.target.value)}
             sx={{ flex: 1 }}
@@ -123,12 +119,7 @@ function SkillCategoryItem({
             <Reorder.Item
               key={item + '-' + itemIdx}
               value={item}
-              whileDrag={{
-                scale: 1.08,
-                zIndex: 20,
-                borderRadius: '8px',
-                boxShadow: (theme) => `0 4px 12px ${alpha(theme.palette.common.black, 0.15)}`,
-              }}
+              whileDrag={{ scale: 1.08, zIndex: 999, borderRadius: '8px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
               style={{ listStyle: 'none', cursor: 'grab', borderRadius: '8px' }}
             >
               <Chip
@@ -192,9 +183,7 @@ export function SkillsForm() {
     });
   }, [resumeData?.skills]);
 
-  const targetRole =
-    resumeData?.personalInfo?.jobTitle ||
-    (t('form.defaultJobTitle'));
+  const targetRole = resumeData?.personalInfo?.jobTitle || t('form.defaultJobTitle');
 
   const handleReorderCategories = (newOrder) => {
     updateSection('skills', newOrder);

@@ -29,13 +29,7 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
       value={cert}
       dragListener={false}
       dragControls={dragControls}
-      whileDrag={{
-        scale: 1.015,
-        zIndex: 25,
-        borderRadius: '16px',
-        boxShadow: (theme) =>
-          `0 12px 28px -4px ${alpha(theme.palette.common.black, 0.16)}, 0 4px 12px -2px ${alpha(theme.palette.common.black, 0.08)}`,
-      }}
+      whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '16px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
       style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
       <Paper
@@ -63,7 +57,7 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
                 color: 'text.secondary',
                 alignItems: 'center',
                 p: 0.5,
-                borderRadius: 1,
+
                 '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                 '&:active': { cursor: 'grabbing' },
               }}
@@ -104,7 +98,9 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
               views={['year', 'month']}
               format="MMM YYYY"
               value={cert.date ? dayjs(cert.date) : null}
-              onChange={(newValue) => handleUpdate(index, 'date', newValue ? newValue.format('YYYY-MM') : '')}
+              onChange={(newValue) =>
+                handleUpdate(index, 'date', newValue ? newValue.format('YYYY-MM') : '')
+              }
               slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
             />
           </Grid>

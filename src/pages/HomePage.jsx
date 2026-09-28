@@ -135,7 +135,12 @@ export function HomePage() {
               >
                 <motion.div
                   variants={itemVariants}
-                  style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                 >
                   <ResumeModel />
                 </motion.div>
@@ -259,12 +264,7 @@ export function HomePage() {
                       <Box sx={{ flex: 1, mb: 4 }}>
                         <Stack direction="row" sx={{ gap: 1, flexWrap: 'wrap', mb: 3 }}>
                           {(tpl.tags || []).slice(0, 3).map((tag, i) => (
-                            <Chip
-                              key={i}
-                              label={tag}
-                              variant="outlined"
-                              sx={{ borderRadius: 1, fontWeight: 500 }}
-                            />
+                            <Chip key={i} label={tag} variant="outlined" sx={{ fontWeight: 500 }} />
                           ))}
                         </Stack>
                         <Typography variant="h3" sx={{ fontSize: '2rem', mb: 2 }}>

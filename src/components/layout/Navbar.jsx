@@ -58,7 +58,7 @@ export function Navbar() {
         position="sticky"
         elevation={0}
         sx={{
-          backgroundColor: (theme) => isDark ? '#000000' : '#ffffff',
+          backgroundColor: (theme) => (isDark ? '#000000' : '#ffffff'),
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
@@ -103,7 +103,6 @@ export function Navbar() {
                   fontSize: '0.88rem',
                   px: 1.75,
                   py: 0.75,
-                  borderRadius: 1,
                   textTransform: 'uppercase',
                   '&.active': {
                     color: 'primary.main',

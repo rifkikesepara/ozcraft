@@ -169,7 +169,7 @@ export function EditorPage() {
               anchorEl={menuAnchor}
               open={Boolean(menuAnchor)}
               onClose={() => setMenuAnchor(null)}
-              PaperProps={{ sx: { borderRadius: 1, minWidth: 180, p: 0.5 } }}
+              PaperProps={{ sx: { minWidth: 180, p: 0.5 } }}
             >
               <MenuItem
                 onClick={() => {
@@ -236,14 +236,12 @@ export function EditorPage() {
               width: '100%',
               backgroundColor: 'background.paper',
               p: 0,
-              borderRadius: 1,
               overflow: 'hidden',
               border: '1px solid',
               borderColor: 'divider',
               boxShadow: (theme) => `0 2px 8px ${alpha(theme.palette.common.black, 0.04)}`,
               '& .MuiToggleButtonGroup-grouped': {
                 border: 0,
-                borderRadius: 1,
                 '&:not(:first-of-type)': {
                   borderLeft: '1px solid',
                   borderColor: 'divider',

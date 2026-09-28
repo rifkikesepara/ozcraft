@@ -42,7 +42,11 @@ export function Footer() {
           <Stack direction="row" sx={{ alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
             <Typography
               variant="caption"
-              sx={{ color: 'text.secondary', textAlign: { xs: 'center', sm: 'right' }, mr: { sm: 1 } }}
+              sx={{
+                color: 'text.secondary',
+                textAlign: { xs: 'center', sm: 'right' },
+                mr: { sm: 1 },
+              }}
             >
               {t('footer.tagline')}
             </Typography>
@@ -57,7 +61,6 @@ export function Footer() {
               color="inherit"
               startIcon={<GitHubIcon sx={{ fontSize: '1.05rem !important' }} />}
               sx={{
-                borderRadius: 1,
                 fontSize: '0.78rem',
                 textTransform: 'uppercase',
                 fontWeight: 600,
@@ -84,7 +87,6 @@ export function Footer() {
               color="inherit"
               startIcon={<FeedbackOutlinedIcon sx={{ fontSize: '1.05rem !important' }} />}
               sx={{
-                borderRadius: 1,
                 fontSize: '0.78rem',
                 textTransform: 'uppercase',
                 fontWeight: 600,
@@ -106,5 +108,3 @@ export function Footer() {
     </Box>
   );
 }
-
-

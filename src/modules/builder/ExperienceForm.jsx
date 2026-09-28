@@ -49,7 +49,8 @@ function ExperienceItem({
       value={exp}
       dragListener={false}
       dragControls={dragControls}
-      style={{ listStyle: 'none' }}
+      whileDrag={{ scale: 1.02, zIndex: 999 }}
+      style={{ listStyle: 'none', position: 'relative' }}
     >
       <Accordion
         defaultExpanded={expIndex === 0}
@@ -80,7 +81,6 @@ function ExperienceItem({
                   color: 'text.secondary',
                   alignItems: 'center',
                   p: 0.5,
-                  borderRadius: 1,
                   '&:hover': { color: 'primary.main', backgroundColor: 'action.hover' },
                   '&:active': { cursor: 'grabbing' },
                 }}
@@ -139,8 +139,16 @@ function ExperienceItem({
                 views={['year', 'month']}
                 format="MMM YYYY"
                 value={exp.startDate ? dayjs(exp.startDate) : null}
-                onChange={(newValue) => handleUpdateItem(expIndex, 'startDate', newValue ? newValue.format('YYYY-MM') : '')}
-                slotProps={{ textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' } }}
+                onChange={(newValue) =>
+                  handleUpdateItem(
+                    expIndex,
+                    'startDate',
+                    newValue ? newValue.format('YYYY-MM') : ''
+                  )
+                }
+                slotProps={{
+                  textField: { fullWidth: true, placeholder: 'YYYY-MM', size: 'small' },
+                }}
               />
             </Grid>
             <Grid size={{ xs: 6, sm: 4 }}>
@@ -150,8 +158,16 @@ function ExperienceItem({
                 format="MMM YYYY"
                 disabled={Boolean(exp.current)}
                 value={exp.endDate && !exp.current ? dayjs(exp.endDate) : null}
-                onChange={(newValue) => handleUpdateItem(expIndex, 'endDate', newValue ? newValue.format('YYYY-MM') : '')}
-                slotProps={{ textField: { fullWidth: true, placeholder: exp.current ? t('common.present') : 'YYYY-MM', size: 'small' } }}
+                onChange={(newValue) =>
+                  handleUpdateItem(expIndex, 'endDate', newValue ? newValue.format('YYYY-MM') : '')
+                }
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    placeholder: exp.current ? t('common.present') : 'YYYY-MM',
+                    size: 'small',
+                  },
+                }}
               />
             </Grid>
             <Grid size={12}>
@@ -183,9 +199,7 @@ function ExperienceItem({
                     fullWidth
                     multiline
                     rows={2}
-                    placeholder={
-                      t('form.highlightPlaceholder')
-                    }
+                    placeholder={t('form.highlightPlaceholder')}
                     value={hl}
                     onChange={(e) => handleUpdateHighlight(expIndex, hlIndex, e.target.value)}
                   />
