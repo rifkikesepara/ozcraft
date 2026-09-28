@@ -139,7 +139,7 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
   }
 
   return (
-    <Tooltip title={title} arrow placement="top">
+    <Tooltip title={title} arrow placement="top" enterDelay={500} leaveDelay={200}>
       <Box
         component={motion.div}
         whileHover={disabled ? undefined : { scale: 1.12, rotate: 5 }}
