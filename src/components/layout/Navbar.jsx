@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { flushSync } from 'react-dom';
 import {
   AppBar,
   Toolbar,
@@ -45,6 +46,18 @@ export function Navbar() {
   const { locale, setLocale, t, availableLocales } = useLocale();
 
   const isDark = mode === 'dark';
+
+  const handleToggleMode = () => {
+    if (!document.startViewTransition) {
+      toggleMode();
+      return;
+    }
+    document.startViewTransition(() => {
+      flushSync(() => {
+        toggleMode();
+      });
+    });
+  };
 
   const navItems = [
     { label: t('nav.builder'), path: '/editor', icon: <EditNoteIcon /> },
@@ -133,7 +146,6 @@ export function Navbar() {
                 }
                 sx={{
                   display: { xs: 'none', md: 'inline-flex' },
-                  borderRadius: 1,
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   color: 'text.primary',
@@ -159,7 +171,7 @@ export function Navbar() {
               anchorEl={paletteMenuAnchor}
               open={Boolean(paletteMenuAnchor)}
               onClose={() => setPaletteMenuAnchor(null)}
-              PaperProps={{ sx: { borderRadius: 1, p: 1, minWidth: 160 } }}
+              PaperProps={{ sx: { p: 1, minWidth: 160 } }}
             >
               {palettes.map((p) => (
                 <MenuItem
@@ -169,7 +181,7 @@ export function Navbar() {
                     setPaletteId(p.id);
                     setPaletteMenuAnchor(null);
                   }}
-                  sx={{ gap: 1.5, borderRadius: 1 }}
+                  sx={{ gap: 1.5 }}
                 >
                   <Box
                     sx={{ width: 14, height: 14, borderRadius: '50%', backgroundColor: p.primary }}
@@ -195,7 +207,7 @@ export function Navbar() {
               anchorEl={langMenuAnchor}
               open={Boolean(langMenuAnchor)}
               onClose={() => setLangMenuAnchor(null)}
-              PaperProps={{ sx: { borderRadius: 1, p: 0.5 } }}
+              PaperProps={{ sx: { p: 0.5 } }}
             >
               {availableLocales.map((loc) => (
                 <MenuItem
@@ -205,7 +217,7 @@ export function Navbar() {
                     setLocale(loc.code);
                     setLangMenuAnchor(null);
                   }}
-                  sx={{ gap: 1.5, borderRadius: 1 }}
+                  sx={{ gap: 1.5 }}
                 >
                   <span>{loc.flag}</span>
                   <Typography variant="body2" sx={{ fontWeight: 500 }}>
@@ -238,7 +250,7 @@ export function Navbar() {
             <Tooltip title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'} arrow>
               <IconButton
                 size="small"
-                onClick={toggleMode}
+                onClick={handleToggleMode}
                 sx={{ color: isDark ? 'warning.light' : 'text.secondary' }}
               >
                 {isDark ? (
@@ -260,7 +272,6 @@ export function Navbar() {
                   isDark
                     ? alpha(theme.palette.common.white, 0.08)
                     : alpha(theme.palette.common.black, 0.05),
-                borderRadius: 1,
                 p: 0.75,
                 ml: 0.5,
                 '&:hover': {
