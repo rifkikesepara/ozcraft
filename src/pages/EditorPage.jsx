@@ -244,7 +244,7 @@ export function EditorPage() {
               boxShadow: (theme) => `0 2px 8px ${alpha(theme.palette.common.black, 0.04)}`,
               '& .MuiToggleButtonGroup-grouped': {
                 border: 0,
-                borderRadius: 0,
+                borderRadius: 2,
                 '&:not(:first-of-type)': {
                   borderLeft: '1px solid',
                   borderColor: 'divider',

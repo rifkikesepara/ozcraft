@@ -124,7 +124,7 @@ export function ResumeBuilder() {
     <Paper
       elevation={0}
       sx={{
-        borderRadius: 0,
+        borderRadius: 2,
         border: '1px solid',
         borderColor: 'divider',
         overflow: 'hidden',
@@ -166,7 +166,7 @@ export function ResumeBuilder() {
               );
             }}
             sx={{
-              borderRadius: 0,
+              borderRadius: 2,
               fontWeight: 600,
               fontSize: '0.85rem',
               backgroundColor: 'background.paper',
@@ -218,7 +218,7 @@ export function ResumeBuilder() {
             sx={{
               border: '1px solid',
               borderColor: 'divider',
-              borderRadius: 0,
+              borderRadius: 2,
               width: 38,
               height: 38,
               backgroundColor: 'background.paper',
@@ -239,7 +239,7 @@ export function ResumeBuilder() {
             sx={{
               border: '1px solid',
               borderColor: 'divider',
-              borderRadius: 0,
+              borderRadius: 2,
               width: 38,
               height: 38,
               backgroundColor: 'background.paper',
@@ -259,7 +259,7 @@ export function ResumeBuilder() {
             sx={{
               border: '1px solid',
               borderColor: 'divider',
-              borderRadius: 0,
+              borderRadius: 2,
               width: 38,
               height: 38,
               backgroundColor: 'background.paper',
@@ -330,7 +330,7 @@ export function ResumeBuilder() {
             sx={{
               ml: 1.5,
               whiteSpace: 'nowrap',
-              borderRadius: 0,
+              borderRadius: 2,
               fontWeight: 600,
               fontSize: '0.78rem',
               height: 34,

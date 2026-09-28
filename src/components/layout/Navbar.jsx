@@ -103,7 +103,7 @@ export function Navbar() {
                   fontSize: '0.88rem',
                   px: 1.75,
                   py: 0.75,
-                  borderRadius: 0,
+                  borderRadius: 2,
                   textTransform: 'uppercase',
                   '&.active': {
                     color: 'primary.main',
@@ -134,7 +134,7 @@ export function Navbar() {
                 }
                 sx={{
                   display: { xs: 'none', md: 'inline-flex' },
-                  borderRadius: 0,
+                  borderRadius: 2,
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   color: 'text.primary',
@@ -261,7 +261,7 @@ export function Navbar() {
                   isDark
                     ? alpha(theme.palette.common.white, 0.08)
                     : alpha(theme.palette.common.black, 0.05),
-                borderRadius: 0,
+                borderRadius: 2,
                 p: 0.75,
                 ml: 0.5,
                 '&:hover': {

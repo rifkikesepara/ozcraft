@@ -127,21 +127,27 @@ export function AppThemeProvider({ children }) {
         },
         divider: isDark ? '#333333' : '#e0e0e0',
         ai: {
-          borderGradient: 'none',
-          glowAura: 'none',
-          glowHover: 'none',
-          buttonBg: isDark ? '#000000' : '#ffffff',
-          buttonBgHover: isDark ? '#111111' : '#f0f0f0',
-          text: isDark ? '#ffffff' : '#000000',
-          iconColor: isDark ? '#ffffff' : '#000000',
-          outlineBorder: isDark ? '#555555' : '#aaaaaa',
-          outlineBorderHover: isDark ? '#ffffff' : '#000000',
-          outlineBgHover: isDark ? alpha(commonWhite, 0.1) : alpha(commonBlack, 0.05),
-          outlineGlowHover: 'none',
+          borderGradient: isDark
+            ? 'conic-gradient(from 0deg, #818cf8, #c084fc, #f472b6, #22d3ee, #818cf8)'
+            : 'conic-gradient(from 0deg, #4f46e5, #9333ea, #db2777, #0891b2, #4f46e5)',
+          glowAura: isDark
+            ? `0 0 10px ${alpha('#8b5cf6', 0.35)}, 0 0 20px ${alpha('#06b6d4', 0.18)}`
+            : `0 0 8px ${alpha('#8b5cf6', 0.25)}, 0 0 16px ${alpha('#06b6d4', 0.12)}`,
+          glowHover: isDark
+            ? `0 0 14px ${alpha('#8b5cf6', 0.6)}, 0 0 26px ${alpha('#ec4899', 0.35)}`
+            : `0 0 12px ${alpha('#8b5cf6', 0.45)}, 0 0 20px ${alpha('#ec4899', 0.25)}`,
+          buttonBg: isDark ? '#111827' : '#ffffff',
+          buttonBgHover: isDark ? '#1f293d' : '#f8fafc',
+          text: isDark ? '#f1f5f9' : '#1e293b',
+          iconColor: isDark ? '#c084fc' : '#7c3aed',
+          outlineBorder: isDark ? alpha('#a855f7', 0.4) : alpha('#8b5cf6', 0.35),
+          outlineBorderHover: '#a855f7',
+          outlineBgHover: isDark ? alpha('#a855f7', 0.1) : alpha('#a855f7', 0.05),
+          outlineGlowHover: `0 0 10px ${alpha('#a855f7', 0.25)}`,
         },
       },
       shape: {
-        borderRadius: 0,
+        borderRadius: 6,
       },
       typography: {
         fontFamily: ['"Inter"', '-apple-system', 'sans-serif'].join(','),
@@ -166,7 +172,6 @@ export function AppThemeProvider({ children }) {
         MuiIconButton: {
           styleOverrides: {
             root: {
-              borderRadius: 0,
               color: isDark ? '#ffffff' : '#000000',
               transition: 'background-color 0.1s ease',
               '&:hover': {
@@ -217,7 +222,7 @@ export function AppThemeProvider({ children }) {
         MuiButton: {
           styleOverrides: {
             root: {
-              borderRadius: 0,
+              borderRadius: 6,
               padding: '10px 20px',
               transition: 'background-color 0.1s ease, color 0.1s ease',
               boxShadow: 'none',
@@ -246,7 +251,7 @@ export function AppThemeProvider({ children }) {
           styleOverrides: {
             root: {
               backgroundImage: 'none',
-              borderRadius: 0,
+              borderRadius: 8,
               boxShadow: 'none',
               border: `1px solid ${isDark ? '#333333' : '#e0e0e0'}`,
             },
@@ -255,7 +260,7 @@ export function AppThemeProvider({ children }) {
         MuiCard: {
           styleOverrides: {
             root: {
-              borderRadius: 0,
+              borderRadius: 8,
               border: `1px solid ${isDark ? '#333333' : '#e0e0e0'}`,
               boxShadow: 'none',
             },
@@ -269,7 +274,7 @@ export function AppThemeProvider({ children }) {
           styleOverrides: {
             root: {
               '& .MuiOutlinedInput-root': {
-                borderRadius: 0,
+                borderRadius: 6,
                 '&.Mui-focused fieldset': {
                   borderColor: isDark ? '#ffffff' : '#000000',
                   borderWidth: '1px',
