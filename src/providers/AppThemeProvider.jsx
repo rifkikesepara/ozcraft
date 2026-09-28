@@ -226,11 +226,8 @@ export function AppThemeProvider({ children }) {
               padding: '10px 20px',
               transition: 'background-color 0.1s ease, color 0.1s ease',
               boxShadow: 'none',
-              border: `1px solid ${isDark ? '#333' : '#ddd'}`,
               '&:hover': {
                 boxShadow: 'none',
-                backgroundColor: isDark ? '#ffffff' : '#000000',
-                color: isDark ? '#000000' : '#ffffff',
               },
               '&.Mui-focusVisible': {
                 outline: `2px solid ${isDark ? '#ffffff' : '#000000'}`,
@@ -240,11 +237,17 @@ export function AppThemeProvider({ children }) {
             containedPrimary: {
               border: 'none',
               color: isDark ? '#000000' : '#ffffff',
-              background: isDark ? '#ffffff' : '#000000',
+              backgroundColor: isDark ? '#ffffff' : '#000000',
               '&:hover': {
-                background: isDark ? '#cccccc' : '#333333',
+                backgroundColor: isDark ? '#e0e0e0' : '#333333',
               }
             },
+            outlined: {
+              border: `1px solid ${isDark ? '#333' : '#ddd'}`,
+              '&:hover': {
+                backgroundColor: isDark ? alpha(commonWhite, 0.1) : alpha(commonBlack, 0.05),
+              }
+            }
           },
         },
         MuiPaper: {

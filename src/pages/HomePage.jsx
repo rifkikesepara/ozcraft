@@ -243,7 +243,7 @@ export function HomePage() {
                               key={i}
                               label={tag}
                               variant="outlined"
-                              sx={{ borderRadius: 2, fontWeight: 500 }}
+                              sx={{ borderRadius: 1, fontWeight: 500 }}
                             />
                           ))}
                         </Stack>

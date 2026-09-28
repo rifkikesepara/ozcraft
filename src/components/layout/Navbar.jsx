@@ -103,7 +103,7 @@ export function Navbar() {
                   fontSize: '0.88rem',
                   px: 1.75,
                   py: 0.75,
-                  borderRadius: 2,
+                  borderRadius: 1,
                   textTransform: 'uppercase',
                   '&.active': {
                     color: 'primary.main',
@@ -134,7 +134,7 @@ export function Navbar() {
                 }
                 sx={{
                   display: { xs: 'none', md: 'inline-flex' },
-                  borderRadius: 2,
+                  borderRadius: 1,
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   color: 'text.primary',
@@ -160,7 +160,7 @@ export function Navbar() {
               anchorEl={paletteMenuAnchor}
               open={Boolean(paletteMenuAnchor)}
               onClose={() => setPaletteMenuAnchor(null)}
-              PaperProps={{ sx: { borderRadius: 2, p: 1, minWidth: 160 } }}
+              PaperProps={{ sx: { borderRadius: 1, p: 1, minWidth: 160 } }}
             >
               {palettes.map((p) => (
                 <MenuItem
@@ -196,7 +196,7 @@ export function Navbar() {
               anchorEl={langMenuAnchor}
               open={Boolean(langMenuAnchor)}
               onClose={() => setLangMenuAnchor(null)}
-              PaperProps={{ sx: { borderRadius: 2, p: 0.5 } }}
+              PaperProps={{ sx: { borderRadius: 1, p: 0.5 } }}
             >
               {availableLocales.map((loc) => (
                 <MenuItem
@@ -261,7 +261,7 @@ export function Navbar() {
                   isDark
                     ? alpha(theme.palette.common.white, 0.08)
                     : alpha(theme.palette.common.black, 0.05),
-                borderRadius: 2,
+                borderRadius: 1,
                 p: 0.75,
                 ml: 0.5,
                 '&:hover': {
