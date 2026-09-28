@@ -186,7 +186,7 @@ export function SectionOrderModal({ open, onClose }) {
                     userSelect: 'none',
                     borderRadius: '14px',
                     listStyle: 'none',
-                    position: 'relative', zIndex: 0,
+                    position: 'relative',
                   }}
                 >
                   <Paper

@@ -29,7 +29,7 @@ function CertificationItem({ cert, index, locale, t, handleUpdate, handleRemove 
       dragListener={false}
       dragControls={dragControls}
       whileDrag={{ scale: 1.015, zIndex: 999, borderRadius: '16px', boxShadow: '0 12px 28px -4px rgba(0,0,0,0.16)' }}
-      style={{ listStyle: 'none', position: 'relative', zIndex: 0, borderRadius: '16px' }}
+      style={{ listStyle: 'none', position: 'relative', borderRadius: '16px' }}
     >
       <Paper
         variant="outlined"

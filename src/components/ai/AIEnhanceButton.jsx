@@ -75,7 +75,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
               transform: 'translate(-50%, -50%)',
               animation: 'aiBorderRotate 4s linear infinite',
               pointerEvents: 'none',
-              zIndex: 0,
             }}
           />
         ) : (
@@ -84,7 +83,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
               position: 'absolute',
               inset: 0,
               backgroundColor: theme.palette.action.disabledBackground,
-              zIndex: 0,
             }}
           />
         )}
@@ -107,7 +105,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
           }
           sx={{
             position: 'relative',
-            zIndex: 1,
             borderRadius: '22.5px',
             px: 2,
             py: 0.55,
@@ -177,7 +174,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
               transform: 'translate(-50%, -50%)',
               animation: 'aiBorderRotate 4s linear infinite',
               pointerEvents: 'none',
-              zIndex: 0,
             }}
           />
         ) : (
@@ -186,7 +182,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
               position: 'absolute',
               inset: 0,
               backgroundColor: theme.palette.action.disabledBackground,
-              zIndex: 0,
             }}
           />
         )}
@@ -198,7 +193,6 @@ export function AIEnhanceButton({ onClick, iconOnly = true, label, disabled = fa
           disabled={disabled}
           sx={{
             position: 'relative',
-            zIndex: 1,
             width: '100%',
             height: '100%',
             borderRadius: '8.5px',
